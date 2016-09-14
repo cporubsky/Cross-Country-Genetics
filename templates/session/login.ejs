@@ -1,0 +1,17 @@
+<%- include('../layout/header', {title: "Login", user: user}) %>
+<div class="container">
+      <form class="form-signin" action="/login" method="POST">
+        <h2 class="form-signin-heading">Sign In</h2>
+        <label for="username" class="sr-only">Email address</label>
+        <input name="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button><br/>
+        <% if(message) { %>
+          <div class="alert alert-danger">
+           <%= message %>
+          </div>
+        <% } %>
+      </form>
+    </div> <!-- /container -->
+<%- include('../layout/footer') %>
