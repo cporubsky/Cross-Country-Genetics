@@ -16,7 +16,7 @@ db.serialize(function() {
   db.run("DROP TABLE IF EXISTS users");
 
   //Create the users table
-  db.run("CREATE TABLE users (id INTEGER AUTOINCREMENT, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, password_digest TEXT, salt TEXT, PRIMARY KEY(id, username))");
+  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, password_digest TEXT, salt TEXT)");
 
   //Create a default admin
   db.run("INSERT INTO users (username, email, is_admin, password_digest, salt) values (?,?,?,?,?)",

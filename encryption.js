@@ -1,7 +1,5 @@
 "use strict"
 
-//neet to change to use this Encryption
-
 // A randomly-generated secret string
 const secret = '93apiepovineaoi309uuaphgoanlane4o;aij4o8*(%WP*(P(NUV)))'
 // The algorithm to use in cyphering

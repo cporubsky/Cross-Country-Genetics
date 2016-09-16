@@ -1,6 +1,6 @@
 "use strict"
 
-var db = require('../db')
+var db = require('../db');
 
 // This middleware loads the user (if logged in) and assigns
 // thier information to the request.user property.

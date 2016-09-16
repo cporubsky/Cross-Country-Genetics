@@ -1,4 +1,4 @@
-var express = require('express'),
+  var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
     load_user = require('./middleware/load_user'),
