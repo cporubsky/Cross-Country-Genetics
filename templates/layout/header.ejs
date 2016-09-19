@@ -13,13 +13,10 @@
           <div class="navbar-header">
             <a class="navbar-brand" class="nav-link" href="#"><%= title %></a>
           </div>
-          <ul class="nav navbar-nav">
-            <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
-          </ul>
           <ul class="nav navbar-nav pull-xs-right">
             <!-- use logic to see if logged in -->
             <% if(user.username != "Guest") { %>
-
+              <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
               <li class="nav-item active"><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> Welcome <%= user.username %>!</a></li>
               <% if(user.is_admin) { %>
                 <li class="nav-item active"><a class="nav-link" href="#"><span class="glyphicon glyphicon-wrench"></span> Manage Users</a></li>

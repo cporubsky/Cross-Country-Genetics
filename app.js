@@ -30,12 +30,13 @@
     app.get('/logout', session.stop);  //deletes session
 
     var start = require('./endpoints/main');
-    app.get('/index', start.index);
+    app.get('/index', no_guests, start.index);
+    app.get('/test', no_guests, start.test);
 
     /* admin routes accessible only if
     a user account is an admin account */
     var admin = require('./endpoints/admin');
-    
+
 
     //start express app
     app.listen(PORT, () => {
