@@ -23,14 +23,19 @@
     //set static directory
     app.use(express.static('public'));
 
-
     var session = require('./endpoints/session');
-    app.get('/login', session.login);      //user login form
-    app.post('/login', session.start);  //create session
-    app.get('/logout', session.stop); //deletes session
+    app.get('/', session.redirect);    //redirects to '/login'
+    app.get('/login', session.login);  //user login form
+    app.post('/login', session.start); //create session
+    app.get('/logout', session.stop);  //deletes session
 
     var start = require('./endpoints/main');
     app.get('/index', start.index);
+
+    /* admin routes accessible only if
+    a user account is an admin account */
+    var admin = require('./endpoints/admin');
+    
 
     //start express app
     app.listen(PORT, () => {

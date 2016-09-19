@@ -3,8 +3,13 @@
 var encryption = require('../encryption'),
     db = require('../db'),
     formidable = require('formidable');
-    
+
 class Session {
+
+  redirect(req, res) {
+      res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
+          res.end("This page has moved to <a href='/login'>login</a>");
+    }
 
   // Renders a login form with no error message
   login(req, res) {
