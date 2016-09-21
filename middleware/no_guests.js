@@ -5,7 +5,7 @@
 // share the username Guest)
 function noGuests(req, res, next) {
   if(req.user.username != "Guest") return next();
-  else return res.render('session/new', {message: "You must be signed in to access that page", user: req.user});
+  else return res.render('session/login', {message: "You must be signed in to access that page", user: req.user});
 }
 
 module.exports = exports = noGuests;

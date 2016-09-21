@@ -6,11 +6,9 @@ var db = require('../db'),
 class Main {
 
   index(req, res){
-
-    
-      res.render('main/index', {user: req.user});
-
+      res.render('main/index', {title: "Index", user: req.user});
   }
+
 
 }
 
