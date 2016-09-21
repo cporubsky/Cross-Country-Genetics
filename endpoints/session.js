@@ -39,7 +39,7 @@ class Session {
 
         if(err) return res.render('session/login', {title: company_name, message: "Login Failed. Please try again.", user: req.user});
         if(!user) return res.render('session/login', {title: company_name, message: "Login Failed. Please try again.", user: req.user});
-        if(user.password_digest != encryption.digest(fields.password + user.salt)) return res.render('session/login', {message: "Username/Password not found.  Please try again.", user: req.user});
+        if(user.password_digest != encryption.digest(fields.password + user.salt)) return res.render('session/login', {title: "NOT USED", message: "Username/Password not found.  Please try again.", user: req.user});
         req.session.user_id = user.id;
         return res.redirect('/index');
       });
@@ -49,7 +49,7 @@ class Session {
   // Ends a user session by flushing the session cookie.
   stop(req, res) {
     req.session.reset();
-    res.render("session/logout", {title: company_name, user: {username: "Guest"}});
+    res.render("session/logout", {title: "NOT USED", user: {username: "Guest"}});
   }
 }
 
