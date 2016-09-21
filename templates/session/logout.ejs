@@ -1,4 +1,12 @@
-<%- include('../layout/header', {title: "Logged Out", user: user}) %>
- <h1>Logged Out!</h1>
- <p>You have logged out successfully. Login<a href="/login"> here.</a></p>
+<%- include('../layout/header', {title: title, user: user}) %>
+<div class="alert alert-success" role="alert">
+<h1>
+  <p class="text-xs-center">
+    Logged Out!
+  </p>
+</h1>
+ </div>
+ <p class="text-xs-center">
+   Login back in<a href="/login"> here.</a>
+ </p>
 <%- include('../layout/footer') %>

@@ -11,18 +11,24 @@
     <body>
       <nav class="navbar navbar-dark bg-primary">
         <div class="container-fluid">
+          <% if(user.username == "Guest") { %>
+          <div class="navbar-header invisible">
+            <a class="navbar-brand" class="nav-link" href=""><%= title %></a>
+          </div>
+          <% } %>
+          <% if(user.username != "Guest") { %>
           <div class="navbar-header">
             <a class="navbar-brand" class="nav-link" href=""><%= title %></a>
           </div>
           <ul class="nav navbar-nav pull-xs-right">
             <!-- use logic to see if logged in -->
-            <% if(user.username != "Guest") { %>
-              <li class="nav-item active"><a class="nav-link" href="/index">Home</a></li>
-              <li class="nav-item active"><a class="nav-link" href=""><span class="glyphicon glyphicon-user"></span>Welcome <%= user.username %>!</a></li>
+
+              <li class="nav-item active"><a class="nav-link" href="/index"><i class="fa fa-home fa-lg" aria-hidden="true"></i>  Home</a></li>
+              <li class="nav-item active"><a class="nav-link" href=""><i class="fa fa-user fa-lg" aria-hidden="true"></i>  Welcome <%= user.username %>!</a></li>
               <% if(user.is_admin) { %>
-                <li class="nav-item active"><a class="nav-link" href="/manageusers"><i class="fa fa-users" aria-hidden="true"></i>  Manage Users</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/manageusers"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i>  Manage Users</a></li>
               <% } %>
-              <li class="nav-item active"><a class="nav-link" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>  Logout</a></li>
+              <li class="nav-item active"><a class="nav-link" href="/logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Logout</a></li>
             <% } %>
           </ul>
         </div>
