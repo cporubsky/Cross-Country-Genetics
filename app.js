@@ -31,7 +31,7 @@
 
     var start = require('./endpoints/main');
     app.get('/index', start.index);
-    app.get('/formAbc', no_guests, start.formAbc);
+	app.get('/formAbc', no_guests, start.formAbc);
 
     /* admin routes accessible only if
     a user account is an admin account */
