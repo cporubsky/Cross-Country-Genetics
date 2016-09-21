@@ -1,13 +1,13 @@
 #container{
 	width: 800px;
 	margin: 0 auto;
-	border: 3px solid black;
+	//border: 3px solid black;
 	background-color:white;
 }
 
 span{
 	font-weight: bold;
-	font-size: 10px;
+	font-size: 12px;
 	white-space: initial;
 }
 
@@ -16,6 +16,7 @@ input[type="text"]{
     border-bottom: 1px solid;
 	outline: none;
 	max-width: 100%;
+	margin-top: 5px;
 }
 
 label{
@@ -27,9 +28,13 @@ label{
 	margin: 0 auto;
 }
 
+tr{
+	line-height: 10px;
+}
+
 td{
-	max-width: 100%;
 	white-space: nowrap !important;
+	padding: 5px;
 }
 td > input[type='text']
 {
@@ -55,16 +60,31 @@ td > span{
 hr{
 	margin-left: 3%;
 	margin-right: 3%;
+	border-color: black;
+	border: none;
+    height: 2px;
+    color: black;
+    background-color: black;
 }
 
 input{
-	font-size: 10px;
+	font-size: 12px;
 }
 
 #page{
-	background-color: #f2f2f2;
+	//background-color: #f2f2f2;
+	padding-top: 10px;
 	position: fixed;
 	width: 100%;
 	height: 100%;
-	display: overflow;
+	overflow:auto; 
+	padding-bottom: 60px;
+}
+
+.smallFont {
+	font-size: 12px;
+}
+
+input[type="text"]:disabled{
+	background-color:#a6a6a6;
 }
