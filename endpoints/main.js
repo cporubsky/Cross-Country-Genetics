@@ -11,6 +11,9 @@ class Main {
       res.render('main/index', {user: req.user});
 
   }
+  formAbc(req, res){
+	  res.render('main/formAbc', {user: req.user});
+  }
 
 }
 
