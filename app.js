@@ -1,4 +1,4 @@
-  var express = require('express'),
+var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
     load_user = require('./middleware/load_user'),
@@ -31,6 +31,7 @@
 
     var start = require('./endpoints/main');
     app.get('/index', no_guests, start.index);
+    app.get('/formAbc', no_guests, start.formAbc);
 
     /* admin routes accessible only if
     a user account is an admin account */
