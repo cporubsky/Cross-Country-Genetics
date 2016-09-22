@@ -1,7 +1,8 @@
 "use strict"
 
 var db = require('../db'),
-    formidable = require('formidable');
+    formidable = require('formidable'),
+    manage_users = "Manage Users";
 
 class Admin {
 
@@ -9,7 +10,7 @@ class Admin {
   index(req, res) {
       //work on this to go to admin page
       //res.render('admin/index', {title: "Admin Index", users: users, user: req.user});
-      res.render('admin/index', {title: "Manage Users", user: req.user});
+      res.render('admin/index', {title: manage_users, user: req.user});
   }
 
 
