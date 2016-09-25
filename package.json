@@ -1,0 +1,27 @@
+{
+  "name": "cross-country-genetics",
+  "version": "1.0.0",
+  "description": "A web application for cis642 and cis643 at Kansas State University.",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "ejs": "^2.5.2",
+    "client-sessions": "^0.7.0",
+    "formidable": "^1.0.17",
+    "sqlite3": "^3.1.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cporubsky/Cross-Country-Genetics.git"
+  },
+  "author": "Corey Porubsky, AJ Cabanatuan, Mark Loevenstein",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cporubsky/Cross-Country-Genetics/issues"
+  },
+  "homepage": "https://github.com/cporubsky/Cross-Country-Genetics#readme"
+}
