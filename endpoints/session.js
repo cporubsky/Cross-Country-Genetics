@@ -8,21 +8,44 @@ var encryption = require('../encryption'),
     login_failed = "Login Failed. Please try again.",
     guest = "Guest";
 
+
+/**
+ *  This class handles the encryption for user passwords.
+ *  @class
+ */
 class Session {
 
-  //for now it redirects to login page
+  /**
+   *  @function redirect
+   *  @memberof Session
+   *  @description Redirects to login page.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   redirect(req, res) {
       res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
           res.end("This page has moved to <a href='/login'>login</a>");
     }
 
-  // Renders a login form with no error message
+  /**
+   *  @function login
+   *  @memberof Session
+   *  @description Renders a login form with no error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   login(req, res) {
     res.render('session/login', {title: company_name, message: "", user: req.user});
   }
 
-  // Creates a new session, provided the username and password match one in the database,
-  // If not, renders the login form with an error message.
+  /**
+   *  @function start
+   *  @memberof Session
+   *  @description Creates a new session, provided the username and password match one in the database.
+   *  If login fails, the page will be redirected back to login with error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   start(req, res, next) {
     req.session.reset();
     var form = new formidable.IncomingForm();
@@ -50,7 +73,13 @@ class Session {
     });
   }
 
-  // Ends a user session by flushing the session cookie.
+  /**
+   *  @function stop
+   *  @memberof Session
+   *  @description Ends a user session by flushing the session cookie.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   stop(req, res) {
     req.session.reset();
     res.render("session/logout", {title: logged_out, user: {username: guest}});
