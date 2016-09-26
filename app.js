@@ -1,3 +1,13 @@
+/**
+ * @fileOverview Cross Country Genetics Application
+ * @author Corey Porubsky
+ * @author AJ Cabanatuan
+ * @author Mark Loevenstein
+ * @version 1.0
+ */
+
+ 
+
 var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
@@ -29,9 +39,11 @@ var express = require('express'),
     app.post('/login', session.start); //create session
     app.get('/logout', session.stop);  //deletes session
 
-    var start = require('./endpoints/main');
-    app.get('/index', no_guests, start.index);
-    app.get('/formAbc', no_guests, start.formAbc);
+    var landing = require('./endpoints/landing');
+    app.get('/index', no_guests, landing.index);
+
+    var forms = require('./endpoints/forms');
+    app.get('/formAbc', no_guests, forms.abcForm);
 
     /* admin routes accessible only if
     a user account is an admin account */
