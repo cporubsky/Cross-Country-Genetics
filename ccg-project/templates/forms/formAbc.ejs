@@ -223,6 +223,7 @@
 						</tbody>
 					</table>
 				</div>
+				<input type="submit" id="viewPdf" value="View PDF"/>
 			</div>
 		</div>
 		<%- include('../layout/footer') %>
@@ -230,12 +231,17 @@
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 		<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 		<script>
-		
-		<%# Pop-up calendar to select a date from %>	 
+
+		<%# Pop-up calendar to select a date from %>
+
+			$("#viewPdf").click(function(){
+				alert();
+			});
+
 		  $( function() {
 			$( ".datepicker" ).datepicker();
 		  } );
-		  
+
 		  <%# Adds rows to the B table %>
 		  $("#plusB").click(function(){
 			var rows = document.getElementById("tableB").rows.length;
@@ -267,7 +273,7 @@
 				alert("Cannot have more than 12 rows");
 			}
 		  });
-		  
+
 		  <%# Subtracts rows from the B table %>
 		  $("#minusB").click(function(){
 			var rows = document.getElementById("tableB").rows.length;
@@ -278,7 +284,7 @@
 			alert("Must have at least one row");
 			}
 		  });
-		  
+
 		  <%# Adds rows to the C table %>
 		  $("#plusC").click(function(){
 			var rows = document.getElementById("tableC").rows.length;
@@ -313,7 +319,7 @@
 				alert("Cannot have more than 12 rows");
 			}
 		  });
-		  
+
 		  <%# Subtracts rows from the C table %>
 		  $("#minusC").click(function(){
 			var rows = document.getElementById("tableC").rows.length;
@@ -324,19 +330,5 @@
 			alert("Must have at least one row");
 			}
 		  });
-		  
+
 		</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
