@@ -25,6 +25,10 @@ class Forms {
 	  res.render('forms/firstForm', {user: req.user});
   }
 
+  caneCodeLog(req, res){
+	  res.render('forms/caneCodeLog', {user: req.user});
+  }
+
 
 }
 
