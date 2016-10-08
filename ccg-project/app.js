@@ -44,6 +44,7 @@ var express = require('express'),
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);
+    app.get('/firstForm', no_guests, forms.firstForm);
 
     /* admin routes accessible only if
     a user account is an admin account */

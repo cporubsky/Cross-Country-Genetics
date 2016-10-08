@@ -1,0 +1,145 @@
+<%- include('../layout/header', {title: "First Form", user: user}) %>
+<% title = "First Form" %>
+<link href="/formAbc.css" rel="stylesheet" type="text/css">
+<div id="page">
+  <div id="container">
+      <span class="center"><b>DONOR STIMULATION & BREEDING RECORD</b></span>
+      <table>
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td colspan=2><span>Donor I.D. </span><input type="text" id="donorID" name="donorID"></td>
+            <td><span>Breed </span><input type="text" id="breed" name="breed"></td>
+            <td colspan=3><span>Client </span><input type="text" id="client" name="client"></td>
+          </tr>
+          <tr>
+            <td colspan=3><span>Name & or PHN </span><input type="text" id="donorID" name="donorID"></td>
+            <td colspan=3><span></span><input type="text" id="client2" name="client2"></td>
+          </tr>
+          <tr>
+            <td colspan=3><span>Registration NO </span><input type="text" id="donorID" name="donorID"></td>
+            <td colspan=3><span></span><input type="text" id="client3" name="client3"></td>
+          </tr>
+          <tr>
+            <td colspan=3><span>Last Estrus Date </span><input type="text" id="donorID" name="donorID"></td>
+            <td colspan=3><span>FSH Start Date </span><input type="text" id="client" name="client"></td>
+          </tr>
+          <tr>
+            <td><span>Start Palpation Date </span><input type="text" id="donorID" name="donorID"></td>
+            <td><span>ROCL </span><input type="text" id="breed" name="breed"></td>
+            <td><span>ROF </span><input type="text" id="client" name="client"></td>
+            <td><span>LOCL </span><input type="text" id="donorID" name="donorID"></td>
+            <td><span>LOF </span><input type="text" id="breed" name="breed"></td>
+            <td><span>UTR </span><input type="text" id="client" name="client"></td>
+          </tr>
+          <tr>
+            <td><span>Stimulation Program </span><input type="text" id="donorID" name="donorID"></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan=2 class="spanCenter"><span>DONOR STIMULATION</span></td>
+            <td colspan=2 class="spanCenter"><span>A.M. TREATMENT</span></td>
+            <td colspan=2 class="spanCenter"><span>P.M. TREATMENT</span></td>
+          </tr>
+          <tr>
+            <td><span>Treatment</span></td>
+            <td><span>Date</span></td>
+            <td><span>FSH</span></td>
+            <td><span>Time Given</span></td>
+            <td><span>FSH</span></td>
+            <td><span>Time Given</span></td>
+          </tr>
+          <% for(var i=0;i<8;i++){ %>
+          <tr>
+            <td><span>Day + i</span></td>
+            <td><input type="text" id="'date" + i + "'" name="'date" + i + "'"></td>
+            <td><input type="text" id="'fshAM" + i + "'" name="'fshAM" + i + "'"></td>
+            <td><input type="text" id="'timeGivenAM" + i + "'" name="'timeGivenAM" + i + "'"></td>
+            <td><input type="text" id="'fshPM" + i + "'" name="'fshPM" + i + "'"></td>
+            <td><input type="text" id="'timeGivenPM" + i + "'" name="'timeGivenPM" + i + "'"></td>
+          </tr>
+          <% } %>
+          <tr>
+            <td colspan=3><span>Collection Date </span><input type="text" id="collectionDate" name="collectionDate"></td>
+            <td colspan=3><span>EXPECTED HEAT DATE </span><input type="text" id="expectedHeatDate" name="expectedHeatDate"></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <span><b>RECIPIENT SYNCHRONIZATION</b></span>
+      <table>
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td><span>PGF/Implant Date </span><input type="text" id="pgfImplantDate" name="pgfImplantDate"></td>
+            <td><span>PGF/Removal Date </span><input type="text" id="pgfRemovalDate" name="pgfRemovalDate"></td>
+            <td><span>Expected Heat </span><input type="text" id="expectedHeat" name="expectedHeat"></td>
+          </tr>
+          <tr>
+            <td><span>CRITICAL HEAT DETECTION TIMES </span><input type="text" id="criticalHeatTime" name="criticalHeatTime"></td>
+            <td><span>FROM </span><input type="text" id="from" name="from"></td>
+            <td><span>TO </span><input type="text" id="to" name="to"></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <span><b>BREEDING: All information must be filled in by breeding technician.</b></span>
+      <table>
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td><span>Date of First Heat </span><input type="text" id="dateFirstHeat" name="dateFirstHeat"></td>
+            <td><span>Time </span><input type="text" id="time" name="time"></td>
+          </tr>
+          <tr>
+            <td><span>Sire Name </span><input type="text" id="sireName" name="sireName"></td>
+            <td><span>Stud/Cane Code </span><input type="text" id="studCaneCode" name="studCaneCode"></td>
+          </tr>
+          <tr>
+            <td><span>Reg. No. </span><input type="text" id="regNo" name="regNo"></td>
+            <td><span>Coli. Code/Date </span><input type="text" id="coli" name="coli"></td>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span>BREEDING DATE</span></td>
+            <td><span>TIME</span></td>
+            <td><span>ID CHECKED</span></td>
+            <td><span>TECH</span></td>
+            <td><span>COMMENTS</span></td>
+          </tr>
+          <% for(var i=0;i<8;i++){ %>
+          <tr>
+            <td><input type="text" id="'breedingDate" + i + "'" name="'breedingDate" + i + "'"></td>
+            <td><input type="text" id="'timeTable" + i + "'" name="'timeTable" + i + "'"></td>
+            <td><input type="text" id="'idChecked" + i + "'" name="'idChecked" + i + "'"></td>
+            <td><input type="text" id="'tech" + i + "'" name="'tech" + i + "'"></td>
+            <td><input type="text" id="'comments" + i + "'" name="'comments" + i + "'"></td>
+          </tr>
+          <% } %>
+          <tr>
+            <td colspan=5><span>The above identification was checked at the time of breeding on semen used and the above donor cow was inseminated by me on the above dates</span></td>
+          </tr>
+          <tr>
+            <td colspan=2></td>
+            <td colspan=3><span>Signature </span><input type="text" id="signature" name="signature"></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>
+<%- include('../layout/footer') %>
+<script src="/js/firstForm.js"></script>

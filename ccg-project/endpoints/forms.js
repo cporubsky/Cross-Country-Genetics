@@ -21,6 +21,10 @@ class Forms {
 	  res.render('forms/formAbc', {user: req.user});
   }
 
+  firstForm(req, res){
+	  res.render('forms/firstForm', {user: req.user});
+  }
+
 
 }
 
