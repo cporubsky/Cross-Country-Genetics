@@ -1,0 +1,84 @@
+<%- include('../layout/header', {title: "View Forms", user: user}) %>
+<% title = "View Forms" %>
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<div id="page">
+  <div id="container">
+    <table class="table table-bordered table-striped table-hover" id="table">
+      <thead>
+        <tr>
+          <th>Testing</th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          TEST
+        </td>
+      </tr>
+      <tr>
+        <td>
+          BEST
+        </td>
+      </tr>
+      <tr>
+        <td>
+          REQUIRE
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ONE
+        </td>
+      </tr>
+      <tr>
+        <td>
+          TWO
+        </td>
+      </tr>
+      <tr>
+        <td>
+          THREE
+        </td>
+      </tr>
+      <tr>
+        <td>
+          RED
+        </td>
+      </tr>
+      <tr>
+        <td>
+          BLUE
+        </td>
+      </tr>
+      <tr>
+        <td>
+          GREEN
+        </td>
+      </tr>
+      <tr>
+        <td>
+          YELLOW
+        </td>
+      </tr>
+      <tr>
+        <td>
+          PINK
+        </td>
+      </tr>
+      <tr>
+        <td>
+          ORANGE
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <input type="submit" class="btn btn-primary" id="submit" value="Submit"/>
+  </div>
+</div>
+<%- include('../layout/footer') %>
+<script>
+$(document).ready(function() {
+    $('#table').DataTable();
+} );
+
+</script>

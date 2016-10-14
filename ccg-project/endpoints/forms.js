@@ -25,10 +25,17 @@ class Forms {
 	  res.render('forms/firstForm', {user: req.user});
   }
 
+  donorCowEnrollment(req, res){
+	  res.render('forms/donorCowEnrollment', {user: req.user});
+  }
+
   caneCodeLog(req, res){
 	  res.render('forms/caneCodeLog', {user: req.user});
   }
 
+  viewForms(req, res){
+    res.render('forms/viewForms', {user: req.user});
+  }
 
 }
 

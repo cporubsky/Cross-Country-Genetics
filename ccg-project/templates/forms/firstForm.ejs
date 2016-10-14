@@ -58,12 +58,12 @@
           </tr>
           <% for(var i=0;i<8;i++){ %>
           <tr>
-            <td><span>Day + i</span></td>
-            <td><input type="text" id="'date" + i + "'" name="'date" + i + "'"></td>
-            <td><input type="text" id="'fshAM" + i + "'" name="'fshAM" + i + "'"></td>
-            <td><input type="text" id="'timeGivenAM" + i + "'" name="'timeGivenAM" + i + "'"></td>
-            <td><input type="text" id="'fshPM" + i + "'" name="'fshPM" + i + "'"></td>
-            <td><input type="text" id="'timeGivenPM" + i + "'" name="'timeGivenPM" + i + "'"></td>
+            <td><span>Day <%= i + 1%></span></td>
+            <td><input type="text" id="date<%= i %>" name="date<%= i %>"></td>
+            <td><input type="text" id="fshAM<%= i %>" name="fshAM<%= i %>"></td>
+            <td><input type="text" id="timeGivenAM<%= i %>" name="timeGivenAM<%= i %>"></td>
+            <td><input type="text" id="fshPM<%= i %>" name="fshPM<%= i %>"></td>
+            <td><input type="text" id="timeGivenPM<%= i %>" name="timeGivenPM<%= i %>"></td>
           </tr>
           <% } %>
           <tr>
@@ -121,13 +121,13 @@
             <td><span>TECH</span></td>
             <td><span>COMMENTS</span></td>
           </tr>
-          <% for(var i=0;i<8;i++){ %>
+          <% for(var i=0; i<8; i++){ %>
           <tr>
-            <td><input type="text" id="'breedingDate" + i + "'" name="'breedingDate" + i + "'"></td>
-            <td><input type="text" id="'timeTable" + i + "'" name="'timeTable" + i + "'"></td>
-            <td><input type="text" id="'idChecked" + i + "'" name="'idChecked" + i + "'"></td>
-            <td><input type="text" id="'tech" + i + "'" name="'tech" + i + "'"></td>
-            <td><input type="text" id="'comments" + i + "'" name="'comments" + i + "'"></td>
+            <td><input type="text" id="breedingDate<%= i %>" name="breedingDate<%= i %>"></td>
+            <td><input type="text" id="timeTable<%= i %>" name="timeTable<%= i %>"></td>
+            <td><input type="text" id="idChecked<%= i %>" name="idChecked<%= i %>"></td>
+            <td><input type="text" id="tech<%= i %>" name="tech<%= i %>"></td>
+            <td><input type="text" id="comments<%= i %>" name="comments<%= i %>"></td>
           </tr>
           <% } %>
           <tr>
@@ -139,6 +139,7 @@
           </tr>
         </tbody>
       </table>
+      <input type="submit" class="btn btn-primary" id="viewPdf" value="View PDF"/>
   </div>
 </div>
 <%- include('../layout/footer') %>
