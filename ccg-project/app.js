@@ -6,7 +6,7 @@
  * @version 1.0
  */
 
- 
+
 
 var express = require('express'),
     app = express(),
@@ -38,6 +38,7 @@ var express = require('express'),
     app.get('/login', session.login);  //user login form
     app.post('/login', session.start); //create session
     app.get('/logout', session.stop);  //deletes session
+    app.get('/reset', session.reset);  //reset user account
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
@@ -48,7 +49,9 @@ var express = require('express'),
     /* admin routes accessible only if
     a user account is an admin account */
     var admin = require('./endpoints/admin');
-    app.get('/manageusers', admin_only, admin.index);  //user login form
+    app.get('/admin/manage', admin_only, admin.index);  //Admin landing page
+    app.get('/admin/create', admin_only, admin.createUser); //Create user
+    //app.get('/manageusers', admin_only, admin.manageusers);
 
 
     //start express app

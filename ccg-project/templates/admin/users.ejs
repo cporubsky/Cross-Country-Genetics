@@ -1,0 +1,54 @@
+<%- include('../layout/header', {title: title, user: user}) %>
+<link href="/users_style.css" rel="stylesheet" type="text/css">
+
+<div class="jumbotron">
+  <h1 class="display-3">Hello, You!</h1>
+  <p class="lead">Here you can manage many aspects of your company.</p>
+  <hr class="m-y-2">
+  <p>If you have a new employee, you may create their account <a href="/admin/create">here</a>.</p>
+</div>
+
+<div id="users" class="col-md-6">
+<h3>Users</h3>
+  <table class="table table-sm table-hover table-bordered">
+    <thead>
+      <tr>
+        <th>Id#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(function(u) { %>
+        <%- include('_users', {users: u}) %>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+<div id="users" class="col-md-6">
+  <h3>Requests</h3>
+    <table class="table table-sm table-hover table-bordered">
+      <thead>
+        <tr>
+          <th>Id#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(u) { %>
+          <%- include('_usersRequests', {users: u}) %>
+        <% }); %>
+      </tbody>
+    </table>
+</div>
+
+<!-- Create a form to sign up a user. -->
+
+<%- include('../layout/footer') %>

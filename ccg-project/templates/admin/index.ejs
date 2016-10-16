@@ -1,7 +1,54 @@
 <%- include('../layout/header', {title: title, user: user}) %>
-<h1>
-  <p class="text-xs-center">
-    Admin Index
-  </p>
+<link href="/adminIndex_style.css" rel="stylesheet" type="text/css">
+<h1 id="card-h1">
+            <div class="row" id="cards">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-inverse card-success">
+                        <div class="card-block bg-success">
+                            <div class="rotate">
+                                <i class="fa fa-users fa-3x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Users</h6>
+                            <h1 class="display-1" href="/"><%= users.usercount %></h1>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-inverse card-danger">
+                        <div class="card-block bg-danger">
+                            <div class="rotate">
+                                <i class="fa fa-question fa-3x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Requests</h6>
+                            <h1 class="display-1"><%= users.requests %></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-inverse card-info">
+                        <div class="card-block bg-info">
+                            <div class="rotate">
+                                <i class="fa fa-twitter fa-3x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Clients</h6>
+                            <h1 class="display-1">125</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card card-inverse card-warning">
+                        <div class="card-block bg-warning">
+                            <div class="rotate">
+                                <i class="fa fa-share fa-3x"></i>
+                            </div>
+                            <h6 class="text-uppercase">Undecided</h6>
+                            <h1 class="display-1">36</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/row-->
 </h1>
+
 <%- include('../layout/footer') %>
