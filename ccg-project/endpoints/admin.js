@@ -2,7 +2,7 @@
 
 var db = require('../db'),
     formidable = require('formidable'),
-    manage_users = "Manage Users";
+    manage_users = "Admin Console";
 
 /**
  *  This class handles admin functions.
@@ -18,12 +18,25 @@ class Admin {
    *  @param {object} Response - Http Response Object
    */
   index(req, res) {
-      //uncomment if we simply list users on this page
-      //res.render('admin/index', {title: "Admin Index", users: users, user: req.user});
-      res.render('admin/index', {title: manage_users, user: req.user});
+    var user = db.all('SELECT * FROM users', function(err, users){
+      if(err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+    res.render('admin/users', {title: manage_users, user: req.user, users: users});
+    });
   }
 
+  /**
+   *  @function createUser
+   *  @memberof Admin
+   *  @description Sends admin to page to create a user.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  createUser(req, res) {
+    res.render('admin/create', {title: manage_users, user: req.user});
+  }
 
 }
-
 module.exports = exports = new Admin();

@@ -1,4 +1,6 @@
-<% if(users.is_approved) { %>
+<!-- Need to see if there is a way to display
+"No requests" if there are no requests -->
+<% if(!users.is_approved) { %>
   <tr>
     <th scope="row"><%= users.id %></th>
     <td><%= users.name %></td>
@@ -9,6 +11,6 @@
     <% } else { %>
       <td>User</td>
     <% } %>
-    <td><a class="btn btn-danger btn-sm" href="#" role="button">Delete User</a></td>
+    <td><a class="btn btn-success btn-sm" href="#" role="button">Approve</a></td>
   </tr>
 <% } %>
