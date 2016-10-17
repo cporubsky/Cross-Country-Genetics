@@ -69,16 +69,17 @@ public class Main {
 
                     if (rowOptional.isPresent()) {
 
+                        Cell tagCell = row.getCell(0);
+                        // Check if tag is null if so, continue to next row
+                        if (Optional.ofNullable(tagCell).isPresent()) {
+                            tagCell.setCellType(CellType.STRING);
 
-                        if (Optional.ofNullable(row.getCell(0)).isPresent()) {
-                            row.getCell(0).setCellType(CellType.STRING);
-
-                            if (row.getCell(0).toString().equals("") || row.getCell(0).toString() == null) {
-
-                                System.out.println("NO ID EXISTS!!!!!!!!!!!!!!!");
+                            if (tagCell.toString().equals("") || tagCell.toString() == null) {
                                 continue;
                             }
                         }
+
+
 
                         for (int j = 0; j < row.getLastCellNum(); j++) {
 
@@ -88,9 +89,7 @@ public class Main {
                             if (rowIdOptional.isPresent()) {
 
                                 cell.setCellType(CellType.STRING);
-
                                 System.out.print(cell.toString() + "\t\t\t");
-
 
                             } else System.out.print("null" + "\t\t\t");
 
