@@ -52,17 +52,6 @@ class Session {
     form.parse(req, (err, fields, files) => {
       if(err) return res.sendStatus(500);
       db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
-        if(user){
-          console.log();
-          console.log("User info in database:");
-          console.log(user); //for testing only
-          console.log();
-          console.log("Password Encryption:");
-          console.log("Plain text: " + fields.password);
-          console.log("Salt: " + user.salt);
-          console.log("Password Digest: " + user.password_digest);
-        }
-
         if(err) return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
         if(!user) return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
         if(user.password_digest != encryption.digest(fields.password + user.salt))
@@ -84,6 +73,20 @@ class Session {
     req.session.reset();
     res.render("session/logout", {title: logged_out, user: {username: guest}});
   }
+
+  /**
+   *  @function reset
+   *  @memberof Session
+   *  @description Sends user to page to reset account if locked out
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  reset(req, res) {
+    res.render("session/reset", {title: "Reset", user: {username: guest}});
+  }
+
+
+
 }
 
 module.exports = exports = new Session();

@@ -8,43 +8,59 @@ var encryption = require('../encryption'),
  * Create the database schema and populate
  * @class
  */
-class Seed {
+
 
   /**
-   *  @function initialize
+   *  @function db.serialize
    *  @memberof Seed
    *  @description Initializes tables
    */
-  initialize() {
     db.serialize(function() {
 
-      //salt from encryption
-      var salt = encryption.salt();
+
 
       /**********
       users table
       **********/
 
+      //salt from encryption
+      var salt = encryption.salt();
+
       //Drop users table if it exists
       db.run("DROP TABLE IF EXISTS users");
 
       //Create the users table
-      db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, password_digest TEXT, salt TEXT)");
+      db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, is_approved BOOLEAN, password_digest TEXT, salt TEXT)");
 
       //Create a default admin
-      db.run("INSERT INTO users (username, email, is_admin, password_digest, salt) values (?,?,?,?,?)",
-        'admin',                              //create admin
+      db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt) values (?,?,?,?,?,?,?)",
+        'Admin user',                         //name
+        'admin',                              //username
         'admin@none.com',                     //email
         true,                                 //is admin
+        true,                                 //is approved
         encryption.digest('password' + salt), //digest
         salt                                  //salt
       );
 
       //Create a default user
-      db.run("INSERT INTO users (username, email, is_admin, password_digest, salt) values (?,?,?,?,?)",
-        'user',                               //create user
+      db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt) values (?,?,?,?,?,?,?)",
+        'Standard User',                      //name
+        'user',                               //username
         'user@none.com',                      //email
         false,                                //not admin
+        true,                                 //is approved
+        encryption.digest('password' + salt), //digest
+        salt                                  //salt
+      );
+
+      //Create an unapproved std user
+      db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt) values (?,?,?,?,?,?,?)",
+        'Another User',                       //name
+        'user2',                              //username
+        'user_2@none.com',                    //email
+        false,                                //not admin
+        false,                                //not approved
         encryption.digest('password' + salt), //digest
         salt                                  //salt
       );
@@ -55,8 +71,9 @@ class Seed {
         console.log(row);
       });
 
+
+      /**************
+      cane_log table
+      **************/
+
     });
-  }
-
-
-}
