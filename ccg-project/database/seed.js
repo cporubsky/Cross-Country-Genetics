@@ -8,22 +8,23 @@ var encryption = require('../encryption'),
  * Create the database schema and populate
  * @class
  */
-//class Seed {
+
 
   /**
-   *  @function initialize
+   *  @function db.serialize
    *  @memberof Seed
    *  @description Initializes tables
    */
-  //initialize() {
     db.serialize(function() {
 
-      //salt from encryption
-      var salt = encryption.salt();
+
 
       /**********
       users table
       **********/
+
+      //salt from encryption
+      var salt = encryption.salt();
 
       //Drop users table if it exists
       db.run("DROP TABLE IF EXISTS users");
@@ -70,8 +71,9 @@ var encryption = require('../encryption'),
         console.log(row);
       });
 
+
+      /**************
+      cane_log table
+      **************/
+
     });
-  //}
-
-
-//}

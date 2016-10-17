@@ -27,6 +27,13 @@ class Admin {
     });
   }
 
+  /**
+   *  @function createUser
+   *  @memberof Admin
+   *  @description Sends admin to page to create a user.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   createUser(req, res) {
     res.render('admin/create', {title: manage_users, user: req.user});
   }
