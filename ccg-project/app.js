@@ -45,6 +45,10 @@ var express = require('express'),
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);
+    app.get('/firstForm', no_guests, forms.firstForm);
+    app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
+    app.get('/caneCodeLog', no_guests, forms.caneCodeLog);
+    app.get('/viewForms', no_guests, forms.viewForms);
 
     /* admin routes accessible only if
     a user account is an admin account */
