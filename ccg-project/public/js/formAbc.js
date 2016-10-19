@@ -1,6 +1,9 @@
+"use strict";
+
 $("#viewPdf").click(function(){
-  PDFDocument = require('pdfkit');
-  doc = new PDFDocument;
+  var PDFDocuments = require('pdfkit');
+  var fs = require('fs');
+  doc = new PDFDocument();
 
   doc.pipe(fs.createWriteStream('formAbc.pdf'));
 //  doc.pipe res; # HTTP response
