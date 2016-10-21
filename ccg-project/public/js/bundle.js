@@ -35189,14 +35189,18 @@ $("#viewPdf").click(function(){
   var stream = doc.pipe(blobStream());
   var iframe = document.querySelector('iframe');
   var lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in suscipit purus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus nec hendrerit felis. Morbi aliquam facilisis risus eu lacinia. Sed eu leo in turpis fringilla hendrerit. Ut nec accumsan nisl. Suspendisse rhoncus nisl posuere tortor tempus et dapibus elit porta. Cras leo neque, elementum a rhoncus ut, vestibulum non nibh. Phasellus pretium justo turpis. Etiam vulputate, odio vitae tincidunt ultricies, eros odio dapibus nisi, ut tincidunt lacus arcu eu elit. Aenean velit erat, vehicula eget lacinia ut, dignissim non tellus. Aliquam nec lacus mi, sed vestibulum nunc. Suspendisse potenti. Curabitur vitae sem turpis. Vestibulum sed neque eget dolor dapibus porttitor at sit amet sem. Fusce a turpis lorem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;\nMauris at ante tellus. Vestibulum a metus lectus. Praesent tempor purus a lacus blandit eget gravida ante hendrerit. Cras et eros metus. Sed commodo malesuada eros, vitae interdum augue semper quis. Fusce id magna nunc. Curabitur sollicitudin placerat semper. Cras et mi neque, a dignissim risus. Nulla venenatis porta lacus, vel rhoncus lectus tempor vitae. Duis sagittis venenatis rutrum. Curabitur tempor massa tortor.';
-
+  var testingCode = $("#breed").val();
+  document.getElementById("iframe-wrapper").style.display = "block";
+  document.getElementById("window").style.backgroundColor = "black";
+  document.getElementById("window").style.opacity = "0.3";
+  
   //doc.pipe(fs.createWriteStream('formAbc.pdf'));
 	//  doc.pipe res; # HTTP response
 
 	  //doc.end();
 	  // draw some text
 	doc.fontSize(25)
-	   .text('Here is some vector graphics...', 100, 80);
+	   .text('Here is some vector graphics for...' + testingCode, 100, 80);
 	   
 	// some vector graphics
 	doc.save()
@@ -35238,6 +35242,12 @@ $("#viewPdf").click(function(){
 
 $(function() {
   $(".datepicker").datepicker();
+});
+
+$("#close").click(function(){
+	document.getElementById("iframe-wrapper").style.display = "none";
+	document.getElementById("window").style.backgroundColor = "transparent";
+	document.getElementById("window").style.opacity = "1.0";
 });
 
 //Adds rows to the B table

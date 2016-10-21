@@ -3,6 +3,42 @@
 <% title = "Form" %>
 <link href="/css/form.css" rel="stylesheet" type="text/css">
 <!--<script src="/jquery/formAbc.js"></script>-->
+
+<style>
+iframe{
+	width: 100%;
+	height: 100%;
+}
+
+#iframe-wrapper{
+	text-align: center;
+    width: 100%;
+    vertical-align: middle;
+    height: 100%;
+    display: table-cell;
+	position: absolute;
+	display: none;
+}
+
+#close {
+    float:right;
+    display:inline-block;
+    padding:2px 5px;
+    background:#ccc;
+	//position: absolute;
+	//text-align: center;
+}
+
+#plusB, #minusB, #close {
+	cursor: pointer;
+}
+
+#container{
+	opacity: 1.0;
+}
+
+</style>
+	<div id="window">
 		<div id="page">
 			<div id="container">
 				<div id="sectionA">
@@ -227,8 +263,12 @@
 				</div>
 				<input type="submit" class="btn btn-primary" id="viewPdf" value="View PDF"/>
 				<div id="pdfRenderer"></div>
-				<iframe width="600" height="775"></iframe>
 			</div>
 		</div>
-		<%- include('../layout/footer') %>		<!--<script src="/js/formAbc.js"></script>-->
-		<script src="/js/bundle.js"></script>
+	</div>
+	<div id="iframe-wrapper">
+		<span id='close'>x</span>
+		<iframe></iframe>
+	</div>
+	<%- include('../layout/footer') %>		<!--<script src="/js/formAbc.js"></script>-->
+	<script src="/js/bundle.js"></script>
