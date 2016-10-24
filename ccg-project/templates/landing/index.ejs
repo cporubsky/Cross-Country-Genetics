@@ -1,27 +1,45 @@
 <%- include('../layout/header', {title: title, user: user}) %>
-<div class="container">
-  <h1 style="margin-top: 30px">Cross Country Genetics Home</h1>
-  <div class="btn-group" style="margin-top: 30px; margin-bottom: 10px">
-    <button type="button" class="btn btn-primary">Create New Form</button>
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <span class="caret"></span>
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="/formAbc">Embryo Transfer and Freezing From</a>
-      <a class="dropdown-item" href="/firstForm">Donor Stimulation & Breeding Record</a>
-      <a class="dropdown-item" href="/donorCowEnrollment">Donor Cow Enrollment</a>
-      <a class="dropdown-item" href="/caneCodeLog">Cane Code Log</a>
-      <a class="dropdown-item" href="/viewForms">View Forms</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Reproductive Tract Exams And Treatments</a>
-    </div>
-  </div>
+<link href="/css/index.css" rel="stylesheet" type="text/css">
 
-  <hr>
-  <div class="form-group" style="margin-top: 20px">
+  <h1 style="margin-top: 30px">Cross Country Genetics Home</h1>
+  
+  <div class="form-group col-md-10 center" style="margin-top: 20px">
     <label for="searchForm" style="margin-left: 10px">Search Existing Form</label>
     <input type="number" class="form-control" id="searchInput" placeholder="Enter form 'tag' or 'tattoo' - ex. 550">
   </div>
-</div>
+  <hr>
+  <div class="btn-group" style="margin-top: 30px; margin-bottom: 10px">
+    <!--<button type="button" class="btn btn-primary">Create New Form</button>-->
+    <!--<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+    <!--  <span class="caret"></span>-->
+    <!--  <span class="sr-only">Toggle Dropdown</span>-->
+    <!--</button>-->
+    <!--<div class="dropdown-menu">-->
+	<div class="tile col-md-3">
+      <h3 class="whiteText" id="formAbc">Embryo Transfer and Freezing From</h3>
+	  <p>Test</p>
+	</div>
+	<div class="tile col-md-3">
+      <h3 class="whiteText" href="/firstForm" id="firstForm">Donor Stimulation & Breeding Record</h3>
+	  <p>Test</p>
+	</div>
+	<div class="tile col-md-3">
+      <h3 class="whiteText" href="/donorCowEnrollment" id="donorCowEnrollment">Donor Cow Enrollment</h3>
+	  <p>Test</p>
+	</div>
+	<div class="tile col-md-3">
+      <h3 class="whiteText" href="/caneCodeLog" id="caneCodeLog">Cane Code Log</h3>
+	  <p>Test</p>
+	</div>
+	<br>
+	<div class="tile col-md-3">
+      <h3 class="whiteText" href="/viewForms" id="viewForms">View Forms</h3>
+	  <p>Test</p>
+	</div>
+      <div class="dropdown-divider"></div>
+    <!-- <a class="dropdown-item" href="#">Reproductive Tract Exams And Treatments</a> -->
+    </div>
+  </div>
+
 <%- include('../layout/footer') %>
+<script src="/js/index.js"></script>

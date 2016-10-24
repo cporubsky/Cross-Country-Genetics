@@ -19,7 +19,7 @@ $("#viewPdf").click(function(){
 	  //doc.end();
 	  // draw some text
 	doc.fontSize(25)
-	   .text('Here is some vector graphics for...' + testingCode, 100, 80);
+	   .text('Here are some vector graphics for...' + testingCode, 100, 80);
 	   
 	// some vector graphics
 	doc.save()
