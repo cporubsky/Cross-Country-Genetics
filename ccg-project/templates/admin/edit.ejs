@@ -1,0 +1,60 @@
+<%- include('../layout/header', {title: title, user: user}) %>
+<style>
+form {
+  padding-top: 10px;
+}
+</style>
+<!-- User Id -->
+<form class="col-md-6" action="/admin/edit/<%= users.id %>" method="POST">
+  <div class="form-group row">
+    <label for="example-number-input" class="col-xs-2 col-form-label">Number</label>
+    <div class="col-xs-2">
+      <input class="form-control" type="text" maxlength="6" value="<%= users.id %>">
+    </div>
+  </div>
+  <!-- Name -->
+  <div class="form-group row">
+    <label class="col-xs-2 col-form-label">Name</label>
+    <div class="col-xs-10">
+      <input class="form-control" type="text" name="name" value="<%= users.name %>">
+    </div>
+  </div>
+  <!-- Username -->
+  <div class="form-group row">
+    <label class="col-xs-2 col-form-label">Username</label>
+    <div class="col-xs-10">
+      <input class="form-control" type="search" name="username" value="<%= users.username %>">
+    </div>
+  </div>
+  <!-- Email -->
+  <div class="form-group row">
+    <label for="example-email-input" class="col-xs-2 col-form-label">Email</label>
+    <div class="col-xs-10">
+      <input class="form-control" type="email" name="email" value="<%= users.email %>">
+    </div>
+  </div>
+  <div class="form-group row">
+    <!-- Role -->
+    <label class="col-xs-2 col-form-label">Role</label>
+      <div class="col-xs-10">
+        <select class="form-control" name="role">
+          <option value="1">Admin</option>
+          <option value="0">User</option>
+        </select>
+      </div>
+    </div>
+<button class="btn btn-primary" type="submit">Update</button>
+<a class="btn btn-danger" href="/admin" role="button">Cancel</a>
+
+<!-- Set some col to zero, if tempPassword !empty -->
+<a class="btn btn-danger" href="#" role="button">Cancel Request</a>
+<% if(message) { %>
+  <div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <%= message %>
+  </div>
+<% } %>
+</form>
+<%- include('../layout/footer') %>

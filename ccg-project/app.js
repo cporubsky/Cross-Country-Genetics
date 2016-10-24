@@ -49,8 +49,12 @@ var express = require('express'),
     /* admin routes accessible only if
     a user account is an admin account */
     var admin = require('./endpoints/admin');
-    app.get('/admin/manage', admin_only, admin.index);  //Admin landing page
-    app.get('/admin/create', admin_only, admin.createUser); //Create user
+    app.get('/admin', admin_only, admin.index);  //Admin landing page
+    app.get('/admin/create', admin_only, admin.createUser); //Create user form
+    app.post('/admin/createUser', admin_only, admin.createUser2); //Create user form
+    app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
+    app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
+    app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
     //app.get('/manageusers', admin_only, admin.manageusers);
 
 
