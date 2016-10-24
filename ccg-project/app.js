@@ -14,7 +14,7 @@ var express = require('express'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
-    PORT = 80;
+    PORT = 8080;
 
     app.set('view engine', 'ejs');   //set view to ejs
     app.set('views', './templates'); //set templates directory
