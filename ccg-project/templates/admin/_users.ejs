@@ -1,4 +1,3 @@
-<% if(users.is_approved) { %>
   <tr>
     <th scope="row"><%= users.id %></th>
     <td><%= users.name %></td>
@@ -9,6 +8,12 @@
     <% } else { %>
       <td>User</td>
     <% } %>
-    <td><a class="btn btn-danger btn-sm" href="#" role="button">Delete User</a></td>
+    <% if(users.is_approved) { %>
+      <!-- need to add button to edit user -->
+    <td><a class="btn btn-danger btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td>
+    <% } %>
+    <% if(!users.is_approved) { %>
+      <!-- highlight them so admin knows there is a request pending -->
+      <td><a class="btn btn-success btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td>
+    <% } %>
   </tr>
-<% } %>
