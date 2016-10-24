@@ -57,6 +57,7 @@ var express = require('express'),
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
+    
     //app.get('/manageusers', admin_only, admin.manageusers);
 
 
