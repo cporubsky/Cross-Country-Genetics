@@ -7,7 +7,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.4/css/bootstrap.min.css" integrity="sha384-2hfp1SzUoho7/TsGGGDaFdsuuDL0LX2hnUp6VkX3CUQ2K4K+xjboZdsXyp4oUHZj" crossorigin="anonymous">
       <link href="/style.css" rel="stylesheet" type="text/css">
-      <!-- <link href="/formAbc.css" rel="stylesheet" type="text/css"> -->
     </head>
     <body>
       <nav class="navbar navbar-dark bg-primary">
@@ -26,10 +25,11 @@
               <li class="nav-item active"><a class="nav-link" href="/index"><i class="fa fa-home fa-lg" aria-hidden="true"></i>  Home </a></li>
               <li class="nav-item active"><a class="nav-link" href=""><i class="fa fa-user fa-lg" aria-hidden="true"></i>  Welcome <%= user.username %>!</a></li>
               <% if(user.is_admin) { %>
-                <li class="nav-item active"><a class="nav-link" href="/admin/manage"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i>  Manage </a></li>
+                <li class="nav-item active"><a class="nav-link" href="/admin"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i>  Manage </a></li>
               <% } %>
               <li class="nav-item active"><a class="nav-link" href="/logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Logout </a></li>
             <% } %>
           </ul>
         </div>
       </nav>
+	  <div class="container">
