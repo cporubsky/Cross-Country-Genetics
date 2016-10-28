@@ -2,7 +2,7 @@
 
 var encryption = require('../encryption'),
     sqlite3 = require('sqlite3'),
-    db = new sqlite3.Database('development.sqlite3');
+    db = new sqlite3.Database('development.db');
 
 /**
  * Create the database schema and populate
@@ -77,39 +77,39 @@ var encryption = require('../encryption'),
       **************/
       db.run("DROP TABLE IF EXISTS cane_log");
 
-      db.run("CREATE TABLE cane_log (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id INT NOT NULL, loc TEXT, freeze_date DATE, client TEXT, donor TEXT, sire TEXT, g1 INTEGER, g2 INTEGER, g3 INTEGER, total INTEGER, age TEXT)");
+      db.run("CREATE TABLE cane_log (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id TEXT NOT NULL, loc TEXT, freeze_date DATE, client TEXT, donor TEXT, sire TEXT, g1 INTEGER, g2 INTEGER, g3 INTEGER, total INTEGER, age TEXT)");
 
       // Test row, all values
-      db.run("INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (?,?,?,?,?,?,?,?,?,?,?)",
-        888888,       // tag_id
-        '1-1',        // loc
-        '1/1/11',     // freeze_date
-        'Client Guy', // client
-        'Donor Guy',  // donor
-        'Sire Guy',   // sire
-        1,            // g1
-        1,            // g2
-        1,            // g3
-        3,            // total
-        '7.0d.'       // age
-      );
+      // db.run("INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (?,?,?,?,?,?,?,?,?,?,?)",
+      //   '888888',       // tag_id
+      //   '1-1',        // loc
+      //   '1/1/11',     // freeze_date
+      //   'Client Guy', // client
+      //   'Donor Guy',  // donor
+      //   'Sire Guy',   // sire
+      //   1,            // g1
+      //   1,            // g2
+      //   1,            // g3
+      //   3,            // total
+      //   '7.0d.'       // age
+      // );
 
       // Test row, null values
-      db.run("INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (?,?,?,?,?,?,?,?,?,?,?)",
-        999999, // tag_id
-        null,   // loc
-        null,   // freeze_date
-        null,   // client
-        null,   // donor
-        null,   // sire
-        null,   // g1
-        null,   // g2
-        null,   // g3
-        null,   // total
-        null    // age
-      );
+      // db.run("INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (?,?,?,?,?,?,?,?,?,?,?)",
+      //   999999, // tag_id
+      //   null,   // loc
+      //   null,   // freeze_date
+      //   null,   // client
+      //   null,   // donor
+      //   null,   // sire
+      //   null,   // g1
+      //   null,   // g2
+      //   null,   // g3
+      //   null,   // total
+      //   null    // age
+      // );
 
-      db.each("SELECT * FROM cane_log", function(err, row){
+      db.each("SELECT count(*) FROM cane_log", function(err, row){
         if(err) return console.error(err);
         console.log(row);
       });
