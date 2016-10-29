@@ -1,0 +1,45 @@
+<%- include('../layout/header', {title: title, user: user}) %>
+<style>
+form {
+  padding-top: 10px;
+}
+</style>
+<form class="col-md-6" action="/user/confirm" method="POST">
+  <!-- Username -->
+  <div class="form-group row">
+    <div class="col-xs-10">
+      <input class="form-control" type="search" name="username" placeholder="Username">
+    </div>
+  </div>
+  <!-- Temp Password -->
+  <div class="form-group row">
+    <div class="col-xs-10">
+      <input class="form-control" type="search" name="temp" placeholder="Temporary Password">
+    </div>
+  </div>
+  <!-- First Password -->
+  <div class="form-group row">
+    <div class="col-xs-10">
+      <input class="form-control" type="search" name="first" placeholder="Enter Password">
+    </div>
+  </div>
+  <!-- Confirm Password -->
+  <div class="form-group row">
+    <div class="col-xs-10">
+      <input class="form-control" type="search" name="second" placeholder="Confirm Password">
+    </div>
+  </div>
+<button class="btn btn-primary" type="submit">Update</button>
+
+
+<a class="btn btn-danger" href="/admin" role="button">Back</a>
+<% if(message) { %>
+  <div class="alert alert-danger alert-dismissible fade in" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <%= message %>
+  </div>
+<% } %>
+</form>
+<%- include('../layout/footer') %>

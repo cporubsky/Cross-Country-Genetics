@@ -44,10 +44,14 @@ form {
       </div>
     </div>
 <button class="btn btn-primary" type="submit">Update</button>
-<a class="btn btn-danger" href="/admin" role="button">Cancel</a>
-
+<a class="btn btn-danger" href="/admin/delete/<%= users.id %>" role="button">Delete</a>
 <!-- Set some col to zero, if tempPassword !empty -->
+<% if (users.is_approved) { %>
+<a class="btn btn-danger disabled" href="#" role="button" aria-disabled="true">Cancel Request</a>
+<% } else { %>
 <a class="btn btn-danger" href="#" role="button">Cancel Request</a>
+<% } %>
+<a class="btn btn-danger" href="/admin" role="button">Back</a>
 <% if(message) { %>
   <div class="alert alert-danger alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

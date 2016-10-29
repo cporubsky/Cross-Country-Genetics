@@ -50,12 +50,17 @@ class Session {
     req.session.reset();
     var form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
+      //console.log(fields);
       if(err) return res.sendStatus(500);
       db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
-        if(err) return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-        if(!user) return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-        if(user.password_digest != encryption.digest(fields.password + user.salt))
+        if(err || !user) {
+          res.statusCode = 500;
+           return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+         }
+        if(user.password_digest != encryption.digest(fields.password + user.salt)) {
+          res.statusCode = 500;
          return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+       }
         req.session.user_id = user.id;
         return res.redirect('/index');
       });
@@ -81,9 +86,9 @@ class Session {
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
    */
-  reset(req, res) {
-    res.render("session/reset", {title: "Reset", user: {username: guest}});
-  }
+  // reset(req, res) {
+  //   res.render("session/reset", {title: "Reset", user: {username: guest}});
+  // }
 
 
 
