@@ -59,6 +59,7 @@ var express = require('express'),
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
 
+    //used to confirm new user
     var user = require('./endpoints/user');
     app.get('/user/confirm', user.confirm);
     app.post('/user/confirm', user.confirm);
