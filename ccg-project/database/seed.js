@@ -2,7 +2,7 @@
 
 var encryption = require('../encryption'),
     sqlite3 = require('sqlite3'),
-    db = new sqlite3.Database('development.db');
+    db = new sqlite3.Database('development.sqlite3');
 
 
 
