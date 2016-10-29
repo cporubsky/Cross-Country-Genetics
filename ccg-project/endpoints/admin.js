@@ -114,7 +114,13 @@ class Admin {
   //add logic
   deleteUser(req, res) {
     console.log(req.params.id);
-
+    db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
+      if(err) {
+        console.error(err);
+        return res.sendStatus(500);
+      }
+      return res.redirect('/admin');
+    });
   }
 
 

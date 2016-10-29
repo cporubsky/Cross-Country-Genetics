@@ -31,12 +31,13 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
+
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'
     app.get('/login', session.login);  //user login form
     app.post('/login', session.start); //create session
     app.get('/logout', session.stop);  //deletes session
-    app.get('/reset', session.reset);  //reset user account
+    //app.get('/reset', session.reset);  //reset user account
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
@@ -57,10 +58,15 @@ var express = require('express'),
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
+
+    var user = require('./endpoints/user');
+    app.get('/user/confirm', user.confirm);
+    app.post('/user/confirm', user.confirm);
+
     //app.get('/manageusers', admin_only, admin.manageusers);
 
 
     //start express app
     app.listen(PORT, () => {
-      console.log("Listening on port " + PORT);
+      console.log("Listening on port " + PORT + "\n");
     });
