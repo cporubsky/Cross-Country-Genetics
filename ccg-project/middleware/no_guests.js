@@ -7,7 +7,10 @@ var company_name = "Cross Country Genetics";
 // share the username Guest)
 function noGuests(req, res, next) {
   if(req.user.username != "Guest") return next();
-  else return res.render('session/login', {title: company_name, message: "You must be signed in to access that page", user: req.user});
+  else {
+    res.statusCode = 500;
+    return res.render('session/login', {title: company_name, message: "You must be signed in to access that page", user: req.user});
+  }
 }
 
 module.exports = exports = noGuests;
