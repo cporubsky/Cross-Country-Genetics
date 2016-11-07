@@ -117,9 +117,9 @@ $("#plusC").click(function(){
 var rows = document.getElementById("tableC").rows.length;
 var index = 0;
 if(rows < 13){
-  var array = ["caneNum", "strAmpNum", "numEmbryos", "numXWashed", "stageCode", "qualityCode", "zoneIntact", "divided", "trypsinRinsed", "commentsC"];
+  var array = ["locDonor", "caneNum", "strAmpNum", "numEmbryos", "numXWashed", "stageCode", "qualityCode", "zoneIntact", "divided", "trypsinRinsed", "tank", "canister", "commentsC"];
   var newRow = document.getElementById("tableC").insertRow(rows);
-  for(var i=0;i<11;i++){
+  for(var i=0;i<14;i++){
     if(i==0){
       var td = newRow.insertCell(i);
       index--;
@@ -132,10 +132,7 @@ if(rows < 13){
       textbox.class = "smallLine";
       textbox.type = "text";
       td.appendChild(textbox);
-      if (i==1){
-        $(td).attr("colspan",2);
-      }
-      if (i==10){
+      if (i==13){
         $(td).attr("colspan",2);
       }
     }
