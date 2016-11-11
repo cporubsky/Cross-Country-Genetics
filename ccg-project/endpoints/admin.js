@@ -72,7 +72,7 @@ class Admin {
           //console.log(rows);
           if(rows != null) {
             //alert("username taken");
-            console.log("Something taken");
+            //console.log("Something taken");
             return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops!"});
           }
 
@@ -85,8 +85,7 @@ class Admin {
             tempPassword,
             (err, user) => {
               if(err) {
-                console.log("error here");
-                console.log(err);
+                //TODO set res status
                 return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
             }
 
@@ -101,7 +100,7 @@ class Admin {
             }, function(error, info){
               if(error) console.log(error);
               console.log("Success");
-              console.log(info);
+              //console.log(info);
             });
             //res.render('admin/create', {title: manage_users, user: req.user, message: "SUCCESS!"});
             return res.redirect('/admin');
@@ -113,7 +112,6 @@ class Admin {
 
   //add logic
   deleteUser(req, res) {
-    console.log(req.params.id);
     db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
       if(err) {
         console.error(err);
@@ -126,7 +124,6 @@ class Admin {
 
 
   edit(req, res) {
-    console.log(req.params.id);
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       db.get('SELECT * from users WHERE id = ?', req.params.id, (err, row) => {
@@ -144,10 +141,9 @@ class Admin {
 
 
   commitEdit(req, res) {
-    console.log(req.params.id);
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      console.log(fields)
+      //console.log(fields)
       db.run('UPDATE users set name = ?, username = ?, email = ?, is_admin = ? where id = ?',
         fields.name,
         fields.username,

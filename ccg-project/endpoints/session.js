@@ -76,7 +76,7 @@ class Session {
    */
   stop(req, res) {
     req.session.reset();
-    res.render("session/logout", {title: logged_out, user: {username: guest}});
+    return res.render("session/logout", {title: logged_out, user: {username: guest}});
   }
 
   /**

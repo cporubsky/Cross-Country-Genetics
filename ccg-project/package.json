@@ -24,7 +24,9 @@
   "devDependencies": {},
   "scripts": {
     "start": "node app.js",
-    "test": "mocha test"
+    "test": "npm run populate && mocha",
+    "posttest": "npm run populate",
+    "populate": "node seed_users.js"
   },
   "repository": {
     "type": "git",
