@@ -359,8 +359,6 @@ var express = require('express'),
 
         }); //end guest allowed
 
-
-
         describe('Guest Denied', function() {
           it("should not allow guest to access: index page [GET](/index)",function(done){
             guest

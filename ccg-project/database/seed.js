@@ -68,18 +68,18 @@ var encryption = require('../encryption'),
        );
 
        //Log contents of the user table to the console
-       db.each("SELECT * FROM users", function(err, row){
-         if(err) return console.error(err);
-         console.log(row);
-       });
+      //  db.each("SELECT * FROM users", function(err, row){
+      //    if(err) return console.error(err);
+      //    console.log(row);
+      //  });
 
 
        /**************
        cane_log table
        **************/
-       db.run("DROP TABLE IF EXISTS cane_log");
+      //  db.run("DROP TABLE IF EXISTS cane_log");
 
-       db.run("CREATE TABLE cane_log (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id TEXT NOT NULL, loc TEXT, freeze_date DATE, client TEXT, donor TEXT, sire TEXT, g1 INTEGER, g2 INTEGER, g3 INTEGER, total INTEGER, age TEXT)");
+      //  db.run("CREATE TABLE cane_log (id INTEGER PRIMARY KEY AUTOINCREMENT, tag_id TEXT NOT NULL, loc TEXT, freeze_date DATE, client TEXT, donor TEXT, sire TEXT, g1 INTEGER, g2 INTEGER, g3 INTEGER, total INTEGER, age TEXT)");
 
        // Test row, all values
        // db.run("INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (?,?,?,?,?,?,?,?,?,?,?)",
@@ -111,10 +111,10 @@ var encryption = require('../encryption'),
        //   null    // age
        // );
 
-       db.each("SELECT count(*) FROM cane_log", function(err, row){
-         if(err) return console.error(err);
-         console.log(row);
-       });
+      //  db.each("SELECT count(*) FROM cane_log", function(err, row){
+      //    if(err) return console.error(err);
+      //    console.log(row);
+      //  });
 
      });
 

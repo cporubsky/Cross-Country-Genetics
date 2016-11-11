@@ -85,8 +85,7 @@ class Admin {
             tempPassword,
             (err, user) => {
               if(err) {
-                //console.log("error here");
-                //console.log(err);
+                //TODO set res status
                 return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
             }
 

@@ -61,7 +61,7 @@ var express = require('express'),
     //used to confirm new user
     var user = require('./endpoints/user');
     app.get('/user/confirm', user.confirm);
-    app.post('/user/confirm', user.confirm);
+    app.post('/user/confirm', user.commitConfirm);
 
     //app.get('/manageusers', admin_only, admin.manageusers);
 
