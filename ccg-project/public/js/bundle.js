@@ -35298,9 +35298,9 @@ $("#plusC").click(function(){
 var rows = document.getElementById("tableC").rows.length;
 var index = 0;
 if(rows < 13){
-  var array = ["caneNum", "strAmpNum", "numEmbryos", "numXWashed", "stageCode", "qualityCode", "zoneIntact", "divided", "trypsinRinsed", "commentsC"];
+  var array = ["locDonor", "caneNum", "strAmpNum", "numEmbryos", "numXWashed", "stageCode", "qualityCode", "zoneIntact", "divided", "trypsinRinsed", "tank", "canister", "commentsC"];
   var newRow = document.getElementById("tableC").insertRow(rows);
-  for(var i=0;i<11;i++){
+  for(var i=0;i<14;i++){
     if(i==0){
       var td = newRow.insertCell(i);
       index--;
@@ -35313,10 +35313,7 @@ if(rows < 13){
       textbox.class = "smallLine";
       textbox.type = "text";
       td.appendChild(textbox);
-      if (i==1){
-        $(td).attr("colspan",2);
-      }
-      if (i==10){
+      if (i==13){
         $(td).attr("colspan",2);
       }
     }
@@ -35337,6 +35334,25 @@ if(rows>2){
 else{
 alert("Must have at least one row");
 }
+});
+
+$("#tag").on('input', function() {
+  var data = {"test":"testingAjax"};
+  $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/javascript",
+      dataType:'json',
+      url: '/formAbc',
+      success: function(data) {
+          console.log('success');
+          console.log(JSON.stringify(data));
+      },
+      error: function(error) {
+          console.log("Some error in fetching the notifications");
+       }
+
+  });
 });
 
 },{"blob-stream":46,"fs":1,"pdfkit":49}]},{},[233]);

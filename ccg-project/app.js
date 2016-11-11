@@ -44,6 +44,7 @@ var express = require('express'),
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);
+    app.post('/formAbc', forms.formAbcAjax);
     app.get('/firstForm', no_guests, forms.firstForm);
     app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);
@@ -65,7 +66,6 @@ var express = require('express'),
     app.post('/user/confirm', user.confirm);
 
     //app.get('/manageusers', admin_only, admin.manageusers);
-
 
     //start express app
     app.listen(PORT, () => {
