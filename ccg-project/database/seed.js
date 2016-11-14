@@ -67,7 +67,7 @@ var encryption = require('../encryption'),
          null
        );
 
-       Log contents of the user table to the console
+      //  Log contents of the user table to the console
        db.each("SELECT * FROM users", function(err, row){
          if(err) return console.error(err);
          console.log(row);
@@ -75,39 +75,102 @@ var encryption = require('../encryption'),
 
 
        // EMBRYO RECOVERY
+
+       /***********
+       Client table
+       ************/
        db.run("DROP TABLE IF EXISTS client");
-
-       db.run("CREATE TABLE client (name TEXT PRIMARY KEY, address TEXT)");
-
-       // TODO INSERT client test data
+       db.run("CREATE TABLE client (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT)");
+       // Create client test data
+       db.run("INSERT INTO client (name, address) values (?,?)",
+          'Mushroom Red Angus',
+          'Strong City, KS'
+       );
+       db.run("INSERT INTO client (name, address) values (?,?)",
+          'AJ Cabanatuan',
+          '808 Street, Manhattan, KS'
+       );
 
        /**********
        donor table
        ***********/
        db.run("DROP TABLE IF EXISTS donor");
-
-       db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT)")
-
-       // TODO INSERT donor test data
+       db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, client_id TEXT, breed TEXT, reg_num INTEGER, tag_tattoo TEXT, name TEXT, FOREIGN KEY(client_id) REFERENCES client(id))");
+       // Create donor test data
+       db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name) values (?,?,?,?,?)",
+          1,
+          'AR',
+          1546741,
+          'Z040',
+          'Mushrush Lana'
+       );
+       db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name) values (?,?,?,?,?)",
+          2,
+          'BR',
+          1234567,
+          'AC16',
+          'What is Beef?'
+       );
 
        /*********
        sire table
        **********/
        db.run("DROP TABLE IF EXISTS sire");
-
-       db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT)")
-
-       // TODO INSERT sire test data
+       db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, breed TEXT, reg_num INTEGER, code TEXT)");
+       // Create sire test data
+       db.run("INSERT INTO sire (name, breed, reg_num, code) values (?,?,?,?,?)",
+          'Beckton Clifftop Z500',
+          'AR'
+          1544604,
+          '16AR2130'
+       );
+       db.run("INSERT INTO sire (name, breed, reg_num, code) values (?,?,?,?,?)",
+          'Moo Train',
+          'AR'
+          7654321,
+          '17AR2017'
+       );
 
        /********************
        embryo_recovery table
        *********************/
        db.run("DROP TABLE IF EXISTS embryo_recovery");
-
-       db.run("CREATE TABLE embryo_recovery ()");
-
-       // TODO INSERT embryo_recovery test data
-
+       db.run("CREATE TABLE embryo_recovery (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+              "donor_id INTEGER, sire_id INTEGER, sire_two_id INTEGER, freeze_date DATE, " +
+              "estrus_onset DATE, breed_date DATE, recovery_date DATE, num_recovered INTEGER, " +
+              "num_transferred INTEGER, num_frozen INTEGER, et_code TEXT, FOREIGN KEY(donor_id) REFERENCES donor(id)), " +
+              "FOREIGN KEY(sire_id) REFERENCES sire(id), FOREIGN KEY(sire_two_id) REFERENCES sire(id)");
+       // Create embryo_recovery test data
+       db.run("INSERT INTO embryo_recovery (donor_id, sire_id, sire_two_id, freeze_date, " +
+              "estrus_onset, breed_date, recovery_date, num_recovered, num_transferred, num_frozen, et_code) " +
+              "values (?,?,?,?,?,?,?,?,?,?,?)",
+          1,
+          1,
+          null,
+          '2015-10-12'
+          '2016-06-28',
+          '2016-06-28',
+          '2016-06-05',
+          5,
+          5,
+          0
+          'E1153'
+       );
+       db.run("INSERT INTO embryo_recovery (donor_id, sire_id, sire_two_id, freeze_date, " +
+              "estrus_onset, breed_date, recovery_date, num_recovered, num_transferred, num_frozen, et_code) " +
+              "values (?,?,?,?,?,?,?,?,?,?,?)",
+          2,
+          2,
+          null,
+          '2016-01-18'
+          '2016-10-17',
+          '2016-10-17',
+          '2016-05-16',
+          9,
+          9,
+          0
+          'S0117'
+       );
      });
 
    } //end initialize
