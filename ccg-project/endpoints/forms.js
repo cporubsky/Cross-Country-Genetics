@@ -38,11 +38,11 @@ class Forms {
   }
 
   formAbcAjax(req, res){
-    console.log("In the ajax receive)")
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      console.log(fields);
-      db.run('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
+    console.log("In the ajax receiving code");
+    //var form = new formidable.IncomingForm();
+    //form.parse(req, function(err, fields, files) {
+      //console.log(fields);
+      /*db.run('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
         "AjaxUser4",
         "user4",
         "user_4@gmail.com",
@@ -52,8 +52,12 @@ class Forms {
         "hiddenPasswordAjax",                                  //salt
         null
       );
-      res.redirect('forms/formAbc');
-    });
+      */
+      //db.get('SELECT name FROM users');
+      //res.send("hey");
+      console.log("Redirecting...");
+      //es.redirect('forms/formAbc');
+  //});
   }
 
 }

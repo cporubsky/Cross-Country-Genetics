@@ -165,7 +165,10 @@ $("#tag").on('input', function() {
       url: '/formAbc',
       success: function(data) {
           console.log('success');
-          console.log(JSON.stringify(data));
+          alert(data);
+          //console.log(JSON.stringify(data));
+          //var jsonObject = JSON.parse(data);
+          //alert(jsonObject);
       },
       error: function(error) {
           console.log("Some error in fetching the notifications");
