@@ -36,25 +36,45 @@ class Forms {
   viewForms(req, res){
     res.render('forms/viewForms', {user: req.user});
   }
-	
+
   formAbcAjax(req, res){
-    console.log("In the ajax receive)")
-    var form = new formidable.IncomingForm();
+    console.log("In the ajax receive");
+    var tag = req.params.tag;
+    console.log("Tag: " + tag);
+    //console.log("Tag" + tagOwner.tag);
+    //console.log(req.body);
+    //console.log(JSON.parse(data));
+    /*var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      console.log(fields);
-      db.run('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
+      if (err) console.log(err);
+      console.log(fields.tag);
+      var tag = fields.tag;
+      console.log(tag);
+      var owner = fields.owner;
+      console.log(tag);
+      console.log(owner);
+    });*/
+    var tag = "";
+    var owner = "";
+
+    //  console.log(fields);
+      /*db.get('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
         "AjaxUser4",
         "user4",
         "user_4@gmail.com",
         true,                                 //is admin
         true,                                 //is approved
         "passwordAjax", //digest
-        "hiddenPasswordAjax",                                  //salt
+        "hiddenPasswordAjax",                 //salt
         null
-      );
-      res.redirect('forms/formAbc');
-    });
-  }	
+      );*/
+      //db.get("SELECT * FROM donor WHERE ")
+      //res.redirect('forms/formAbc');
+      //var data = '{"name": "John","age": 30}';
+      var data = "hey";
+      res.send(JSON.stringify({ user: 'tobi' }));
+    //});
+  }
 
 }
 

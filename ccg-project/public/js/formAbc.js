@@ -156,20 +156,35 @@ alert("Must have at least one row");
 });
 
 $("#tag").on('input', function() {
-  var data = {"test":"testingAjax"};
-  $.ajax({
-      type: 'POST',
-      data: JSON.stringify(data),
-      contentType: "application/javascript",
-     dataType:'json',
-      url: '/formAbc',
-      success: function(data) {
-          console.log('success');
-          console.log(JSON.stringify(data));
-      },
-      error: function(error) {
-          console.log("Some error in fetching the notifications");
-      }
-
-  });
+  autoFill();
 });
+
+$("#owner").on('input', function() {
+  autoFill();
+});
+
+function autoFill() {
+  //var data = {"test":"testingAjax"};
+  var tag = $("#tag").val();
+  var owner = $("#owner").val();
+
+  if(tag != "" && owner != ""){
+    var data = {"tag": tag, "owner": owner};
+    $.ajax({
+        type: 'POST',
+        data: JSON.stringify(data),
+        //data: JSON.stringify({expression: "testexpression"}),
+        contentType: "application/javascript",
+        dataType:'json',
+        url: '/formAbc',
+        success: function(data) {
+            console.log('success');
+            console.log(data);
+            alert(JSON.stringify(data));
+        },
+        error: function(error) {
+            console.log("Some error in fetching the notifications");
+        }
+    });
+  }
+}
