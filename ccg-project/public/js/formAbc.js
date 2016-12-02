@@ -154,3 +154,22 @@ else{
 alert("Must have at least one row");
 }
 });
+
+$("#tag").on('input', function() {
+  var data = {"test":"testingAjax"};
+  $.ajax({
+      type: 'POST',
+      data: JSON.stringify(data),
+      contentType: "application/javascript",
+     dataType:'json',
+      url: '/formAbc',
+      success: function(data) {
+          console.log('success');
+          console.log(JSON.stringify(data));
+      },
+      error: function(error) {
+          console.log("Some error in fetching the notifications");
+      }
+
+  });
+});
