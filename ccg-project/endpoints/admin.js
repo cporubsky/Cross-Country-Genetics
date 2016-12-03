@@ -41,10 +41,14 @@ class Admin {
   }
 
 
-  //rename method
-  //clean up and add error handling
-  //clean up emailing
-  createUser2(req, res) {
+  /**
+   *  @function commitCreateUser
+   *  @memberof Admin
+   *  @description Inserts user in user table with temp password.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  commitCreateUser(req, res) {
 
     //generate temp password
     var tempPassword = randomstring.generate({
@@ -66,17 +70,18 @@ class Admin {
     form.parse(req, function(err, fields, files) {
 
       db.serialize(function() {
-
         //checks to see if username or email exits
-        db.get('SELECT * from users WHERE name = ? or username = ? or email = ?', fields.name, fields.username, fields.email, (err, rows) => {
-          //console.log(rows);
-          if(rows != null) {
-            //alert("username taken");
-            //console.log("Something taken");
-            return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops!"});
-          }
+        db.get('SELECT * from users WHERE name = ? or username = ? or email = ?',
+          fields.name,
+          fields.username,
+          fields.email,
+          (err, rows) => {
+            if(rows != null) {
+              //username is taken
+              return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops!"});
+            }
 
-          //if we get here, no user exists, insert them
+          //if we get here, no user exists, insert user
           db.run('INSERT INTO users (name, username, email, is_admin, temp_password) values (?,?,?,?,?)',
             fields.name,
             fields.username,
@@ -88,7 +93,7 @@ class Admin {
                 //TODO set res status
                 return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
             }
-
+            //TODO change html to better message, fine for now
             transporter.sendMail({
               from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
               to: 'corey.porubsky@gmail.com',
@@ -100,17 +105,21 @@ class Admin {
             }, function(error, info){
               if(error) console.log(error);
               console.log("Success");
-              //console.log(info);
             });
-            //res.render('admin/create', {title: manage_users, user: req.user, message: "SUCCESS!"});
             return res.redirect('/admin');
           }); //end insert
         }); //end check
-      });//end serialize
+      }); //end serialize
     }); //end form parsing
-  }
+  } //end commitCreateUser
 
-  //add logic
+  /**
+   *  @function deleteUser
+   *  @memberof Admin
+   *  @description Deletes user out of user table.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   deleteUser(req, res) {
     db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
       if(err) {
@@ -121,8 +130,13 @@ class Admin {
     });
   }
 
-
-
+  /**
+   *  @function edit
+   *  @memberof Admin
+   *  @description Selects user in user table to edit.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   edit(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -138,8 +152,13 @@ class Admin {
     });
   }
 
-
-
+  /**
+   *  @function commitEdit
+   *  @memberof Admin
+   *  @description Updates user in user table with appropriate edits.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
   commitEdit(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {

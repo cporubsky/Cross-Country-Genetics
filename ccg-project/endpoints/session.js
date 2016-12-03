@@ -79,18 +79,6 @@ class Session {
     return res.render("session/logout", {title: logged_out, user: {username: guest}});
   }
 
-  /**
-   *  @function reset
-   *  @memberof Session
-   *  @description Sends user to page to reset account if locked out
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   */
-  // reset(req, res) {
-  //   res.render("session/reset", {title: "Reset", user: {username: guest}});
-  // }
-
-
 
 }
 

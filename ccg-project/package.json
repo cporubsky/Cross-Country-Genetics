@@ -11,7 +11,7 @@
     "express": "^4.14.0",
     "formidable": "^1.0.17",
     "fs": "0.0.1-security",
-    "jsdoc": "^3.4.1",
+    "jsdoc": "^3.4.3",
     "mocha": "^3.1.2",
     "nodemailer": "^2.6.4",
     "pdfkit": "^0.8.0",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "doc": "jsdoc -c node_modules/jsdoc/conf.json",
     "start": "node app.js",
     "test": "npm run populate && mocha",
     "posttest": "npm run populate",

@@ -54,7 +54,7 @@ var express = require('express'),
     var admin = require('./endpoints/admin');
     app.get('/admin', admin_only, admin.index);  //Admin landing page
     app.get('/admin/create', admin_only, admin.createUser); //Create user form
-    app.post('/admin/create', admin_only, admin.createUser2); //Create user form
+    app.post('/admin/create', admin_only, admin.commitCreateUser); //Create user with temp password
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);

@@ -7,16 +7,31 @@ const algorithm = 'aes-256-ctr'
 
 const crypto = require('crypto');
 
+/**
+ *  This class handles the encryption for user passwords.
+ *  @class
+ */
 class Encryption {
 
-  // Creates a random value for use as salt
+  /**
+   *  @function salt
+   *  @memberof Encryption
+   *  @description Creates a random value for use as salt.
+   *  @return {hex} salt
+   */
   salt() {
     return crypto.randomBytes(32).toString('hex').slice(0,32);
   }
 
-  // Creates a cryptographic hash of the provided
-  // plaintext, with additional salt using a module
-  // specific secret
+  /**
+   *  @function digest
+   *  @param {string} plaintext - The plain text password.
+   *  @memberof Encryption
+   *  @description Creates a cryptographic hash of the provided
+   *  plaintext, with additional salt using a module
+   *  specific secret.
+   *  @return {hex} digest
+   */
   digest(plaintext) {
     const hash = crypto.createHash('sha256');
     hash.update(plaintext);
@@ -24,6 +39,13 @@ class Encryption {
     return hash.digest('hex');
   }
 
+  /**
+   *  @function encipher
+   *  @param {string} plaintext - The plain text password.
+   *  @memberof Encryption
+   *  @description Enciphers a plain text password.
+   *  @return {hex} encrypted
+   */
   encipher(plaintext) {
     const cipher = crypto.createCipher(algorithm, secret);
     var encrypted = cipher.update(plaintext, 'utf8', 'hex');
@@ -31,6 +53,13 @@ class Encryption {
     return encrypted;
   }
 
+  /**
+   *  @function decipher
+   *  @param {string} crypttext - The encrypted password.
+   *  @memberof Encryption
+   *  @description Deciphers encrypted password.
+   *  @return {utf8} deciphered
+   */
   decipher(crypttext) {
     const decipher = crypto.createCipher(algorithm, secret);
     var deciphered = decipher.update(crypttext, 'hex', 'utf8');
