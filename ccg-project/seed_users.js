@@ -53,7 +53,8 @@ var encryption = require('./encryption.js'),
        db.run("INSERT INTO users (name, username, email, is_admin, password_digest, salt, temp_password) values (?,?,?,?,?,?,?)",
          'Another User',                       //name
          'user2',                              //username
-         'user_2@none.com',                    //email
+         //'user_2@none.com',                    //email
+         'corey.porubsky@gmail.com',
          false,                                //not admin
          null,                                 //digest (NULL)
          salt,                                 //salt

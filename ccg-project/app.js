@@ -36,7 +36,7 @@ var express = require('express'),
     app.get('/login', session.login);  //user login form
     app.post('/login', session.start); //create session
     app.get('/logout', no_guests, session.stop);  //deletes session
-    //app.get('/reset', session.reset);  //reset user account
+
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
@@ -63,6 +63,8 @@ var express = require('express'),
     var user = require('./endpoints/user');
     app.get('/user/confirm', user.confirm);
     app.post('/user/confirm', user.commitConfirm);
+    app.get('/user/reset', user.reset);  //send to page to reset password
+    app.post('/user/reset', user.resetPassword); //send message to reset password
 
     //app.get('/manageusers', admin_only, admin.manageusers);
 
