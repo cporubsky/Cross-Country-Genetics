@@ -21,6 +21,7 @@ class Session {
    *  @description Redirects to login page.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   redirect(req, res) {
       res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
@@ -33,6 +34,7 @@ class Session {
    *  @description Renders a login form with no error message.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   login(req, res) {
     res.render('session/login', {title: company_name, message: "", user: req.user});
@@ -45,6 +47,7 @@ class Session {
    *  If login fails, the page will be redirected back to login with error message.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   start(req, res, next) {
     req.session.reset();
@@ -73,6 +76,7 @@ class Session {
    *  @description Ends a user session by flushing the session cookie.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   stop(req, res) {
     req.session.reset();

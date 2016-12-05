@@ -21,7 +21,9 @@
     "supertest": "^2.0.1",
     "supertest-session": "^2.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "latodoc": "github:smeijer/latodoc"
+  },
   "scripts": {
     "doc": "jsdoc -c node_modules/jsdoc/conf.json",
     "start": "node app.js",

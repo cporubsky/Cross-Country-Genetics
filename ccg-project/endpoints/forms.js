@@ -16,6 +16,7 @@ class Forms {
    *  @description Sends user to ABC form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   abcForm(req, res){
 	  res.render('forms/formAbc', {user: req.user});
@@ -27,6 +28,7 @@ class Forms {
    *  @description Sends user to First form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   firstForm(req, res){
 	  res.render('forms/firstForm', {user: req.user});
@@ -38,6 +40,7 @@ class Forms {
    *  @description Sends user to Donor Cow Enrollment form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   donorCowEnrollment(req, res){
 	  res.render('forms/donorCowEnrollment', {user: req.user});
@@ -49,6 +52,7 @@ class Forms {
    *  @description Sends user to Cane Code Log form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   caneCodeLog(req, res){
 	  res.render('forms/caneCodeLog', {user: req.user});
@@ -60,6 +64,7 @@ class Forms {
    *  @description Sends user to view forms.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   viewForms(req, res){
     res.render('forms/viewForms', {user: req.user});
@@ -71,6 +76,7 @@ class Forms {
    *  @description Ajax for ABC form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   formAbcAjax(req, res){
     console.log("In the ajax receive)")
@@ -89,7 +95,7 @@ class Forms {
       );
       res.redirect('forms/formAbc');
     });
-  }
+  } //end formAbcAjax
 
 }
 

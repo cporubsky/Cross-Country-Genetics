@@ -18,9 +18,10 @@ class User {
   /**
    *  @function confirm
    *  @memberof User
-   *  @description Sends to page to confirm a user.
+   *  @description Sends to page to confirm a new user.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   confirm(req, res) {
     res.render('user/confirm', {title: "confirm", user: req.user, message: ""});
@@ -29,9 +30,10 @@ class User {
   /**
    *  @function commitConfirm
    *  @memberof User
-   *  @description Updates appropriate fields if user can be confirmed.
+   *  @description Updates appropriate fields if new user can be confirmed.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   commitConfirm(req, res) {
     var form = new formidable.IncomingForm();

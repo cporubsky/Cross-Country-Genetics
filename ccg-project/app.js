@@ -1,10 +1,4 @@
-/**
- * @fileOverview Cross Country Genetics Application
- * @author Corey Porubsky
- * @author AJ Cabanatuan
- * @author Mark Loevenstein
- * @version 1.0
- */
+
 
 var express = require('express'),
     app = express(),
@@ -30,6 +24,12 @@ var express = require('express'),
 
     //set static directory
     app.use(express.static('public'));
+
+    //set api static directory, route, and only users allowed
+    app.use('/api', no_guests, express.static('out'));
+
+    var api = require('./endpoints/api');
+    app.get('/api', api.index); //api index
 
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'

@@ -17,6 +17,7 @@ class Landing {
    *  @description Sends user to landing page.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   index(req, res){
       res.render('landing/index', {title: "Index", user: req.user});

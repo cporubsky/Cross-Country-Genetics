@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -56,7 +56,6 @@ class Forms {
    *  @description Sends user to ABC form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   abcForm(req, res){
 	  res.render('forms/formAbc', {user: req.user});
@@ -68,7 +67,6 @@ class Forms {
    *  @description Sends user to First form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   firstForm(req, res){
 	  res.render('forms/firstForm', {user: req.user});
@@ -80,7 +78,6 @@ class Forms {
    *  @description Sends user to Donor Cow Enrollment form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   donorCowEnrollment(req, res){
 	  res.render('forms/donorCowEnrollment', {user: req.user});
@@ -92,7 +89,6 @@ class Forms {
    *  @description Sends user to Cane Code Log form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   caneCodeLog(req, res){
 	  res.render('forms/caneCodeLog', {user: req.user});
@@ -104,7 +100,6 @@ class Forms {
    *  @description Sends user to view forms.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   viewForms(req, res){
     res.render('forms/viewForms', {user: req.user});
@@ -116,7 +111,6 @@ class Forms {
    *  @description Ajax for ABC form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   formAbcAjax(req, res){
     console.log("In the ajax receive)")
@@ -135,7 +129,7 @@ class Forms {
       );
       res.redirect('forms/formAbc');
     });
-  } //end formAbcAjax
+  }
 
 }
 
@@ -152,7 +146,7 @@ module.exports = exports = new Forms();
 <br class="clear">
 
 <footer>
-    <!-- Documentation generated at Mon Dec 05 2016 09:09:30 GMT-0600 (CST) -->
+    Documentation generated at Fri Dec 02 2016 23:38:41 GMT-0600 (CST)
 </footer>
 
 <script>prettyPrint();</script>

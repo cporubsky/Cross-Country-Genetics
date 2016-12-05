@@ -16,8 +16,9 @@ class Admin {
    *  @function index
    *  @memberof Admin
    *  @description Sends admin to page to manage various items.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
+   *  @param {req} Request - Http Request Object
+   *  @param {res} Response - Http Response Object
+   *  @instance
    */
   index(req, res) {
     var user = db.all('SELECT * FROM users', function(err, users){
@@ -35,6 +36,7 @@ class Admin {
    *  @description Sends admin to page to create a user.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   createUser(req, res) {
     res.render('admin/create', {title: manage_users, user: req.user, message: ""});
@@ -47,6 +49,7 @@ class Admin {
    *  @description Inserts user in user table with temp password.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   commitCreateUser(req, res) {
 
@@ -119,6 +122,7 @@ class Admin {
    *  @description Deletes user out of user table.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   deleteUser(req, res) {
     db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
@@ -136,6 +140,7 @@ class Admin {
    *  @description Selects user in user table to edit.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   edit(req, res) {
     var form = new formidable.IncomingForm();
@@ -158,6 +163,7 @@ class Admin {
    *  @description Updates user in user table with appropriate edits.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
+   *  @instance
    */
   commitEdit(req, res) {
     var form = new formidable.IncomingForm();
