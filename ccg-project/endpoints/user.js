@@ -42,20 +42,18 @@ class User {
       var second = fields.second.toString().trim();
       var salt = encryption.salt();
 
+      //check if username matches with temp password
       db.get('SELECT * from users WHERE username = ? AND temp_password = ?', fields.username, fields.temporary, (err, row) => {
         console.log(row);
-        if(row === null) {
+        //no such user or temp password
+        if(row == null) {
           console.log("Error");
           //redirect to confirm page with an error
-          //res.render('admin/edit', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
         }
 
-        //a username matches
+        //check if both new passwords match
         if(first === second) {
-          //TODO ONLY FOR DEBUGGING
-          // console.log("MATCH!");
-          // console.log(fields);
-
           var password = encryption.digest(first + salt);
           db.run('UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?',
              password,
@@ -89,7 +87,7 @@ class User {
     });
     //TODO MAY NOT NEED THIS HERE
     //res send status
-    res.redirect("/login");
+    //res.redirect("/login");
   }
 
   //resetPassword(req, res) {
