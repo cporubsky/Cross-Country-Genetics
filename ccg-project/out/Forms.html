@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Forms</title>
+    <title>Forms - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Class: Forms</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Forms</h1>
+    
 
     
 
@@ -28,7 +40,9 @@
 
 <header>
     
-        <h2>Forms</h2>
+        <h2>
+        Forms
+        </h2>
         
             <div class="class-description">This class handles forms.</div>
         
@@ -140,7 +154,7 @@
 
     
 
-    <h4 class="name" id=".abcForm"><span class="type-signature">(static) </span>abcForm<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="abcForm"><span class="type-signature"></span>abcForm<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
 
     
 
@@ -290,6 +304,776 @@
 
 
         
+            
+
+    
+
+    <h4 class="name" id="caneCodeLog"><span class="type-signature"></span>caneCodeLog<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sends user to Cane Code Log form.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Request Object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Response Object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="endpoints_forms.js.html">endpoints/forms.js</a>, <a href="endpoints_forms.js.html#line49">line 49</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="donorCowEnrollment"><span class="type-signature"></span>donorCowEnrollment<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sends user to Donor Cow Enrollment form.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Request Object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Response Object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="endpoints_forms.js.html">endpoints/forms.js</a>, <a href="endpoints_forms.js.html#line37">line 37</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="firstForm"><span class="type-signature"></span>firstForm<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sends user to First form.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Request Object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Response Object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="endpoints_forms.js.html">endpoints/forms.js</a>, <a href="endpoints_forms.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="formAbcAjax"><span class="type-signature"></span>formAbcAjax<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Ajax for ABC form.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Request Object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Response Object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="endpoints_forms.js.html">endpoints/forms.js</a>, <a href="endpoints_forms.js.html#line73">line 73</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="viewForms"><span class="type-signature"></span>viewForms<span class="signature">(Request, Response)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    Sends user to view forms.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Request Object</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Response</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Http Response Object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="endpoints_forms.js.html">endpoints/forms.js</a>, <a href="endpoints_forms.js.html#line61">line 61</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -304,17 +1088,14 @@
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a></li><li><a href="Encryption.html">Encryption</a></li><li><a href="Forms.html">Forms</a></li><li><a href="Landing.html">Landing</a></li><li><a href="Session.html">Session</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Mon Oct 17 2016 09:52:50 GMT-0500 (CDT)
+    <!-- Commented out below code to not show date in documentation -->
+    <!-- Documentation generated at Mon Dec 05 2016 09:26:58 GMT-0600 (CST) -->
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>

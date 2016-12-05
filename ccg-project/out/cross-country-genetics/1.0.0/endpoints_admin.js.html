@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -52,14 +52,18 @@ var db = require('../db'),
  */
 class Admin {
 
-  /**
-   *  @function index
-   *  @memberof Admin
-   *  @description Sends admin to page to manage various items.
-   *  @param {req} Request - Http Request Object
-   *  @param {res} Response - Http Response Object
-   *  @instance
-   */
+/**
+* findPostById
+*
+* returns a post in the Posts collection.
+*
+* @public
+* @param {req} req - The HTTP request object.
+* @param {res} res - The HTTP response object.
+* @return {post} post - A post from the Posts collection.
+* @see {@link http://expressjs.com/api.html#req}
+* @see {@link http://expressjs.com/api.html#res}
+*/
   index(req, res) {
     var user = db.all('SELECT * FROM users', function(err, users){
       if(err) {
@@ -76,7 +80,6 @@ class Admin {
    *  @description Sends admin to page to create a user.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   createUser(req, res) {
     res.render('admin/create', {title: manage_users, user: req.user, message: ""});
@@ -89,7 +92,6 @@ class Admin {
    *  @description Inserts user in user table with temp password.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   commitCreateUser(req, res) {
 
@@ -162,7 +164,6 @@ class Admin {
    *  @description Deletes user out of user table.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   deleteUser(req, res) {
     db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
@@ -180,7 +181,6 @@ class Admin {
    *  @description Selects user in user table to edit.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   edit(req, res) {
     var form = new formidable.IncomingForm();
@@ -203,7 +203,6 @@ class Admin {
    *  @description Updates user in user table with appropriate edits.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   commitEdit(req, res) {
     var form = new formidable.IncomingForm();
@@ -238,8 +237,7 @@ module.exports = exports = new Admin();
 <br class="clear">
 
 <footer>
-    <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Mon Dec 05 2016 09:26:58 GMT-0600 (CST) -->
+    Documentation generated at Fri Dec 02 2016 23:38:41 GMT-0600 (CST)
 </footer>
 
 <script>prettyPrint();</script>

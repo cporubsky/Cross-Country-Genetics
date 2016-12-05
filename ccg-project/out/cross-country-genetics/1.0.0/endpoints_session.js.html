@@ -23,7 +23,7 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
 </nav>
 
 <div id="main">
@@ -61,7 +61,6 @@ class Session {
    *  @description Redirects to login page.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   redirect(req, res) {
       res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
@@ -74,7 +73,6 @@ class Session {
    *  @description Renders a login form with no error message.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   login(req, res) {
     res.render('session/login', {title: company_name, message: "", user: req.user});
@@ -87,7 +85,6 @@ class Session {
    *  If login fails, the page will be redirected back to login with error message.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   start(req, res, next) {
     req.session.reset();
@@ -116,7 +113,6 @@ class Session {
    *  @description Ends a user session by flushing the session cookie.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
   stop(req, res) {
     req.session.reset();
@@ -139,8 +135,7 @@ module.exports = exports = new Session();
 <br class="clear">
 
 <footer>
-    <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Mon Dec 05 2016 09:26:58 GMT-0600 (CST) -->
+    Documentation generated at Fri Dec 02 2016 23:38:41 GMT-0600 (CST)
 </footer>
 
 <script>prettyPrint();</script>

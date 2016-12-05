@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>endpoints/session.js - Documentation</title>
+    <title>endpoints/user.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">endpoints/session.js</h1>
+    <h1 class="page-title">endpoints/user.js</h1>
     
 
     
@@ -40,93 +40,104 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict"
 
-var encryption = require('../encryption'),
-    db = require('../db'),
+var db = require('../db'),
+    encryption = require('../encryption'),
     formidable = require('formidable'),
-    company_name = "Cross Country Genetics",
-    logged_out = "Logged Out!",
-    login_failed = "Login Failed. Please try again.",
-    guest = "Guest";
-
+    manage_users = "Admin Console",
+    randomstring = require("randomstring"),
+    nodemailer = require('nodemailer');
 
 /**
- *  This class handles the encryption for user passwords.
+ *  This class handles user functions.
  *  @class
  */
-class Session {
+ //These are funtions that users have access to.
+ //Both admins and std users have access to these.
+class User {
 
   /**
-   *  @function redirect
-   *  @memberof Session
-   *  @description Redirects to login page.
+   *  @function confirm
+   *  @memberof User
+   *  @description Sends to page to confirm a new user.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  redirect(req, res) {
-      res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
-          res.end("This page has moved to &lt;a href='/login'>login&lt;/a>");
-    }
-
-  /**
-   *  @function login
-   *  @memberof Session
-   *  @description Renders a login form with no error message.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  login(req, res) {
-    res.render('session/login', {title: company_name, message: "", user: req.user});
+  confirm(req, res) {
+    res.render('user/confirm', {title: "confirm", user: req.user, message: ""});
   }
 
   /**
-   *  @function start
-   *  @memberof Session
-   *  @description Creates a new session, provided the username and password match one in the database.
-   *  If login fails, the page will be redirected back to login with error message.
+   *  @function commitConfirm
+   *  @memberof User
+   *  @description Updates appropriate fields if new user can be confirmed.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  start(req, res, next) {
-    req.session.reset();
+  commitConfirm(req, res) {
     var form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-      //console.log(fields);
-      if(err) return res.sendStatus(500);
-      db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
-        if(err || !user) {
-          res.statusCode = 500;
-           return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-         }
-        if(user.password_digest != encryption.digest(fields.password + user.salt)) {
-          res.statusCode = 500;
-         return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-       }
-        req.session.user_id = user.id;
-        return res.redirect('/index');
+    form.parse(req, function(err, fields, files) {
+      var first = fields.first.toString().trim();
+      var second = fields.second.toString().trim();
+      var salt = encryption.salt();
+
+      db.get('SELECT * from users WHERE username = ? AND temp_password = ?', fields.username, fields.temporary, (err, row) => {
+        console.log(row);
+        if(row === null) {
+          console.log("Error");
+          //redirect to confirm page with an error
+          //res.render('admin/edit', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+        }
+
+        //a username matches
+        if(first === second) {
+          //TODO ONLY FOR DEBUGGING
+          // console.log("MATCH!");
+          // console.log(fields);
+
+          var password = encryption.digest(first + salt);
+          db.run('UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?',
+             password,
+             null,
+             salt,
+             fields.username
+          );
+          //redirect to login
+          // res.redirect('/login');
+        }
+
+
+        //if they dont match
+        //redirect to confirm page with an error
+
+
       });
+
+      // //TODO ONLY FOR DEBUGGING
+      // console.log("After Insert:\n");
+      // db.get('SELECT * from users WHERE username = ?', fields.username, (err, row) => {
+      //
+      //   console.log(row);
+      //
+      // });
+
+
+
+
+
     });
+    //TODO MAY NOT NEED THIS HERE
+    //res send status
+    res.redirect("/login");
   }
 
-  /**
-   *  @function stop
-   *  @memberof Session
-   *  @description Ends a user session by flushing the session cookie.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  stop(req, res) {
-    req.session.reset();
-    return res.render("session/logout", {title: logged_out, user: {username: guest}});
-  }
-
+  //resetPassword(req, res) {
+    //TODO
+  //}
 
 }
-
-module.exports = exports = new Session();
+module.exports = exports = new User();
 </code></pre>
         </article>
     </section>

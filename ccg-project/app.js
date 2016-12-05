@@ -1,10 +1,4 @@
-/**
- * @fileOverview Cross Country Genetics Application
- * @author Corey Porubsky
- * @author AJ Cabanatuan
- * @author Mark Loevenstein
- * @version 1.0
- */
+
 
 var express = require('express'),
     app = express(),
@@ -31,6 +25,12 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
+    //set api static directory, route, and only users allowed
+    app.use('/api', no_guests, express.static('out'));
+
+    var api = require('./endpoints/api');
+    app.get('/api', api.index); //api index
+
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'
     app.get('/login', session.login);  //user login form
@@ -54,7 +54,7 @@ var express = require('express'),
     var admin = require('./endpoints/admin');
     app.get('/admin', admin_only, admin.index);  //Admin landing page
     app.get('/admin/create', admin_only, admin.createUser); //Create user form
-    app.post('/admin/create', admin_only, admin.createUser2); //Create user form
+    app.post('/admin/create', admin_only, admin.commitCreateUser); //Create user with temp password
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>endpoints/session.js - Documentation</title>
+    <title>endpoints/api.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -28,7 +28,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">endpoints/session.js</h1>
+    <h1 class="page-title">endpoints/api.js</h1>
     
 
     
@@ -40,93 +40,29 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict"
 
-var encryption = require('../encryption'),
-    db = require('../db'),
-    formidable = require('formidable'),
-    company_name = "Cross Country Genetics",
-    logged_out = "Logged Out!",
-    login_failed = "Login Failed. Please try again.",
-    guest = "Guest";
-
-
 /**
- *  This class handles the encryption for user passwords.
+ *  This class handles api functions.
  *  @class
  */
-class Session {
+class Api {
 
   /**
-   *  @function redirect
-   *  @memberof Session
-   *  @description Redirects to login page.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
+   *  @function index
+   *  @memberof Api
+   *  @description Sends user to api documentation.
+   *  @param {req} Request - Http Request Object
+   *  @param {res} Response - Http Response Object
    *  @instance
    */
-  redirect(req, res) {
-      res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
-          res.end("This page has moved to &lt;a href='/login'>login&lt;/a>");
-    }
+  index(req, res) {
 
-  /**
-   *  @function login
-   *  @memberof Session
-   *  @description Renders a login form with no error message.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  login(req, res) {
-    res.render('session/login', {title: company_name, message: "", user: req.user});
-  }
-
-  /**
-   *  @function start
-   *  @memberof Session
-   *  @description Creates a new session, provided the username and password match one in the database.
-   *  If login fails, the page will be redirected back to login with error message.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  start(req, res, next) {
-    req.session.reset();
-    var form = new formidable.IncomingForm();
-    form.parse(req, (err, fields, files) => {
-      //console.log(fields);
-      if(err) return res.sendStatus(500);
-      db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
-        if(err || !user) {
-          res.statusCode = 500;
-           return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-         }
-        if(user.password_digest != encryption.digest(fields.password + user.salt)) {
-          res.statusCode = 500;
-         return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
-       }
-        req.session.user_id = user.id;
-        return res.redirect('/index');
-      });
-    });
-  }
-
-  /**
-   *  @function stop
-   *  @memberof Session
-   *  @description Ends a user session by flushing the session cookie.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  stop(req, res) {
-    req.session.reset();
-    return res.render("session/logout", {title: logged_out, user: {username: guest}});
+    //res.render('admin/users', {title: manage_users, user: req.user, users: users});
+    res.render('./out/index');
   }
 
 
 }
-
-module.exports = exports = new Session();
+module.exports = exports = new Api();
 </code></pre>
         </article>
     </section>

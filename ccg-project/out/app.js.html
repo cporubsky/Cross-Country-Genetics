@@ -2,22 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: app.js</title>
+    <title>app.js - Documentation</title>
 
-    <script src="scripts/prettify/prettify.js"> </script>
-    <script src="scripts/prettify/lang-css.js"> </script>
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
     <!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
 </head>
-
 <body>
 
-<div id="main">
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
 
-    <h1 class="page-title">Source: app.js</h1>
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#.index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">app.js</h1>
+    
 
     
 
@@ -34,15 +46,13 @@
  * @version 1.0
  */
 
-
-
 var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
-    PORT = 80;
+    PORT = 8080;
 
     app.set('view engine', 'ejs');   //set view to ejs
     app.set('views', './templates'); //set templates directory
@@ -65,27 +75,43 @@ var express = require('express'),
     app.get('/', session.redirect);    //redirects to '/login'
     app.get('/login', session.login);  //user login form
     app.post('/login', session.start); //create session
-    app.get('/logout', session.stop);  //deletes session
-    app.get('/reset', session.reset);  //reset user account
+    app.get('/logout', no_guests, session.stop);  //deletes session
+    //app.get('/reset', session.reset);  //reset user account
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);
+    app.post('/formAbc', forms.formAbcAjax);
+    app.get('/firstForm', no_guests, forms.firstForm);
+    app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
+    app.get('/caneCodeLog', no_guests, forms.caneCodeLog);
+    app.get('/viewForms', no_guests, forms.viewForms);
 
     /* admin routes accessible only if
     a user account is an admin account */
     var admin = require('./endpoints/admin');
-    app.get('/admin/manage', admin_only, admin.index);  //Admin landing page
-    app.get('/admin/create', admin_only, admin.createUser); //Create user
-    //app.get('/manageusers', admin_only, admin.manageusers);
+    app.get('/admin', admin_only, admin.index);  //Admin landing page
+    app.get('/admin/create', admin_only, admin.createUser); //Create user form
+    app.post('/admin/create', admin_only, admin.commitCreateUser); //Create user with temp password
+    app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
+    app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
+    app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
 
+    //used to confirm new user
+    var user = require('./endpoints/user');
+    app.get('/user/confirm', user.confirm);
+    app.post('/user/confirm', user.commitConfirm);
+
+    //app.get('/manageusers', admin_only, admin.manageusers);
 
     //start express app
     app.listen(PORT, () => {
-      console.log("Listening on port " + PORT);
+      console.log("Listening on port " + PORT + "\n");
     });
+
+    module.exports = exports = app;
 </code></pre>
         </article>
     </section>
@@ -95,17 +121,13 @@ var express = require('express'),
 
 </div>
 
-<nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a></li><li><a href="Encryption.html">Encryption</a></li><li><a href="Forms.html">Forms</a></li><li><a href="Landing.html">Landing</a></li><li><a href="Session.html">Session</a></li></ul>
-</nav>
-
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.1</a> on Mon Oct 17 2016 09:52:50 GMT-0500 (CDT)
+    Documentation generated at Fri Dec 02 2016 22:43:34 GMT-0600 (CST)
 </footer>
 
-<script> prettyPrint(); </script>
-<script src="scripts/linenumber.js"> </script>
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
 </body>
 </html>
