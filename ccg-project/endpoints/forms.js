@@ -1,5 +1,7 @@
 "use strict"
 
+const config = require('../config/config.json');
+
 var db = require('../db'),
     formidable = require('formidable');
 

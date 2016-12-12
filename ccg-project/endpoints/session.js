@@ -1,5 +1,7 @@
 "use strict"
 
+const config = require('../config/config.json');
+
 var encryption = require('../encryption'),
     db = require('../db'),
     formidable = require('formidable'),
@@ -7,6 +9,14 @@ var encryption = require('../encryption'),
     logged_out = "Logged Out!",
     login_failed = "Login Failed. Please try again.",
     guest = "Guest";
+
+    //var log = log4js.getLogger("info");
+    var logger = require('log4js').getLogger("info");
+
+    //has one in user.js also
+    function selectUserByUsername() {
+      return 'SELECT * FROM users WHERE username = ?';
+    }
 
 
 /**
@@ -25,7 +35,7 @@ class Session {
    */
   redirect(req, res) {
       res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
-          res.end("This page has moved to <a href='/login'>login</a>");
+      res.end("This page has moved to <a href='/login'>login</a>");
     }
 
   /**
@@ -37,7 +47,8 @@ class Session {
    *  @instance
    */
   login(req, res) {
-    res.render('session/login', {title: company_name, message: "", user: req.user});
+    logger.info("Login page rendered.");
+    res.render('session/login', {title: config.company_name, message: "", user: req.user});
   }
 
   /**
@@ -50,20 +61,28 @@ class Session {
    *  @instance
    */
   start(req, res, next) {
+    logger.info("New session requested.")
     req.session.reset();
     var form = new formidable.IncomingForm();
     form.parse(req, (err, fields, files) => {
       //console.log(fields);
       if(err) return res.sendStatus(500);
-      db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
+      db.get(selectUserByUsername(), fields.username, (err, user) => {
         if(err || !user) {
+          logger.error("No user found.");
+          logger.error("Session request denied.");
+          logger.info("Login page rendered.");
           res.statusCode = 500;
-           return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+           return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
+          logger.error("No user/password match found.");
+          logger.error("Session request denied.");
+          logger.info("Login page rendered.");
           res.statusCode = 500;
-         return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+         return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
        }
+        logger.info("Session request approved.")
         req.session.user_id = user.id;
         return res.redirect('/index');
       });

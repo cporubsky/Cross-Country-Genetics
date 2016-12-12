@@ -1,11 +1,28 @@
 "use strict"
 
+const config = require('../config/config.json');
+
 var db = require('../db'),
     encryption = require('../encryption'),
     formidable = require('formidable'),
     manage_users = "Admin Console",
     randomstring = require("randomstring"),
     nodemailer = require('nodemailer');
+
+
+    function selectUserByUNameTemp() {
+      return 'SELECT * from users WHERE username = ? AND temp_password = ?';
+    }
+
+    function updateUserCommit() {
+      return 'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?';
+    }
+
+    //has one in session.js also
+    function selectUserByUsername() {
+      return 'SELECT * FROM users WHERE username = ?';
+    }
+
 
 /**
  *  This class handles user functions.
@@ -66,7 +83,7 @@ class User {
       var salt = encryption.salt();
 
       //check if username matches with temp password
-      db.get('SELECT * from users WHERE username = ? AND temp_password = ?', fields.username, fields.temporary, (err, row) => {
+      db.get(selectUserByUNameTemp(), fields.username, fields.temporary, (err, row) => {
         console.log(row);
         //no such user or temp password
         if(row == null) {
@@ -79,7 +96,7 @@ class User {
           //check if both new passwords match
           if(first === second) {
             var password = encryption.digest(first + salt);
-            db.run('UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?',
+            db.run(updateUserCommit(),
                password,
                null,
                salt,
@@ -133,7 +150,7 @@ class User {
 
 
       //check if username matches with temp password
-      db.get('SELECT * from users WHERE username = ?', userName, (err, row) => {
+      db.get(selectUserByUsername(), userName, (err, row) => {
         console.log(row);
         //no such user or temp password
         if(row == null) {
@@ -160,12 +177,19 @@ class User {
           //there is a user, send them a temp password
           //sendMail(transporter, tempPassword);
 
+          
+          //Formally:
+          //'UPDATE users set temp_password = ?, password_digest = ?, salt = ? where username = ?'
+          //tempPassword,
+          //null,
+          //null,
+          //userName,
 
-
+          //'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?'
           //TODO need to update temp password, update password to NULL
-          db.run('UPDATE users set temp_password = ?, password_digest = ?, salt = ? where username = ?',
-            tempPassword,
+          db.run(updateUserCommit(),
             null,
+            tempPassword,
             null,
             userName,
             (err, user) => {

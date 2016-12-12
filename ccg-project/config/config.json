@@ -1,8 +1,9 @@
 {
+  "company_name": "Cross Country Genetics",
   "email": {
     "transporter": {
       "user": "ccgkansas@gmail.com",
-      "password": "ccgkansas1",
+      "pass": "ccgkansas1",
       "service": "Gmail"
     },
     "message": {
@@ -12,50 +13,33 @@
       "reset_pw_html": ""
     }
   },
-  "title": {
-    "admin": {
-      "admin_console": "",
-      "message2": ""
-    },
-    "user": "",
-    "session": "",
-    "landing": "",
-    "forms": "",
-    "api": "",
-    "form1": "",
-    "form2": "",
-    "form3": ""
+  "landing": {
+    "home": "Home",
+    "message2": ""
   },
-  "message": {
-    "admin": {
-      "message1": "",
-      "message2": ""
-    },
-    "user": {
-      "message1": "",
-      "message2": ""
-    },
-    "session": {
-      "message1": "",
-      "message2": ""
-    },
-    "landing": {
-      "message1": "",
-      "message2": ""
-    },
-    "forms": {
-      "message1": "",
-      "message2": ""
-    },
-    "api": {
-      "message1": "",
-      "message2": ""
-    }
+  "admin": {
+    "console": "Admin Console",
+    "message2": ""
+  },
+  "user": {
+    "message1": "",
+    "message2": ""
+  },
+  "session": {
+    "message1": "",
+    "message2": ""
+  },
+  "forms": {
+    "message1": "",
+    "message2": ""
+  },
+  "api": {
+    "message1": "",
+    "message2": ""
   },
   "database": {
     "name": ""
   },
-  "company_name": "Cross Country Genetics",
   "user": {
     "guest": "Guest"
   }

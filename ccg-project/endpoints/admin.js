@@ -1,10 +1,75 @@
 "use strict"
 
+const config = require('../config/config.json');
+
 var db = require('../db'),
     formidable = require('formidable'),
-    manage_users = "Admin Console",
+    //manage_users = "Admin Console",
     randomstring = require("randomstring"),
     nodemailer = require('nodemailer');
+
+
+
+    function createTransporter() {
+      return nodemailer.createTransport({
+        service: config.email.transporter.service,
+        auth: {
+          user: config.email.transporter.user,
+          pass: config.email.transporter.pass
+        }
+      });
+    }
+
+    function generateTempPassword() {
+      return randomstring.generate({
+        length: 12,
+        charset: 'alphanumeric'
+      });
+    }
+
+    function sendMail(trans, tempPass) {
+      trans.sendMail({
+        from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
+        to: 'corey.porubsky@gmail.com',
+        subject: 'Action Required',
+        html: '<p> You were added as a new user for Cross Country Genetics. </p>' +
+        '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
+        '<a href="http://google.com">http://google.com</a>' +
+        '<p>' + tempPass + '</p>'
+      }, function(error, info){
+        if(error){
+          console.log(error);
+          return false;
+        }
+        console.log("Success in sendMail Function");
+        return true;
+      });
+    }
+
+    function selectAllUsers() {
+      return 'SELECT * FROM users';
+    }
+
+    function selectUserById() {
+      return 'SELECT * from users WHERE id = ?';
+    }
+
+    function selectUserNotById() {
+      return 'SELECT * from users WHERE name = ? or username = ? or email = ?';
+    }
+
+    function insertNewUser() {
+      return 'INSERT INTO users (name, username, email, is_admin, temp_password) values (?,?,?,?,?)';
+    }
+
+    function deleteUserById() {
+      return 'DELETE FROM users WHERE id=?';
+    }
+
+    function updateUserById() {
+      return 'UPDATE users set name = ?, username = ?, email = ?, is_admin = ? where id = ?';
+    }
+
 
 /**
  *  This class handles admin functions.
@@ -21,12 +86,13 @@ class Admin {
    *  @instance
    */
   index(req, res) {
-    var user = db.all('SELECT * FROM users', function(err, users){
+    //var user = db.all('SELECT * FROM users', function(err, users){
+    var user = db.all(selectAllUsers(), function(err, users){
       if(err) {
         console.error(err);
         return res.sendStatus(500);
       }
-    res.render('admin/users', {title: manage_users, user: req.user, users: users});
+    res.render('admin/users', {title: config.admin.console, user: req.user, users: users});
     });
   }
 
@@ -39,9 +105,8 @@ class Admin {
    *  @instance
    */
   createUser(req, res) {
-    res.render('admin/create', {title: manage_users, user: req.user, message: ""});
+    res.render('admin/create', {title: config.admin.console, user: req.user, message: ""});
   }
-
 
   /**
    *  @function commitCreateUser
@@ -53,39 +118,25 @@ class Admin {
    */
   commitCreateUser(req, res) {
 
-    //generate temp password
-    var tempPassword = randomstring.generate({
-      length: 12,
-      charset: 'alphanumeric'
-      });
+    var tempPassword = generateTempPassword();
 
-    //create transporter
-    var transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: 'ccgkansas@gmail.com',
-        pass: 'ccgkansas1'
-      }
-    });
 
     //parse form and insert data
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-
       db.serialize(function() {
         //checks to see if username or email exits
-        db.get('SELECT * from users WHERE name = ? or username = ? or email = ?',
+        db.get(selectUserNotById(),
           fields.name,
           fields.username,
           fields.email,
           (err, rows) => {
             if(rows != null) {
               //username is taken
-              return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops!"});
+              return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops!"});
             }
-
           //if we get here, no user exists, insert user
-          db.run('INSERT INTO users (name, username, email, is_admin, temp_password) values (?,?,?,?,?)',
+          db.run(insertNewUser(),
             fields.name,
             fields.username,
             fields.email,
@@ -94,22 +145,18 @@ class Admin {
             (err, user) => {
               if(err) {
                 //TODO set res status
-                return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
+                return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, In Insert!"});
             }
-            //TODO change html to better message, fine for now
-            transporter.sendMail({
-              from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
-              to: 'corey.porubsky@gmail.com',
-              subject: 'Action Required',
-              html: '<p> You were added as a new user for Cross Country Genetics. </p>' +
-              '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
-              '<a href="http://google.com">http://google.com</a>' +
-              '<p>' + tempPassword + '</p>'
-            }, function(error, info){
-              if(error) console.log(error);
-              console.log("Success");
-            });
-            return res.redirect('/admin');
+            var transporter = createTransporter();
+            var ok = new Boolean(sendMail(transporter, tempPassword));
+            if(!ok) {
+              console.log("Error in sending email.");
+              return res.redirect('/admin');
+            }
+            else {
+              console.log("Success! Email Sent!");
+              return res.redirect('/admin');
+            }
           }); //end insert
         }); //end check
       }); //end serialize
@@ -125,7 +172,7 @@ class Admin {
    *  @instance
    */
   deleteUser(req, res) {
-    db.run('DELETE FROM users WHERE id=?', req.params.id, function(err, users){
+    db.run(deleteUserById(), req.params.id, function(err, users){
       if(err) {
         console.error(err);
         return res.sendStatus(500);
@@ -145,14 +192,14 @@ class Admin {
   edit(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      db.get('SELECT * from users WHERE id = ?', req.params.id, (err, row) => {
+      db.get(selectUserById(), req.params.id, (err, row) => {
         //console.log(rows);
         if(row === null) {
           //alert("username taken");
           console.log("Error");
-          res.render('admin/edit', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops!"});
         }
-        res.render('admin/edit', {title: manage_users, user: req.user, users:row, message: ""});
+        res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: ""});
       });
     });
   }
@@ -169,7 +216,7 @@ class Admin {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       //console.log(fields)
-      db.run('UPDATE users set name = ?, username = ?, email = ?, is_admin = ? where id = ?',
+      db.run(updateUserById(),
         fields.name,
         fields.username,
         fields.email,

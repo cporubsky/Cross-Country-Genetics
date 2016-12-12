@@ -3,10 +3,16 @@
 var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
+    log4js = require('log4js'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
     PORT = 8080;
+
+    log4js.configure('./config/log4js.json');
+    var log = log4js.getLogger("info");
+
+    //app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
 
     app.set('view engine', 'ejs');   //set view to ejs
     app.set('views', './templates'); //set templates directory
@@ -70,6 +76,7 @@ var express = require('express'),
 
     //start express app
     app.listen(PORT, () => {
+      log.info("Listening on port " + PORT);
       console.log("Listening on port " + PORT + "\n");
     });
 
