@@ -7,6 +7,8 @@ var express = require('express'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
+    formidable = require('formidable'),
+    bodyParser = require('body-parser'),
     PORT = 8080;
 
     log4js.configure('./config/log4js.json');
@@ -31,11 +33,19 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
+
     //set api static directory, route, and only users allowed
     app.use('/api', no_guests, express.static('out'));
 
     var api = require('./endpoints/api');
     app.get('/api', api.index); //api index
+
+    app.use(bodyParser.urlencoded({
+      extended: true
+    }));
+
+    app.use(bodyParser.json());
+
 
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'
@@ -48,8 +58,20 @@ var express = require('express'),
     app.get('/index', no_guests, landing.index);
 
     var forms = require('./endpoints/forms');
-    app.get('/formAbc', no_guests, forms.abcForm);
+    app.get('/formAbc', forms.abcForm);
     app.post('/formAbc', forms.formAbcAjax);
+    /*app.post('/formAbc', function(req, res){
+      console.log(req.body.tag);
+      var form = new formidable.IncomingForm();
+      console.log(form);
+      console.log("form above");
+      form.parse(req, function(err, fields, files) {
+        if (err) console.log(err);
+        console.log("new method below");
+        console.log(fields.tag);
+      });//end serialize
+    });*/
+
     app.get('/firstForm', no_guests, forms.firstForm);
     app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);

@@ -4,16 +4,20 @@ import com.ccg.db.SQLiteJDBC;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Main {
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-    public static void main(String[] args) throws FileNotFoundException {
-        String filePath = "/Users/ajcabanatuan/Documents/se-project/Kansas Cane Code Log 111815.xlsx";
+public class Parser {
+
+    private static final Logger LOG = LogManager.getLogger(Parser.class);
+
+    public static void main(String[] args) {
+        String filePath = "/Users/ajcabanatuan/Projects/se-project/Kansas Cane Code Log 111815.xlsx";
         File file = new File(filePath);
         BufferedInputStream bir;
         BufferedReader reader;
@@ -77,8 +81,18 @@ public class Main {
                 }
                 sheetNumber++;
             }
+            int counter = 1;
+            for (List<String> row : rowList) {
+//                LOG.info("Entry: " + counter);
+                System.out.println("Entry: " + counter);
+                for (String cell : row) {
+//                    LOG.info("\t" + cell);
+                    System.out.println("\t" + cell);
+                }
+                counter++;
+            }
 
-            sqLiteJDBC.writeData(rowList);
+//            sqLiteJDBC.writeData(rowList);
 
             System.out.println("Successfully wrote data");
 
