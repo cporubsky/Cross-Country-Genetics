@@ -5,7 +5,7 @@
       "filename": "./log/info.log",
       "maxLogSize": 10485760,
       "backups": 3,
-      "category": "info",
+      "category": "logger",
       "layout": {
         "type": "pattern",
         "pattern": "[%d{MM-dd-yyyy} | %r] [%p] %m"

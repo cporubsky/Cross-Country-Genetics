@@ -11,7 +11,7 @@ var encryption = require('../encryption'),
     guest = "Guest";
 
     //var log = log4js.getLogger("info");
-    var logger = require('log4js').getLogger("info");
+    var logger = require('log4js').getLogger(config.logger);
 
     //has one in user.js also
     function selectUserByUsername() {
@@ -47,7 +47,6 @@ class Session {
    *  @instance
    */
   login(req, res) {
-    logger.info("Login page rendered.");
     res.render('session/login', {title: config.company_name, message: "", user: req.user});
   }
 
@@ -71,18 +70,17 @@ class Session {
         if(err || !user) {
           logger.error("No user found.");
           logger.error("Session request denied.");
-          logger.info("Login page rendered.");
           res.statusCode = 500;
            return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
           logger.error("No user/password match found.");
           logger.error("Session request denied.");
-          logger.info("Login page rendered.");
           res.statusCode = 500;
          return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
        }
-        logger.info("Session request approved.")
+        logger.info("Session request approved.");
+        logger.info("Session starting.")
         req.session.user_id = user.id;
         return res.redirect('/index');
       });
@@ -98,6 +96,7 @@ class Session {
    *  @instance
    */
   stop(req, res) {
+    logger.info("Session stopping.");
     req.session.reset();
     return res.render("session/logout", {title: logged_out, user: {username: guest}});
   }

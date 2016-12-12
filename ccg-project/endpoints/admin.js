@@ -8,6 +8,10 @@ var db = require('../db'),
     randomstring = require("randomstring"),
     nodemailer = require('nodemailer');
 
+    var logger = require('log4js').getLogger(config.logger);
+
+    const endpoint = "admin.js";
+
 
 
     function createTransporter() {
@@ -86,9 +90,11 @@ class Admin {
    *  @instance
    */
   index(req, res) {
+    logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
     var user = db.all(selectAllUsers(), function(err, users){
       if(err) {
+        logger.error("Error occured getting all users for admin console.");
         console.error(err);
         return res.sendStatus(500);
       }
@@ -117,6 +123,7 @@ class Admin {
    *  @instance
    */
   commitCreateUser(req, res) {
+    logger.info("User creation started.");
 
     var tempPassword = generateTempPassword();
 
@@ -133,6 +140,8 @@ class Admin {
           (err, rows) => {
             if(rows != null) {
               //username is taken
+              logger.error("Username is taken.");
+              logger.error("User creation unsuccessful.");
               return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops!"});
             }
           //if we get here, no user exists, insert user
@@ -145,16 +154,22 @@ class Admin {
             (err, user) => {
               if(err) {
                 //TODO set res status
+                //find specific error for logger
+                logger.error("Some error 1");
+                logger.error("User creation unsuccessful.");
                 return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, In Insert!"});
             }
             var transporter = createTransporter();
             var ok = new Boolean(sendMail(transporter, tempPassword));
             if(!ok) {
+              logger.error("Error in sending email.");
               console.log("Error in sending email.");
               return res.redirect('/admin');
             }
             else {
-              console.log("Success! Email Sent!");
+              logger.info("Success! Email sent!");
+              logger.info("User creation successful.");
+              console.log("Success! Email sent!");
               return res.redirect('/admin');
             }
           }); //end insert
@@ -172,11 +187,14 @@ class Admin {
    *  @instance
    */
   deleteUser(req, res) {
+    logger.info("User deletion started.");
     db.run(deleteUserById(), req.params.id, function(err, users){
       if(err) {
         console.error(err);
+        logger.error("User deletion unsuccessful.");
         return res.sendStatus(500);
       }
+      logger.info("User deletion successful.");
       return res.redirect('/admin');
     });
   }
@@ -190,15 +208,18 @@ class Admin {
    *  @instance
    */
   edit(req, res) {
+    logger.info("Get user to edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       db.get(selectUserById(), req.params.id, (err, row) => {
         //console.log(rows);
         if(row === null) {
           //alert("username taken");
+          logger.error("Get user to edit unsuccessful.");
           console.log("Error");
           res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops!"});
         }
+        logger.info("Get user to edit successful.");
         res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: ""});
       });
     });
@@ -213,6 +234,7 @@ class Admin {
    *  @instance
    */
   commitEdit(req, res) {
+    logger.info("Commit user edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       //console.log(fields)
@@ -223,6 +245,7 @@ class Admin {
         fields.role,
         req.params.id
       );
+      logger.info("Commit user edit successful.");
       res.redirect('/admin');
     });
   }

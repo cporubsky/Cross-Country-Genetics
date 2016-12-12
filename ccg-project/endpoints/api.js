@@ -1,10 +1,14 @@
 "use strict"
 
+const config = require('../config/config.json');
+var logger = require('log4js').getLogger(config.logger);
+
 /**
  *  This class handles api functions.
  *  @class
  */
 class Api {
+
 
   /**
    *  @function index

@@ -1,5 +1,5 @@
 
-
+const config = require('./config/config.json');
 var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
@@ -10,7 +10,7 @@ var express = require('express'),
     PORT = 8080;
 
     log4js.configure('./config/log4js.json');
-    var log = log4js.getLogger("info");
+    var logger = log4js.getLogger(config.logger);
 
     //app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
 
@@ -76,7 +76,7 @@ var express = require('express'),
 
     //start express app
     app.listen(PORT, () => {
-      log.info("Listening on port " + PORT);
+      logger.info("Listening on port " + PORT);
       console.log("Listening on port " + PORT + "\n");
     });
 

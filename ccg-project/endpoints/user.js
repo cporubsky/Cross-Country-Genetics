@@ -1,6 +1,7 @@
 "use strict"
 
 const config = require('../config/config.json');
+var logger = require('log4js').getLogger(config.logger);
 
 var db = require('../db'),
     encryption = require('../encryption'),
@@ -8,6 +9,8 @@ var db = require('../db'),
     manage_users = "Admin Console",
     randomstring = require("randomstring"),
     nodemailer = require('nodemailer');
+
+
 
 
     function selectUserByUNameTemp() {
@@ -76,6 +79,7 @@ class User {
    *  @instance
    */
   commitConfirm(req, res) {
+    logger.info("Commit new user started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       var first = fields.first.toString().trim();
@@ -88,6 +92,7 @@ class User {
         //no such user or temp password
         if(row == null) {
           console.log("Error");
+          logger.error("Commit new user unsuccessful.");
           //redirect to confirm page with an error
           res.statusCode = 500;
           return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
@@ -102,10 +107,12 @@ class User {
                salt,
                fields.username
             );
+            logger.info("Commit new user successful.");
             return res.redirect('/login');
           }
           //they don't match
           else {
+            logger.error("Commit new user unsuccessful.");
             //redirect to confirm page with an error
             res.statusCode = 500;
             return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
@@ -143,6 +150,7 @@ class User {
 
 
   resetPassword(req, res) {
+    logger.info("Reset password started.");
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -155,6 +163,7 @@ class User {
         //no such user or temp password
         if(row == null) {
           console.log("Error");
+          logger.error("Reset password unsuccessful.");
           //TODO No username -> make error message
           //redirect to reset page with an error
           res.statusCode = 500;
@@ -177,7 +186,7 @@ class User {
           //there is a user, send them a temp password
           //sendMail(transporter, tempPassword);
 
-          
+
           //Formally:
           //'UPDATE users set temp_password = ?, password_digest = ?, salt = ? where username = ?'
           //tempPassword,
@@ -194,6 +203,7 @@ class User {
             userName,
             (err, user) => {
               if(err) {
+                logger.error("Reset password unsuccessful.");
                 //TODO set res status
                 return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
             }
@@ -213,6 +223,7 @@ class User {
               if(error) console.log(error);
               console.log("Success");
             });
+            logger.info("Reset password successful.");
             //TODO add message like -> "Success! Please log in!"
             return res.redirect('/login');
           }); //end insert

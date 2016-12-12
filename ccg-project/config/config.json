@@ -1,4 +1,5 @@
 {
+  "logger": "logger",
   "company_name": "Cross Country Genetics",
   "email": {
     "transporter": {

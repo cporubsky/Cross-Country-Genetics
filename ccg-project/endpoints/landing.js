@@ -5,6 +5,8 @@ const config = require('../config/config.json');
 var db = require('../db'),
     formidable = require('formidable');
 
+var logger = require('log4js').getLogger(config.logger);
+
 
 /**
  *  This class handles the landing page.
