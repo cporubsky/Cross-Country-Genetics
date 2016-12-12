@@ -12,6 +12,8 @@ var express = require('express'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
+    formidable = require('formidable'),
+    bodyParser = require('body-parser'),
     PORT = 8080;
 
     app.set('view engine', 'ejs');   //set view to ejs
@@ -31,6 +33,12 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
+    app.use(bodyParser.urlencoded({
+      extended: true
+    }));
+
+    app.use(bodyParser.json());
+
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'
     app.get('/login', session.login);  //user login form
@@ -42,8 +50,20 @@ var express = require('express'),
     app.get('/index', no_guests, landing.index);
 
     var forms = require('./endpoints/forms');
-    app.get('/formAbc', no_guests, forms.abcForm);
+    app.get('/formAbc', forms.abcForm);
     app.post('/formAbc', forms.formAbcAjax);
+    /*app.post('/formAbc', function(req, res){
+      console.log(req.body.tag);
+      var form = new formidable.IncomingForm();
+      console.log(form);
+      console.log("form above");
+      form.parse(req, function(err, fields, files) {
+        if (err) console.log(err);
+        console.log("new method below");
+        console.log(fields.tag);
+      });//end serialize
+    });*/
+
     app.get('/firstForm', no_guests, forms.firstForm);
     app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);

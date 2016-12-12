@@ -1,7 +1,8 @@
 "use strict"
 
 var db = require('../db'),
-    formidable = require('formidable');
+    formidable = require('formidable'),
+    bodyParser = require('body-parser');
 
 
 /**
@@ -38,42 +39,20 @@ class Forms {
   }
 
   formAbcAjax(req, res){
-    console.log("In the ajax receive");
-    var tag = req.params.tag;
-    console.log("Tag: " + tag);
-    //console.log("Tag" + tagOwner.tag);
-    //console.log(req.body);
-    //console.log(JSON.parse(data));
-    /*var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      if (err) console.log(err);
-      console.log(fields.tag);
-      var tag = fields.tag;
-      console.log(tag);
-      var owner = fields.owner;
-      console.log(tag);
-      console.log(owner);
-    });*/
-    var tag = "";
-    var owner = "";
-
-    //  console.log(fields);
-      /*db.get('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
-        "AjaxUser4",
-        "user4",
-        "user_4@gmail.com",
-        true,                                 //is admin
-        true,                                 //is approved
-        "passwordAjax", //digest
-        "hiddenPasswordAjax",                 //salt
-        null
-      );*/
-      //db.get("SELECT * FROM donor WHERE ")
-      //res.redirect('forms/formAbc');
-      //var data = '{"name": "John","age": 30}';
-      var data = "hey";
-      res.send(JSON.stringify({ user: 'tobi' }));
-    //});
+    console.log(req.body);
+    var tag = req.body.tag;
+    var owner = req.body.owner;
+    console.log(tag);
+    console.log(owner);
+      db.get("SELECT * FROM donor a INNER JOIN embryo_recovery b ON b.donor_id = a.id INNER JOIN client c ON c.id=a.client_id AND a.tag_tattoo=? AND a.client_id=?", tag, owner, function(err, rows) {
+          //INNER JOIN sire d ON d.donor_id=a.id
+      if(err) {
+        // error handling
+        return res.sendStatus(500);
+      }
+      res.setHeader('content-type', 'text/json');
+      res.send(JSON.stringify(rows));
+    });
   }
 
 }

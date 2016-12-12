@@ -19,7 +19,7 @@ var encryption = require('../encryption'),
    //salt from encryption
    var salt = encryption.salt();
 
-   //Drop users table if it exists
+   /*//Drop users table if it exists
    db.run("DROP TABLE IF EXISTS users");
 
    //Create the users table
@@ -65,7 +65,7 @@ var encryption = require('../encryption'),
    db.each("SELECT * FROM users", function(err, row){
      if(err) return console.error(err);
      console.log(row);
-   });
+   });*/
 
    /********************
    ** EMBRYO RECOVERY **
@@ -102,17 +102,17 @@ var encryption = require('../encryption'),
    db.run("DROP TABLE IF EXISTS donor");
 
    // Create the donor table
-   db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, client_id TEXT, breed TEXT, reg_num INTEGER, tag_tattoo TEXT, name TEXT, FOREIGN KEY(client_id) REFERENCES client(id))");
+   db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, client_id INTEGER, breed TEXT, reg_num INTEGER, tag_tattoo TEXT, name_donor TEXT, FOREIGN KEY(client_id) REFERENCES client(id))");
 
    // Create donor test data
-   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name) values (?,?,?,?,?)",
+   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name_donor) values (?,?,?,?,?)",
       1,
       'AR',
       1546741,
       'Z040',
       'Mushrush Lana'
    );
-   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name) values (?,?,?,?,?)",
+   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name_donor) values (?,?,?,?,?)",
       2,
       'BR',
       1234567,
@@ -133,16 +133,18 @@ var encryption = require('../encryption'),
    db.run("DROP TABLE IF EXISTS sire");
 
    // Create the sire table
-   db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, breed TEXT, reg_num INTEGER, code TEXT)");
+   db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, donor_id INTEGER, name_sire TEXT, breed_sire TEXT, reg_num_sire INTEGER, code_sire TEXT)");
 
    // Create sire test data
-   db.run("INSERT INTO sire (name, breed, reg_num, code) values (?,?,?,?)",
+   db.run("INSERT INTO sire (donor_id, name_sire, breed_sire, reg_num_sire, code_sire) values (?,?,?,?,?)",
+      1,
       'Beckton Clifftop Z500',
       'AR',
       1544604,
       '16AR2130'
    );
-   db.run("INSERT INTO sire (name, breed, reg_num, code) values (?,?,?,?)",
+   db.run("INSERT INTO sire (donor_id, name_sire, breed_sire, reg_num_sire, code_sire) values (?,?,?,?,?)",
+      2,
       'Moo Train',
       'AR',
       7654321,

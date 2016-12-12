@@ -169,18 +169,41 @@ function autoFill() {
   var owner = $("#owner").val();
 
   if(tag != "" && owner != ""){
-    var data = {"tag": tag, "owner": owner};
+    var data = {tag: tag, owner: owner};
+    var form = $('form');
+    event.preventDefault();
+    console.log('form');
+    console.log(form);
+    console.log('end form');
     $.ajax({
-        type: 'POST',
-        data: JSON.stringify(data),
+        method: 'POST',
+        //Figure out the data passing through ajax
+        data: data,
         //data: JSON.stringify({expression: "testexpression"}),
-        contentType: "application/javascript",
-        dataType:'json',
+        //data: form.serialize(),
+        //contentType: "application/json",
+        //dataType:'json',
         url: '/formAbc',
         success: function(data) {
             console.log('success');
             console.log(data);
-            alert(JSON.stringify(data));
+            console.log(data.name);
+            $("#serviceSire1").val(data.name_donor);
+            $("#breed").val(data.breed);
+            $("#regNum1").val(data.reg_num);
+            $("#freezeDate1").val(data.freeze_date);
+            $("#estrusOnset").val(data.estrus_onset);
+            $("#breedDate").val(data.breed_date);
+            $("#recoveryDate").val(data.recovery_date);
+            $("#numRecovered").val(data.num_recovered);
+            $("#numTransferred").val(data.num_transferred);
+            $("#numFrozen1").val(data.num_frozen);
+            $("#etCodeA").val(data.et_code);
+            $("#donor").val(data.name);
+            $("#address").val(data.address);
+            $("#regNum1").val(data.reg_num_sire);
+            $("#idCode1").val(data.code_sire);
+            //alert(JSON.stringify(data));
         },
         error: function(error) {
             console.log("Some error in fetching the notifications");
