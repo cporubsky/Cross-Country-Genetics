@@ -3,7 +3,8 @@
 const config = require('../config/config.json');
 
 var db = require('../db'),
-    formidable = require('formidable');
+    formidable = require('formidable'),
+    bodyParser = require('body-parser');
 
 var logger = require('log4js').getLogger(config.logger);
 
@@ -83,24 +84,23 @@ class Forms {
    *  @instance
    */
   formAbcAjax(req, res){
-    console.log("In the ajax receive)")
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      console.log(fields);
-      db.run('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
-        "AjaxUser4",
-        "user4",
-        "user_4@gmail.com",
-        true,                                 //is admin
-        true,                                 //is approved
-        "passwordAjax", //digest
-        "hiddenPasswordAjax",                                  //salt
-        null
-      );
-      res.redirect('forms/formAbc');
+    console.log(req.body);
+    var tag = req.body.tag;
+    var owner = req.body.owner;
+    console.log(tag);
+    console.log(owner);
+      db.get("SELECT * FROM donor a INNER JOIN embryo_recovery b ON b.donor_id = a.id INNER JOIN client c ON c.id=a.client_id AND a.tag_tattoo=? AND a.client_id=?", tag, owner, function(err, rows) {
+          //INNER JOIN sire d ON d.donor_id=a.id
+      if(err) {
+        // error handling
+        return res.sendStatus(500);
+      }
+      res.setHeader('content-type', 'text/json');
+      res.send(JSON.stringify(rows));
     });
-  } //end formAbcAjax
 
+  } //end formAbcAjax
 }
+
 
 module.exports = exports = new Forms();
