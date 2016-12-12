@@ -1,0 +1,47 @@
+{
+  "logger": "logger",
+  "company_name": "Cross Country Genetics",
+  "email": {
+    "transporter": {
+      "user": "ccgkansas@gmail.com",
+      "pass": "ccgkansas1",
+      "service": "Gmail"
+    },
+    "message": {
+      "from": "CCG Admin <crosscountrygeneticskansas@gmail.com>",
+      "subject": "Action Required",
+      "new_user_html": "",
+      "reset_pw_html": ""
+    }
+  },
+  "landing": {
+    "home": "Home",
+    "message2": ""
+  },
+  "admin": {
+    "console": "Admin Console",
+    "message2": ""
+  },
+  "user": {
+    "message1": "",
+    "message2": ""
+  },
+  "session": {
+    "message1": "",
+    "message2": ""
+  },
+  "forms": {
+    "message1": "",
+    "message2": ""
+  },
+  "api": {
+    "message1": "",
+    "message2": ""
+  },
+  "database": {
+    "name": ""
+  },
+  "user": {
+    "guest": "Guest"
+  }
+}

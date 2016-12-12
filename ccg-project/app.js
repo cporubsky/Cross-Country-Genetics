@@ -1,12 +1,18 @@
 
-
+const config = require('./config/config.json');
 var express = require('express'),
     app = express(),
     sessions = require('client-sessions'),
+    log4js = require('log4js'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
     PORT = 8080;
+
+    log4js.configure('./config/log4js.json');
+    var logger = log4js.getLogger(config.logger);
+
+    //app.use(log4js.connectLogger(log4js.getLogger("http"), { level: 'auto' }));
 
     app.set('view engine', 'ejs');   //set view to ejs
     app.set('views', './templates'); //set templates directory
@@ -36,7 +42,7 @@ var express = require('express'),
     app.get('/login', session.login);  //user login form
     app.post('/login', session.start); //create session
     app.get('/logout', no_guests, session.stop);  //deletes session
-    //app.get('/reset', session.reset);  //reset user account
+
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
@@ -63,11 +69,14 @@ var express = require('express'),
     var user = require('./endpoints/user');
     app.get('/user/confirm', user.confirm);
     app.post('/user/confirm', user.commitConfirm);
+    app.get('/user/reset', user.reset);  //send to page to reset password
+    app.post('/user/reset', user.resetPassword); //send message to reset password
 
     //app.get('/manageusers', admin_only, admin.manageusers);
 
     //start express app
     app.listen(PORT, () => {
+      logger.info("Listening on port " + PORT);
       console.log("Listening on port " + PORT + "\n");
     });
 

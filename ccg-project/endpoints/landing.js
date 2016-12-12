@@ -1,7 +1,11 @@
 "use strict"
 
+const config = require('../config/config.json');
+
 var db = require('../db'),
     formidable = require('formidable');
+
+var logger = require('log4js').getLogger(config.logger);
 
 
 /**
@@ -20,7 +24,7 @@ class Landing {
    *  @instance
    */
   index(req, res){
-      res.render('landing/index', {title: "Index", user: req.user});
+      res.render('landing/index', {title: config.landing.home, user: req.user});
   }
 
 
