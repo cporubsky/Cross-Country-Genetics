@@ -11,20 +11,9 @@ var db = require('../db'),
     nodemailer = require('nodemailer');
 
 
+var query  = require('../database/query');
 
 
-    function selectUserByUNameTemp() {
-      return 'SELECT * from users WHERE username = ? AND temp_password = ?';
-    }
-
-    function updateUserCommit() {
-      return 'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?';
-    }
-
-    //has one in session.js also
-    function selectUserByUsername() {
-      return 'SELECT * FROM users WHERE username = ?';
-    }
 
 
 /**
@@ -87,8 +76,8 @@ class User {
       var salt = encryption.salt();
 
       //check if username matches with temp password
-      db.get(selectUserByUNameTemp(), fields.username, fields.temporary, (err, row) => {
-        console.log(row);
+      db.get(query.selectAllConditions('users', 'username, temp_password', 'AND'), fields.username, fields.temporary, (err, row) => {
+        //console.log(row);
         //no such user or temp password
         if(row == null) {
           console.log("Error");
@@ -101,7 +90,7 @@ class User {
           //check if both new passwords match
           if(first === second) {
             var password = encryption.digest(first + salt);
-            db.run(updateUserCommit(),
+            db.run(query.update('users', 'password_digest, temp_password, salt', 'username'),
                password,
                null,
                salt,
@@ -158,7 +147,7 @@ class User {
 
 
       //check if username matches with temp password
-      db.get(selectUserByUsername(), userName, (err, row) => {
+      db.get(query.selectAllConditions('users', 'username', 'NOT_USED'), userName, (err, row) => {
         console.log(row);
         //no such user or temp password
         if(row == null) {
@@ -196,7 +185,7 @@ class User {
 
           //'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?'
           //TODO need to update temp password, update password to NULL
-          db.run(updateUserCommit(),
+          db.run(query.update('users', 'password_digest, temp_password, salt', 'username'),
             null,
             tempPassword,
             null,

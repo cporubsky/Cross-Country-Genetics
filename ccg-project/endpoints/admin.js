@@ -12,6 +12,8 @@ var db = require('../db'),
 
     const endpoint = "admin.js";
 
+    var query  = require('../database/query');
+
 
 
     function createTransporter() {
@@ -50,29 +52,7 @@ var db = require('../db'),
       });
     }
 
-    function selectAllUsers() {
-      return 'SELECT * FROM users';
-    }
 
-    function selectUserById() {
-      return 'SELECT * from users WHERE id = ?';
-    }
-
-    function selectUserNotById() {
-      return 'SELECT * from users WHERE name = ? or username = ? or email = ?';
-    }
-
-    function insertNewUser() {
-      return 'INSERT INTO users (name, username, email, is_admin, temp_password) values (?,?,?,?,?)';
-    }
-
-    function deleteUserById() {
-      return 'DELETE FROM users WHERE id=?';
-    }
-
-    function updateUserById() {
-      return 'UPDATE users set name = ?, username = ?, email = ?, is_admin = ? where id = ?';
-    }
 
 
 /**
@@ -92,7 +72,7 @@ class Admin {
   index(req, res) {
     logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
-    var user = db.all(selectAllUsers(), function(err, users){
+    var user = db.all(query.selectAll('users'), function(err, users){
       if(err) {
         logger.error("Error occured getting all users for admin console.");
         console.error(err);
@@ -133,7 +113,7 @@ class Admin {
     form.parse(req, function(err, fields, files) {
       db.serialize(function() {
         //checks to see if username or email exits
-        db.get(selectUserNotById(),
+        db.get(query.selectAllConditions('users', 'name, username, email', 'or, or'),
           fields.name,
           fields.username,
           fields.email,
@@ -145,7 +125,7 @@ class Admin {
               return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops!"});
             }
           //if we get here, no user exists, insert user
-          db.run(insertNewUser(),
+          db.run(query.insert('users', 'name, username, email, is_admin, temp_password'),
             fields.name,
             fields.username,
             fields.email,
@@ -188,7 +168,7 @@ class Admin {
    */
   deleteUser(req, res) {
     logger.info("User deletion started.");
-    db.run(deleteUserById(), req.params.id, function(err, users){
+    db.run(query.delete('users', 'id'), req.params.id, function(err, users){
       if(err) {
         console.error(err);
         logger.error("User deletion unsuccessful.");
@@ -207,11 +187,12 @@ class Admin {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
+   //'SELECT * from users WHERE id = ?'
   edit(req, res) {
     logger.info("Get user to edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      db.get(selectUserById(), req.params.id, (err, row) => {
+      db.get(query.selectAllConditions('users', 'id', 'NOT_USED'), req.params.id, (err, row) => {
         //console.log(rows);
         if(row === null) {
           //alert("username taken");
@@ -238,7 +219,7 @@ class Admin {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       //console.log(fields)
-      db.run(updateUserById(),
+      db.run(query.update('users', 'name, username, email, is_admin', 'id'),
         fields.name,
         fields.username,
         fields.email,

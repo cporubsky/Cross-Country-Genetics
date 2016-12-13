@@ -8,7 +8,7 @@ var express = require('express'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
     formidable = require('formidable'),
-    bodyParser = require('body-parser'),
+    //bodyParser = require('body-parser'),
     PORT = 8080;
 
     log4js.configure('./config/log4js.json');
@@ -40,11 +40,11 @@ var express = require('express'),
     var api = require('./endpoints/api');
     app.get('/api', api.index); //api index
 
-    app.use(bodyParser.urlencoded({
+    /*app.use(bodyParser.urlencoded({
       extended: true
-    }));
+    }));*/
 
-    app.use(bodyParser.json());
+    //app.use(bodyParser.json());
 
 
     var session = require('./endpoints/session');
