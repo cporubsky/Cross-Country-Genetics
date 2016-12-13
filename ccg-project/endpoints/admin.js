@@ -12,48 +12,8 @@ var db = require('../db'),
 
     const endpoint = "admin.js";
 
-    var query  = require('../database/query');
-
-
-
-    function createTransporter() {
-      return nodemailer.createTransport({
-        service: config.email.transporter.service,
-        auth: {
-          user: config.email.transporter.user,
-          pass: config.email.transporter.pass
-        }
-      });
-    }
-
-    function generateTempPassword() {
-      return randomstring.generate({
-        length: 12,
-        charset: 'alphanumeric'
-      });
-    }
-
-    function sendMail(trans, tempPass) {
-      trans.sendMail({
-        from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
-        to: 'corey.porubsky@gmail.com',
-        subject: 'Action Required',
-        html: '<p> You were added as a new user for Cross Country Genetics. </p>' +
-        '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
-        '<a href="http://google.com">http://google.com</a>' +
-        '<p>' + tempPass + '</p>'
-      }, function(error, info){
-        if(error){
-          console.log(error);
-          return false;
-        }
-        console.log("Success in sendMail Function");
-        return true;
-      });
-    }
-
-
-
+    var query = require('../database/query');
+    var helper = require('../helpers/helpers');
 
 /**
  *  This class handles admin functions.
@@ -105,7 +65,7 @@ class Admin {
   commitCreateUser(req, res) {
     logger.info("User creation started.");
 
-    var tempPassword = generateTempPassword();
+    var tempPassword = helper.generateTempPassword();
 
 
     //parse form and insert data
@@ -139,8 +99,10 @@ class Admin {
                 logger.error("User creation unsuccessful.");
                 return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, In Insert!"});
             }
-            var transporter = createTransporter();
-            var ok = new Boolean(sendMail(transporter, tempPassword));
+            //for testing purposes only
+            var testEmail = 'corey.porubsky@gmail.com';
+            var transporter = helper.createTransporter();
+            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");

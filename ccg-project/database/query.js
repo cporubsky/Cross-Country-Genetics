@@ -18,7 +18,6 @@ class Query {
     return 'SELECT * FROM ' + table;
   }
 
-
   /**
    *  @function selectAllConditions
    *  @memberof Query
