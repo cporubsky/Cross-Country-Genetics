@@ -25,7 +25,7 @@ class Admin {
   index(req, res) {
     logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
-    var user = db.all(query.selectAll('users'), function(err, users){
+    var user = db.all(query.selectAll('users','',''), function(err, users){
       if(err) {
         logger.error("Error occured getting all users for admin console.");
         console.error(err);
@@ -66,7 +66,7 @@ class Admin {
     form.parse(req, function(err, fields, files) {
       db.serialize(function() {
         //checks to see if username or email exits
-        db.get(query.selectAllConditions('users', 'name, username, email', 'or, or'),
+        db.get(query.selectAll('users', 'name, or, username, or, email'),
           fields.name,
           fields.username,
           fields.email,
@@ -147,7 +147,7 @@ class Admin {
     logger.info("Get user to edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      db.get(query.selectAllConditions('users', 'id', 'NOT_USED'), req.params.id, (err, row) => {
+      db.get(query.selectAll('users', 'id', ''), req.params.id, (err, row) => {
         //console.log(rows);
         if(row === null) {
           //alert("username taken");
