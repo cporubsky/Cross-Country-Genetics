@@ -117,5 +117,49 @@ class Query {
     return query;
   }
 
+  //"SELECT * FROM donor a
+  //INNER JOIN embryo_recovery b ON b.donor_id = a.id
+  //INNER JOIN client c ON c.id = a.client_id
+  //AND a.tag_tattoo = ?
+  //AND a.client_id = ?"
+
+  //table 1 = donor a
+  //table 2 = embryo_recovery b
+  //table 3 = client c
+
+  //column 1 = a.id
+  //column 2 = b.donor_id
+  //column 3 = a.client_id
+  //column 4 = c.id
+
+  //operator 1 = AND
+  //operator 2 = AND
+
+  //column5 = a.tag_tattoo
+  //column6 = a.client_id
+
+
+  //SELECT * FROM donor a
+  //INNER JOIN embryo_recovery b
+  //ON a.id = b.donor_id
+  //INNER JOIN client c
+  //ON a.client_id = c.id
+  //AND a.tag_tattoo = ?
+  //AND a.client_id = ?
+
+  //SELECT * FROM 'table1' a
+  //INNER JOIN 'table2' b
+  //ON a.'column1' = b.'column2'
+  //INNER JOIN 'table3' c
+  //ON a.'column3' = c.'column4'
+  //AND a.'column5' = ?
+  //AND a.'column6' = ?
+
+
+  //innerJoin('donor', 'embryo_recovery,')
+  /*innerJoin(table, ){
+
+  }*/
+
 }
 module.exports = exports = new Query();

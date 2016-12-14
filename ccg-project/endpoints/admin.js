@@ -2,18 +2,11 @@
 
 const config = require('../config/config.json');
 
-var db = require('../db'),
-    formidable = require('formidable'),
-    //manage_users = "Admin Console",
-    randomstring = require("randomstring"),
-    nodemailer = require('nodemailer');
-
-    var logger = require('log4js').getLogger(config.logger);
-
-    const endpoint = "admin.js";
-
-    var query = require('../database/query');
-    var helper = require('../helpers/helpers');
+var db = require('../db');
+var formidable = require('formidable');
+var logger = require('log4js').getLogger(config.logger);
+var query = require('../database/query');
+var helper = require('../helpers/helpers');
 
 /**
  *  This class handles admin functions.
@@ -102,7 +95,7 @@ class Admin {
             //for testing purposes only
             var testEmail = 'corey.porubsky@gmail.com';
             var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail));
+            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'new'));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");

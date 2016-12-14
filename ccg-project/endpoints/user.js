@@ -2,17 +2,11 @@
 
 const config = require('../config/config.json');
 var logger = require('log4js').getLogger(config.logger);
-
-var db = require('../db'),
-    encryption = require('../encryption'),
-    formidable = require('formidable'),
-    manage_users = "Admin Console",
-    randomstring = require("randomstring"),
-    nodemailer = require('nodemailer');
-
-
-    var query  = require('../database/query');
-    var helper = require('../helpers/helpers');
+var db = require('../db');
+var encryption = require('../encryption');
+var formidable = require('formidable');
+var query  = require('../database/query');
+var helper = require('../helpers/helpers');
 
 /**
  *  This class handles user functions.
@@ -59,7 +53,7 @@ class User {
           logger.error("Commit new user unsuccessful.");
           //redirect to confirm page with an error
           res.statusCode = 500;
-          return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
         }
         else{
           //check if both new passwords match
@@ -79,7 +73,7 @@ class User {
             logger.error("Commit new user unsuccessful.");
             //redirect to confirm page with an error
             res.statusCode = 500;
-            return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+            return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
           }
         }
       });
@@ -119,7 +113,7 @@ class User {
           //TODO No username -> make error message
           //redirect to reset page with an error
           res.statusCode = 500;
-          return res.render('user/reset', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          return res.render('user/reset', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
         }
         else{
           var tempPassword = helper.generateTempPassword();
@@ -136,13 +130,13 @@ class User {
               if(err) {
                 logger.error("Reset password unsuccessful.");
                 //TODO set res status
-                return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
+                return res.render('admin/create', {title: "Title Here", user: req.user, message: "Oops, In Insert!"});
             }
 
             //for testing purposes only
             var testEmail = 'corey.porubsky@gmail.com';
             var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail));
+            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'reset'));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");

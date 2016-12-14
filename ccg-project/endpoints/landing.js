@@ -1,19 +1,13 @@
 "use strict"
 
 const config = require('../config/config.json');
-
-var db = require('../db'),
-    formidable = require('formidable');
-
 var logger = require('log4js').getLogger(config.logger);
-
 
 /**
  *  This class handles the landing page.
  *  @class
  */
 class Landing {
-
 
   /**
    *  @function index
@@ -26,8 +20,6 @@ class Landing {
   index(req, res){
       res.render('landing/index', {title: config.landing.home, user: req.user});
   }
-
-
 }
 
 module.exports = exports = new Landing();

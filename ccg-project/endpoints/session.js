@@ -1,18 +1,11 @@
 "use strict"
 
 const config = require('../config/config.json');
-
-var encryption = require('../encryption'),
-    db = require('../db'),
-    formidable = require('formidable'),
-    company_name = "Cross Country Genetics",
-    logged_out = "Logged Out!",
-    login_failed = "Login Failed. Please try again.",
-    guest = "Guest";
-
-    var logger = require('log4js').getLogger(config.logger);
-
-    var query  = require('../database/query');
+var encryption = require('../encryption');
+var db = require('../db');
+var formidable = require('formidable');
+var logger = require('log4js').getLogger(config.logger);
+var query  = require('../database/query');
 
 /**
  *  This class handles the encryption for user passwords.
@@ -72,13 +65,13 @@ class Session {
           logger.error("No user found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-           return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
+           return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
           logger.error("No user/password match found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-         return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
+         return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
        }
         logger.info("Session request approved.");
         logger.info("Session starting.")
@@ -99,7 +92,7 @@ class Session {
   stop(req, res) {
     logger.info("Session stopping.");
     req.session.reset();
-    return res.render("session/logout", {title: logged_out, user: {username: guest}});
+    return res.render("session/logout", {title: config.user.logged_out, user: {username: config.user.guest}});
   }
 
 

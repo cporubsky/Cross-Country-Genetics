@@ -1,13 +1,10 @@
 "use strict"
 
 const config = require('../config/config.json');
-
-var db = require('../db'),
-    formidable = require('formidable'),
-    bodyParser = require('body-parser');
-
+var db = require('../db');
+var formidable = require('formidable');
+var bodyParser = require('body-parser');
 var logger = require('log4js').getLogger(config.logger);
-
 
 /**
  *  This class handles forms.
