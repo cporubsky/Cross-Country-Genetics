@@ -1,23 +1,11 @@
 "use strict"
 
 const config = require('../config/config.json');
-
-var encryption = require('../encryption'),
-    db = require('../db'),
-    formidable = require('formidable'),
-    company_name = "Cross Country Genetics",
-    logged_out = "Logged Out!",
-    login_failed = "Login Failed. Please try again.",
-    guest = "Guest";
-
-    //var log = log4js.getLogger("info");
-    var logger = require('log4js').getLogger(config.logger);
-
-    //has one in user.js also
-    function selectUserByUsername() {
-      return 'SELECT * FROM users WHERE username = ?';
-    }
-
+var encryption = require('../encryption');
+var db = require('../db');
+var formidable = require('formidable');
+var logger = require('log4js').getLogger(config.logger);
+var query  = require('../database/query');
 
 /**
  *  This class handles the encryption for user passwords.
@@ -47,6 +35,12 @@ class Session {
    *  @instance
    */
   login(req, res) {
+
+    /*console.log(query.update('users', 'name, username, email, is_admin', 'id'));
+    console.log(query.selectAllConditions('users', 'name, username, email', 'or, or'));
+    console.log(query.update('users', 'password_digest, temp_password, salt', 'username'));
+    console.log(query.insert('users', 'name, username, email, is_admin, temp_password'));
+    console.log(query.delete('users', 'id'));*/
     res.render('session/login', {title: config.company_name, message: "", user: req.user});
   }
 
@@ -66,18 +60,18 @@ class Session {
     form.parse(req, (err, fields, files) => {
       //console.log(fields);
       if(err) return res.sendStatus(500);
-      db.get(selectUserByUsername(), fields.username, (err, user) => {
+      db.get(query.selectAllConditions('users', 'username', 'NOT_USED'), fields.username, (err, user) => {
         if(err || !user) {
           logger.error("No user found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-           return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
+           return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
           logger.error("No user/password match found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-         return res.render('session/login', {title: config.company_name, message: login_failed, user: req.user});
+         return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
        }
         logger.info("Session request approved.");
         logger.info("Session starting.")
@@ -98,7 +92,7 @@ class Session {
   stop(req, res) {
     logger.info("Session stopping.");
     req.session.reset();
-    return res.render("session/logout", {title: logged_out, user: {username: guest}});
+    return res.render("session/logout", {title: config.user.logged_out, user: {username: config.user.guest}});
   }
 
 

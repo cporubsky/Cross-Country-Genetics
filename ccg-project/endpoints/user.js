@@ -2,30 +2,11 @@
 
 const config = require('../config/config.json');
 var logger = require('log4js').getLogger(config.logger);
-
-var db = require('../db'),
-    encryption = require('../encryption'),
-    formidable = require('formidable'),
-    manage_users = "Admin Console",
-    randomstring = require("randomstring"),
-    nodemailer = require('nodemailer');
-
-
-
-
-    function selectUserByUNameTemp() {
-      return 'SELECT * from users WHERE username = ? AND temp_password = ?';
-    }
-
-    function updateUserCommit() {
-      return 'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?';
-    }
-
-    //has one in session.js also
-    function selectUserByUsername() {
-      return 'SELECT * FROM users WHERE username = ?';
-    }
-
+var db = require('../db');
+var encryption = require('../encryption');
+var formidable = require('formidable');
+var query  = require('../database/query');
+var helper = require('../helpers/helpers');
 
 /**
  *  This class handles user functions.
@@ -34,29 +15,6 @@ var db = require('../db'),
  //These are funtions that users have access to.
  //Both admins and std users have access to these.
 class User {
-
-  /*function generateTempPassword () {
-    //generate temp password
-    var temp;
-    temp = randomstring.generate({
-      length: 12,
-      charset: 'alphanumeric'
-      });
-      return temp;
-  }*/
-
-  /*function createTransporter () {
-    //create transporter
-     var transporter;
-    transporter =  nodemailer.createTransport({
-      service: 'Gmail',
-      auth: {
-        user: 'ccgkansas@gmail.com',
-        pass: 'ccgkansas1'
-      }
-    });
-    return transporter;
-  }*/
 
   /**
    *  @function confirm
@@ -87,21 +45,21 @@ class User {
       var salt = encryption.salt();
 
       //check if username matches with temp password
-      db.get(selectUserByUNameTemp(), fields.username, fields.temporary, (err, row) => {
-        console.log(row);
+      db.get(query.selectAllConditions('users', 'username, temp_password', 'AND'), fields.username, fields.temporary, (err, row) => {
+        //console.log(row);
         //no such user or temp password
         if(row == null) {
           console.log("Error");
           logger.error("Commit new user unsuccessful.");
           //redirect to confirm page with an error
           res.statusCode = 500;
-          return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
         }
         else{
           //check if both new passwords match
           if(first === second) {
             var password = encryption.digest(first + salt);
-            db.run(updateUserCommit(),
+            db.run(query.update('users', 'password_digest, temp_password, salt', 'username'),
                password,
                null,
                salt,
@@ -115,7 +73,7 @@ class User {
             logger.error("Commit new user unsuccessful.");
             //redirect to confirm page with an error
             res.statusCode = 500;
-            return res.render('user/confirm', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+            return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
           }
         }
       });
@@ -131,34 +89,22 @@ class User {
   } //end commitConfirm
 
 
-
-  /*sendEmail(transporter, tempPassword){
-    //TODO change html to better message, fine for now
-    transporter.sendMail({
-      from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
-      to: 'corey.porubsky@gmail.com',
-      subject: 'Action Required',
-      html: '<p> You requested to reset your password for Cross Country Genetics. </p>' +
-      '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
-      '<a href="http://google.com">http://google.com</a>' +
-      '<p>' + tempPassword + '</p>'
-    }, function(error, info){
-      if(error) console.log(error);
-      console.log("Success");
-    });
-  }*/
-
-
+  /**
+   *  @function resetPassword
+   *  @memberof User
+   *  @description Updates appropriate fields if user can be confirmed to reset password.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   resetPassword(req, res) {
     logger.info("Reset password started.");
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       var userName = fields.username;
-
-
       //check if username matches with temp password
-      db.get(selectUserByUsername(), userName, (err, row) => {
+      db.get(query.selectAllConditions('users', 'username', 'NOT_USED'), userName, (err, row) => {
         console.log(row);
         //no such user or temp password
         if(row == null) {
@@ -167,36 +113,15 @@ class User {
           //TODO No username -> make error message
           //redirect to reset page with an error
           res.statusCode = 500;
-          return res.render('user/reset', {title: manage_users, user: req.user, users:row, message: "Oops!"});
+          return res.render('user/reset', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
         }
         else{
-          //console.log("Reset email sent!");
-          var tempPassword = randomstring.generate({
-            length: 12,
-            charset: 'alphanumeric'
-            });
+          var tempPassword = helper.generateTempPassword();
 
-          var transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-              user: 'ccgkansas@gmail.com',
-              pass: 'ccgkansas1'
-            }
-          });
           //there is a user, send them a temp password
-          //sendMail(transporter, tempPassword);
 
-
-          //Formally:
-          //'UPDATE users set temp_password = ?, password_digest = ?, salt = ? where username = ?'
-          //tempPassword,
-          //null,
-          //null,
-          //userName,
-
-          //'UPDATE users set password_digest = ?, temp_password = ?, salt = ?  where username = ?'
           //TODO need to update temp password, update password to NULL
-          db.run(updateUserCommit(),
+          db.run(query.update('users', 'password_digest, temp_password, salt', 'username'),
             null,
             tempPassword,
             null,
@@ -205,37 +130,44 @@ class User {
               if(err) {
                 logger.error("Reset password unsuccessful.");
                 //TODO set res status
-                return res.render('admin/create', {title: manage_users, user: req.user, message: "Oops, In Insert!"});
+                return res.render('admin/create', {title: "Title Here", user: req.user, message: "Oops, In Insert!"});
             }
 
-            //sendMail(transporter, tempPassword);
-
-            //TODO change html to better message, fine for now
-            transporter.sendMail({
-              from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
-              to: 'corey.porubsky@gmail.com',
-              subject: 'Action Required',
-              html: '<p> You requested to reset your password for Cross Country Genetics. </p>' +
-              '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
-              '<a href="http://google.com">http://google.com</a>' +
-              '<p>' + tempPassword + '</p>'
-            }, function(error, info){
-              if(error) console.log(error);
-              console.log("Success");
-            });
-            logger.info("Reset password successful.");
-            //TODO add message like -> "Success! Please log in!"
-            return res.redirect('/login');
+            //for testing purposes only
+            var testEmail = 'corey.porubsky@gmail.com';
+            var transporter = helper.createTransporter();
+            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'reset'));
+            if(!ok) {
+              logger.error("Error in sending email.");
+              console.log("Error in sending email.");
+              res.statusCode = 500;
+              return res.render('user/reset', {title: '', user: req.user, users:row, message: "Oops!"});
+            }
+            else {
+              logger.info("Success! Email sent!");
+              logger.info("Reset password successful.");
+              console.log("Success! Email sent!");
+              //TODO add message like -> "Success! Please log in!"
+              return res.redirect('/login');
+            }
           }); //end insert
-
         }
       });
 
 
     });
 
-  }
+  } //end resetPassword
 
+
+  /**
+   *  @function reset
+   *  @memberof User
+   *  @description Sends to page to send user an email to reset password.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   reset(req, res){
     //TODO add title
     return res.render("user/reset", {title: "Title Here", user: {username: "Guest"}, message: ""});

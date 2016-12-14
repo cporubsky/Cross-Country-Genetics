@@ -9,7 +9,6 @@ var logger = require('log4js').getLogger(config.logger);
  */
 class Api {
 
-
   /**
    *  @function index
    *  @memberof Api
@@ -19,11 +18,8 @@ class Api {
    *  @instance
    */
   index(req, res) {
-
-    //res.render('admin/users', {title: manage_users, user: req.user, users: users});
     res.render('./out/index');
   }
-
 
 }
 module.exports = exports = new Api();
