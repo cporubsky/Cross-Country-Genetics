@@ -35,10 +35,12 @@ class Session {
    *  @instance
    */
   login(req, res) {
-
-    /*console.log(query.update('users', 'name, username, email, is_admin', 'id'));
-    console.log(query.selectAllConditions('users', 'name, username, email', 'or, or'));
-    console.log(query.update('users', 'password_digest, temp_password, salt', 'username'));
+    //console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
+    //console.log(query.update('users', 'name, username, email', 'id'));
+    //console.log(query.selectAll('users', 'name, or, username, or, email'));
+    //console.log(query.selectAll('users', 'name, or, username, or, email'));
+    //console.log(query.selectAll('users', 'username', ''));
+    /*console.log(query.update('users', 'password_digest, temp_password, salt', 'username'));
     console.log(query.insert('users', 'name, username, email, is_admin, temp_password'));
     console.log(query.delete('users', 'id'));*/
     res.render('session/login', {title: config.company_name, message: "", user: req.user});
@@ -60,7 +62,7 @@ class Session {
     form.parse(req, (err, fields, files) => {
       //console.log(fields);
       if(err) return res.sendStatus(500);
-      db.get(query.selectAllConditions('users', 'username', 'NOT_USED'), fields.username, (err, user) => {
+      db.get(query.selectAll('users', 'username'), fields.username, (err, user) => {
         if(err || !user) {
           logger.error("No user found.");
           logger.error("Session request denied.");

@@ -45,7 +45,7 @@ class User {
       var salt = encryption.salt();
 
       //check if username matches with temp password
-      db.get(query.selectAllConditions('users', 'username, temp_password', 'AND'), fields.username, fields.temporary, (err, row) => {
+      db.get(query.selectAll('users', 'username, and, temp_password'), fields.username, fields.temporary, (err, row) => {
         //console.log(row);
         //no such user or temp password
         if(row == null) {
@@ -104,7 +104,7 @@ class User {
     form.parse(req, function(err, fields, files) {
       var userName = fields.username;
       //check if username matches with temp password
-      db.get(query.selectAllConditions('users', 'username', 'NOT_USED'), userName, (err, row) => {
+      db.get(query.selectAll('users', 'username'), userName, (err, row) => {
         console.log(row);
         //no such user or temp password
         if(row == null) {

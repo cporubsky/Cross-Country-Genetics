@@ -58,7 +58,7 @@ var express = require('express'),
     app.get('/index', no_guests, landing.index);
 
     var forms = require('./endpoints/forms');
-    app.get('/formAbc', forms.abcForm);
+    app.get('/formAbc', no_guests, forms.abcForm);
     app.post('/formAbc', forms.formAbcAjax);
     /*app.post('/formAbc', function(req, res){
       console.log(req.body.tag);
