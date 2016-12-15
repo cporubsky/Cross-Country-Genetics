@@ -8,7 +8,7 @@ var express = require('express'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
     formidable = require('formidable'),
-    //bodyParser = require('body-parser'),
+    bodyParser = require('body-parser'),
     PORT = 8080;
 
     log4js.configure('./config/log4js.json');
@@ -42,10 +42,11 @@ var express = require('express'),
 
     /*app.use(bodyParser.urlencoded({
       extended: true
-    }));*/
+    }));
 
-    //app.use(bodyParser.json());
+    app.use(bodyParser.json());*/
 
+    var parseBody = bodyParser.urlencoded({ extended: true })
 
     var session = require('./endpoints/session');
     app.get('/', session.redirect);    //redirects to '/login'
@@ -59,7 +60,7 @@ var express = require('express'),
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);
-    app.post('/formAbc', forms.formAbcAjax);
+    app.post('/formAbc', parseBody, forms.formAbcAjax);
     /*app.post('/formAbc', function(req, res){
       console.log(req.body.tag);
       var form = new formidable.IncomingForm();
