@@ -77,14 +77,14 @@ var encryption = require('../encryption'),
    db.run("DROP TABLE IF EXISTS client");
 
    // Create the client table
-   db.run("CREATE TABLE client (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT)");
+   db.run("CREATE TABLE client (id INTEGER PRIMARY KEY AUTOINCREMENT, clientName TEXT, clientAddress TEXT)");
 
    // Create client test data
-   db.run("INSERT INTO client (name, address) values (?,?)",
+   db.run("INSERT INTO client (clientName, clientAddress) values (?,?)",
       'Mushroom Red Angus',
       'Strong City, KS'
    );
-   db.run("INSERT INTO client (name, address) values (?,?)",
+   db.run("INSERT INTO client (clientName, clientAddress) values (?,?)",
       'AJ Cabanatuan',
       '808 Street, Manhattan, KS'
    );
@@ -102,17 +102,17 @@ var encryption = require('../encryption'),
    db.run("DROP TABLE IF EXISTS donor");
 
    // Create the donor table
-   db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, client_id INTEGER, breed TEXT, reg_num INTEGER, tag_tattoo TEXT, name_donor TEXT, FOREIGN KEY(client_id) REFERENCES client(id))");
+   db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, donorClientId INTEGER, donorBreed TEXT, donorRegNum INTEGER, donorTag TEXT, donorName TEXT, FOREIGN KEY(donorClientId) REFERENCES client(id))");
 
    // Create donor test data
-   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name_donor) values (?,?,?,?,?)",
+   db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
       1,
       'AR',
       1546741,
       'Z040',
       'Mushrush Lana'
    );
-   db.run("INSERT INTO donor (client_id, breed, reg_num, tag_tattoo, name_donor) values (?,?,?,?,?)",
+   db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
       2,
       'BR',
       1234567,
@@ -133,17 +133,17 @@ var encryption = require('../encryption'),
    db.run("DROP TABLE IF EXISTS sire");
 
    // Create the sire table
-   db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, donor_id INTEGER, name_sire TEXT, breed_sire TEXT, reg_num_sire INTEGER, code_sire TEXT)");
+   db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, sireDonorId INTEGER, sireName TEXT, sireBreed TEXT, sireRegNum INTEGER, sireCode TEXT)");
 
    // Create sire test data
-   db.run("INSERT INTO sire (donor_id, name_sire, breed_sire, reg_num_sire, code_sire) values (?,?,?,?,?)",
+   db.run("INSERT INTO sire (sireDonorId, sireName, sireBreed, sireRegNum, sireCode) values (?,?,?,?,?)",
       1,
       'Beckton Clifftop Z500',
       'AR',
       1544604,
       '16AR2130'
    );
-   db.run("INSERT INTO sire (donor_id, name_sire, breed_sire, reg_num_sire, code_sire) values (?,?,?,?,?)",
+   db.run("INSERT INTO sire (sireDonorId, sireName, sireBreed, sireRegNum, sireCode) values (?,?,?,?,?)",
       2,
       'Moo Train',
       'AR',
@@ -165,14 +165,14 @@ var encryption = require('../encryption'),
 
    // Create the embryo_recovery table
    db.run("CREATE TABLE embryo_recovery (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-          "donor_id INTEGER, sire_id INTEGER, sire_two_id INTEGER, freeze_date DATE, " +
-          "estrus_onset DATE, breed_date DATE, recovery_date DATE, num_recovered INTEGER, " +
-          "num_transferred INTEGER, num_frozen INTEGER, et_code TEXT, FOREIGN KEY(donor_id) REFERENCES donor(id), " +
-          "FOREIGN KEY(sire_id) REFERENCES sire(id), FOREIGN KEY(sire_two_id) REFERENCES sire(id))");
+          "embryoDonorId INTEGER, embryoSireId INTEGER, embryoTwoId INTEGER, embryoFreezeDate DATE, " +
+          "embryoEstrusOnsetDate DATE, embryoBreedDate DATE, embryoRecoveryDate DATE, embryoNumRecovered INTEGER, " +
+          "embryoNumTransferred INTEGER, embryoNumFrozen INTEGER, embryoEtCode TEXT, FOREIGN KEY(embryoDonorId) REFERENCES donor(id), " +
+          "FOREIGN KEY(embryoSireId) REFERENCES sire(id), FOREIGN KEY(embryoTwoId) REFERENCES sire(id))");
 
    // Create embryo_recovery test data
-   db.run("INSERT INTO embryo_recovery (donor_id, sire_id, sire_two_id, freeze_date, " +
-          "estrus_onset, breed_date, recovery_date, num_recovered, num_transferred, num_frozen, et_code) " +
+   db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoSireId, embryoTwoId, embryoFreezeDate, " +
+          "embryoEstrusOnsetDate, embryoBreedDate, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoEtCode) " +
           "values (?,?,?,?,?,?,?,?,?,?,?)",
       1,
       1,
@@ -186,8 +186,8 @@ var encryption = require('../encryption'),
       0,
       'E1153'
    );
-   db.run("INSERT INTO embryo_recovery (donor_id, sire_id, sire_two_id, freeze_date, " +
-          "estrus_onset, breed_date, recovery_date, num_recovered, num_transferred, num_frozen, et_code) " +
+   db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoSireId, embryoTwoId, embryoFreezeDate, " +
+          "embryoEstrusOnsetDate, embryoBreedDate, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoEtCode) " +
           "values (?,?,?,?,?,?,?,?,?,?,?)",
       2,
       2,
