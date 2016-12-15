@@ -33,67 +33,47 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
-
     //set api static directory, route, and only users allowed
     app.use('/api', no_guests, express.static('out'));
 
     var api = require('./endpoints/api');
     app.get('/api', api.index); //api index
 
-    /*app.use(bodyParser.urlencoded({
-      extended: true
-    }));
-
-    app.use(bodyParser.json());*/
-
-    var parseBody = bodyParser.urlencoded({ extended: true })
+    var parseBody = bodyParser.urlencoded({ extended: true });
 
     var session = require('./endpoints/session');
-    app.get('/', session.redirect);    //redirects to '/login'
-    app.get('/login', session.login);  //user login form
-    app.post('/login', session.start); //create session
-    app.get('/logout', no_guests, session.stop);  //deletes session
-
+    app.get('/', session.redirect);              //Redirects to '/login'
+    app.get('/login', session.login);            //User login form
+    app.post('/login', session.start);           //Create session
+    app.get('/logout', no_guests, session.stop); //Deletes session
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
 
     var forms = require('./endpoints/forms');
-    app.get('/formAbc', no_guests, forms.abcForm);
-    app.post('/formAbc', parseBody, forms.formAbcAjax);
-    /*app.post('/formAbc', function(req, res){
-      console.log(req.body.tag);
-      var form = new formidable.IncomingForm();
-      console.log(form);
-      console.log("form above");
-      form.parse(req, function(err, fields, files) {
-        if (err) console.log(err);
-        console.log("new method below");
-        console.log(fields.tag);
-      });//end serialize
-    });*/
-
-    app.get('/firstForm', no_guests, forms.firstForm);
-    app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment);
-    app.get('/caneCodeLog', no_guests, forms.caneCodeLog);
-    app.get('/viewForms', no_guests, forms.viewForms);
+    app.get('/formAbc', no_guests, forms.abcForm);                       //Abc Form
+    app.post('/formAbc', parseBody, forms.formAbcAjax);                  //Abc Form Ajax
+    app.get('/firstForm', no_guests, forms.firstForm);                   //First Form
+    app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment); //Donor Cow Enrollment
+    app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
+    app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
 
     /* admin routes accessible only if
     a user account is an admin account */
     var admin = require('./endpoints/admin');
-    app.get('/admin', admin_only, admin.index);  //Admin landing page
-    app.get('/admin/create', admin_only, admin.createUser); //Create user form
-    app.post('/admin/create', admin_only, admin.commitCreateUser); //Create user with temp password
-    app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
-    app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);
-    app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
+    app.get('/admin', admin_only, admin.index);                       //Admin landing page
+    app.get('/admin/create', admin_only, admin.createUser);           //Create user form
+    app.post('/admin/create', admin_only, admin.commitCreateUser);    //Create user with temp password
+    app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser); //Deletes a user
+    app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);         //Edit user form
+    app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);  //Edits a user
 
     //used to confirm new user
     var user = require('./endpoints/user');
-    app.get('/user/confirm', user.confirm);
-    app.post('/user/confirm', user.commitConfirm);
-    app.get('/user/reset', user.reset);  //send to page to reset password
-    app.post('/user/reset', user.resetPassword); //send message to reset password
+    app.get('/user/confirm', user.confirm);        //Confirm user form
+    app.post('/user/confirm', user.commitConfirm); //Confirms a user
+    app.get('/user/reset', user.reset);            //Reset password form
+    app.post('/user/reset', user.resetPassword);   //Sends email to reset password
 
     //app.get('/manageusers', admin_only, admin.manageusers);
 

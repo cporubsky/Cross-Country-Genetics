@@ -26,16 +26,11 @@ class Query {
 
       query += ' WHERE ';
       for(var i = 0; i < colCount; i++) {
-        if (i < colCount - 1) {
-          if ((i % 2) == 0) {
-            query += col[i] + ' = ? '
-          }
-          else {
-            query += col[i].toUpperCase().trim();
-          }
+        if ((i % 2) == 0) {
+          query += col[i] + ' = ? '
         }
         else {
-          query += col[i] + ' = ?';
+          query += col[i].toUpperCase().trim();
         }
       }
     }
@@ -59,7 +54,6 @@ class Query {
     var query = 'INSERT INTO ' + table + ' (';
     var question = '';
     for(var i = 0; i < count; i++) {
-
       if (i < count - 1) {
         question += '?,';
         query += col[i] + ','
@@ -68,7 +62,6 @@ class Query {
         question += '?';
         query += col[i] + ') VALUES (' + question + ')';
       }
-
     }
     return query;
   }
@@ -98,16 +91,11 @@ class Query {
       else {
         query += col[i] + ' = ? WHERE ';
         for (var ii = 0; ii < srchCount; ii++){
-          if (ii < srchCount - 1){
-            if ((ii % 2) == 0) {
-              query += srch[ii] + ' = ?';
-            }
-            else {
-              query += srch[ii];
-            }
+          if ((ii % 2) == 0) {
+            query += srch[ii] + ' = ?';
           }
           else {
-            query += srch[ii] + ' = ?';
+            query += srch[ii];
           }
         }
       }
