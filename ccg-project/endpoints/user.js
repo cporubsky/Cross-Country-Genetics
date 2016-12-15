@@ -25,7 +25,7 @@ class User {
    *  @instance
    */
   confirm(req, res) {
-    res.render('user/confirm', {title: "confirm", user: req.user, message: ""});
+    res.render('user/confirm', {title: "Confirm", user: req.user, message: ""});
   }
 
   /**
@@ -53,7 +53,7 @@ class User {
           logger.error("Commit new user unsuccessful.");
           //redirect to confirm page with an error
           res.statusCode = 500;
-          return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
+          return res.render('user/confirm', {title: "Confirm", user: req.user, users:row, message: "Oops, an error happened!"});
         }
         else{
           //check if both new passwords match
@@ -73,7 +73,7 @@ class User {
             logger.error("Commit new user unsuccessful.");
             //redirect to confirm page with an error
             res.statusCode = 500;
-            return res.render('user/confirm', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
+            return res.render('user/confirm', {title: "Confirm", user: req.user, users:row, message: "Oops, an error happened!"});
           }
         }
       });
@@ -113,7 +113,7 @@ class User {
           //TODO No username -> make error message
           //redirect to reset page with an error
           res.statusCode = 500;
-          return res.render('user/reset', {title: "Title Here", user: req.user, users:row, message: "Oops!"});
+          return res.render('user/reset', {title: "Title Here", user: req.user, users:row, message: "Oops, an error happened!"});
         }
         else{
           var tempPassword = helper.generateTempPassword();
@@ -130,18 +130,18 @@ class User {
               if(err) {
                 logger.error("Reset password unsuccessful.");
                 //TODO set res status
-                return res.render('admin/create', {title: "Title Here", user: req.user, message: "Oops, In Insert!"});
+                return res.render('admin/create', {title: "Title Here", user: req.user, message: "Error, In Insert!"});
             }
 
             //for testing purposes only
-            var testEmail = 'corey.porubsky@gmail.com';
+            var testEmail = 'ccgtestkansas@gmail.com';
             var transporter = helper.createTransporter();
             var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'reset'));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");
               res.statusCode = 500;
-              return res.render('user/reset', {title: '', user: req.user, users:row, message: "Oops!"});
+              return res.render('user/reset', {title: '', user: req.user, users:row, message: "Oops, an error happened!"});
             }
             else {
               logger.info("Success! Email sent!");
@@ -170,7 +170,7 @@ class User {
    */
   reset(req, res){
     //TODO add title
-    return res.render("user/reset", {title: "Title Here", user: {username: "Guest"}, message: ""});
+    return res.render("user/reset", {title: "Reset Password", user: {username: "Guest"}, message: ""});
   }
 
 

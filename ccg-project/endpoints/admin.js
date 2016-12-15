@@ -93,7 +93,7 @@ class Admin {
                 return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
             //for testing purposes only
-            var testEmail = 'corey.porubsky@gmail.com';
+            var testEmail = 'ccgtestkansas@gmail.com';
             var transporter = helper.createTransporter();
             var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'new'));
             if(!ok) {
