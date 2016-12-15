@@ -86,8 +86,8 @@ class Forms {
     var owner = req.body.owner;
     console.log(tag);
     console.log(owner);
-      db.get("SELECT * FROM donor a INNER JOIN embryo_recovery b ON b.donor_id = a.id INNER JOIN client c ON c.id=a.client_id AND a.tag_tattoo=? AND a.client_id=?", tag, owner, function(err, rows) {
-          //INNER JOIN sire d ON d.donor_id=a.id
+      db.get("SELECT * FROM client c INNER JOIN donor d ON d.donorClientId=c.id INNER JOIN embryo_recovery e ON e.embryoDonorId=d.id"
+      + " INNER JOIN sire s ON s.id=e.embryoSireId AND d.donorTag=? AND c.clientName=?", tag, owner, function(err, rows) {
       if(err) {
         // error handling
         return res.sendStatus(500);
