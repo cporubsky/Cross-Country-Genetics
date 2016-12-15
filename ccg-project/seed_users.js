@@ -54,7 +54,7 @@ var encryption = require('./encryption.js'),
          'Another User',                       //name
          'user2',                              //username
          //'user_2@none.com',                    //email
-         'corey.porubsky@gmail.com',
+         'user@gmail.com',
          false,                                //not admin
          null,                                 //digest (NULL)
          salt,                                 //salt
