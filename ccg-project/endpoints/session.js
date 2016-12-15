@@ -35,7 +35,7 @@ class Session {
    *  @instance
    */
   login(req, res) {
-    //console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
+    console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
     //console.log(query.update('users', 'name, username, email', 'id'));
     //console.log(query.selectAll('users', 'name, or, username, or, email'));
     //console.log(query.selectAll('users', 'name, or, username, or, email'));

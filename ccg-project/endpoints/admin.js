@@ -75,7 +75,7 @@ class Admin {
               //username is taken
               logger.error("Username is taken.");
               logger.error("User creation unsuccessful.");
-              return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops!"});
+              return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
           //if we get here, no user exists, insert user
           db.run(query.insert('users', 'name, username, email, is_admin, temp_password'),
@@ -90,7 +90,7 @@ class Admin {
                 //find specific error for logger
                 logger.error("Some error 1");
                 logger.error("User creation unsuccessful.");
-                return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, In Insert!"});
+                return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
             //for testing purposes only
             var testEmail = 'corey.porubsky@gmail.com';
@@ -153,7 +153,7 @@ class Admin {
           //alert("username taken");
           logger.error("Get user to edit unsuccessful.");
           console.log("Error");
-          res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops!"});
+          res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops, an error happened!"});
         }
         logger.info("Get user to edit successful.");
         res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: ""});
