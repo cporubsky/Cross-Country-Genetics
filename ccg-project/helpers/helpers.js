@@ -4,6 +4,7 @@ const config = require('../config/config.json');
 var randomstring = require("randomstring");
 var nodemailer = require('nodemailer');
 var logger = require('log4js').getLogger(config.logger);
+var template = require('../helpers/template');
 
 /**
  *  This class handles helper functions.
@@ -53,17 +54,29 @@ class Helper {
    *  @param {string} email - Email to send message to.
    *  @instance
    */
-  sendMail(transporter, tempPass, email, purpose) {
+  sendMail(tempPass, email, purpose) {
 
-    var message;
+    //transporter
+    var transporter = nodemailer.createTransport({
+          service: config.email.transporter.service,
+          auth: {
+            user: config.email.transporter.user,
+            pass: config.email.transporter.pass
+          }
+        }); //end transporter
+
+
+
+    /*var message;
 
     switch(purpose)
     {
     case 'new':
-      message = '<p> You were added as a new user for Cross Country Genetics. </p>' +
-      '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
-      '<a href="http://google.com">http://google.com</a>' +
-      '<p>' + tempPass + '</p>'
+      // message = '<p> You were added as a new user for Cross Country Genetics. </p>' +
+      // '<p> Follow the link below, and use your temp password to finish the process.  </p>' +
+      // '<a href="http://google.com">http://google.com</a>' +
+      // '<p>' + tempPass + '</p>'
+      message = template.newUserEmail()
       break;
     case 'reset':
       message = '<p> You requested to reset your password for Cross Country Genetics. </p>' +
@@ -74,6 +87,7 @@ class Helper {
     default:
       console.log("In default");
     }
+
 
     transporter.sendMail({
       from: 'CCG Admin <crosscountrygeneticskansas@gmail.com>',
@@ -87,7 +101,30 @@ class Helper {
       }
       console.log("Success in sendMail Function");
       return true;
+    });*/
+
+    var sendNew = transporter.templateSender({
+        subject: 'Password reminder for {{username}}!',
+        text: '',
+        html: '<b>Hello, <strong>{{username}}</strong>, Your password is:\n<b>{{ password }}</b></p>'
+        }, {
+        from: 'sender@example.com',
     });
+
+    sendNew({
+        to: 'ccgtestkansas@gmail.com'
+    }, {
+        username: 'Node Mailer',
+        password: '!"\'<>&some-thing'
+    }, function(err, info){
+        if(err){
+           console.log('Error');
+        }else{
+            console.log('Password reminder sent');
+        }
+    });
+
+
   }
 }
 module.exports = exports = new Helper();

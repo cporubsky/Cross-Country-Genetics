@@ -8,6 +8,9 @@ var logger = require('log4js').getLogger(config.logger);
 var query = require('../database/query');
 var helper = require('../helpers/helpers');
 
+//for testing only
+var template = require('../helpers/template');
+
 /**
  *  This class handles admin functions.
  *  @class
@@ -23,6 +26,13 @@ class Admin {
    *  @instance
    */
   index(req, res) {
+
+    res.render('admin/index', {title: config.admin.console, user: req.user});
+
+  }
+
+
+  viewUsers(req, res) {
     logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
     var user = db.all(query.selectAll('users','',''), function(err, users){
@@ -31,7 +41,7 @@ class Admin {
         console.error(err);
         return res.sendStatus(500);
       }
-    res.render('admin/users', {title: config.admin.console, user: req.user, users: users});
+    res.render('admin/users', {title: "Users", user: req.user, users: users});
     });
   }
 
@@ -43,9 +53,9 @@ class Admin {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  createUser(req, res) {
-    res.render('admin/create', {title: config.admin.console, user: req.user, message: ""});
-  }
+  /*createUser(req, res) {
+    res.render('admin/create', {title: "Create User", user: req.user, message: ""});
+  }*/
 
   /**
    *  @function commitCreateUser
@@ -66,8 +76,8 @@ class Admin {
     form.parse(req, function(err, fields, files) {
       db.serialize(function() {
         //checks to see if username or email exits
-        db.get(query.selectAll('users', 'name, or, username, or, email'),
-          fields.name,
+        //possibly check for first and last name as well
+        db.get(query.selectAll('users', 'username, or, email'),
           fields.username,
           fields.email,
           (err, rows) => {
@@ -78,9 +88,9 @@ class Admin {
               return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
           //if we get here, no user exists, insert user
-          db.run(query.insert('users', 'name, username, email, is_admin, temp_password'),
-            fields.name,
-            fields.username,
+          db.run(query.insert('users', 'first_name, last_name, email, is_admin, temp_password'),
+            fields.first_name,
+            fields.last_name,
             fields.email,
             fields.role,
             tempPassword,
@@ -94,8 +104,9 @@ class Admin {
             }
             //for testing purposes only
             var testEmail = 'ccgtestkansas@gmail.com';
-            var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'new'));
+            //var transporter = helper.createTransporter();
+            //template.test2();
+            var ok = new Boolean(helper.sendMail(tempPassword, testEmail, 'new'));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");
@@ -122,7 +133,27 @@ class Admin {
    *  @instance
    */
   deleteUser(req, res) {
-    logger.info("User deletion started.");
+    console.log(req.session.user_id);
+    console.log(req.params.id);
+
+    if (req.session.user_id == req.params.id) {
+      console.log("Here");
+      res.statusCode = 500;
+      //works, but need to fix the users:req.users -> used to fill in form, it right now is blank
+      return res.render('admin/edit', {title: config.admin.console, user: req.user, users:req.user, message: "You cannot delete yourself!"});
+
+    }
+    var user = db.all(query.selectAll('users','id',''), req.params.id, function(err, users){
+      if(err) {
+        logger.error("Error occured getting all users for admin console.");
+        console.error(err);
+        return res.sendStatus(500);
+      }
+    res.render('admin/users', {title: config.admin.console, user: req.user, users: users});
+    });
+
+    //check to see if you are deleting yourself, if you are send to '/admin'
+    /*logger.info("User deletion started.");
     db.run(query.delete('users', 'id'), req.params.id, function(err, users){
       if(err) {
         console.error(err);
@@ -131,7 +162,7 @@ class Admin {
       }
       logger.info("User deletion successful.");
       return res.redirect('/admin');
-    });
+    });*/
   }
 
   /**
@@ -153,10 +184,10 @@ class Admin {
           //alert("username taken");
           logger.error("Get user to edit unsuccessful.");
           console.log("Error");
-          res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops, an error happened!"});
+          res.render('admin/edit', {title: "Edit User", user: req.user, users:row, message: "Oops, an error happened!"});
         }
         logger.info("Get user to edit successful.");
-        res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: ""});
+        res.render('admin/edit', {title: "Edit User", user: req.user, users:row, message: ""});
       });
     });
   }
@@ -174,8 +205,9 @@ class Admin {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       //console.log(fields)
-      db.run(query.update('users', 'name, username, email, is_admin', 'id'),
-        fields.name,
+      db.run(query.update('users', 'first_name, last_name, username, email, is_admin', 'id'),
+        fields.first_name,
+        fields.last_name,
         fields.username,
         fields.email,
         fields.role,
@@ -189,6 +221,8 @@ class Admin {
   // cancelPasswordRequest(req, res) {
   //
   // }
+
+
 
 }
 module.exports = exports = new Admin();

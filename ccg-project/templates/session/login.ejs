@@ -1,15 +1,28 @@
 <%- include('../layout/header', {title: title, user: user}) %>
 <link href="/login_style.css" rel="stylesheet" type="text/css">
+<script>
+$(document).ready(function() {
+  $( "#secret" ).mouseup(function() {
+    $("#password").attr('type','password');
+  })
+
+    $( "#secret" ).mousedown(function() {
+      $("#password").attr('type','text');
+    });
+});
+</script>
 <div id="login">
   <div class="container">
     <form class="form-signin" action="/login" method="POST">
-      <h2 class="form-signin-heading">Sign In</h2>
-      <label for="username" class="sr-only">Email address</label>
-      <input name="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
-      <label for="password" class="sr-only">Password</label>
-      <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
+      <h2 class="form-signin-heading" id="secret">Sign In</h2>
+        <label for="username" class="sr-only">Email address</label>
+        <input name="username" type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+        <label for="password" class="sr-only">Password</label>
+        <input name="password" type="password" id="password" class="form-control" placeholder="Password" required>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button><br/>
-      Forgot your password? Reset it<a href="/reset" class="need-help"> here.</a><span class="clearfix"></span>
+      <div>
+        Forgot your password? Reset it<a href="/reset" class="need-help"> here.</a><span class="clearfix"></span>
+      </div>
       <% if(message) { %>
         <div class="alert alert-danger alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">

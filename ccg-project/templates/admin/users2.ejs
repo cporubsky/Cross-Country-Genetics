@@ -1,0 +1,263 @@
+
+<link href="/users_style.css" rel="stylesheet" type="text/css">
+
+<script>
+
+
+
+
+$(document).ready(function(){
+
+  //validation to not allow subit until accept is checked
+  modalValidation()
+
+//   $("#editmodalbutton").click(function() {
+//     $("#modal11").modal('hide');
+//     //$("#register").modal('show');
+// });
+//
+// $("#create").click(function() {
+//   $("#editmodal").modal('hide');
+//   //$("#register").modal('show');
+// });
+//
+//
+//
+//   $("#editmodalbutton[data-target='#editmodal']").click(function() {
+//          var userid;
+//          var columnHeadings = $("thead th").map(function() {
+//                    return $(this).text();
+//                 }).get();
+//          columnHeadings.pop();
+//          var columnValues = $(this).parent().siblings().map(function() {
+//                    return $(this).text();
+//          }).get();
+//          alert(columnValues)
+//     var modalBody = $('<div id="modalContent"></div>');
+//     var modalForm = $('<form role="form" name="modalForm" action="/user/edit/' + columnValues[0] +'" method="post"></form>');
+//     $.each(columnHeadings, function(i, columnHeader) {
+//
+//         if(columnHeader === 'Role'){
+//
+//           var formGroup = $('<div class="form-group"></div>');
+//           formGroup.append('<label for="'+columnHeader+'">'+columnHeader+'</label>');
+//
+//           if(columnValues[i] === 'Admin'){
+//             formGroup.append('<select class="form-control" name="role" id="role">'
+//             + '<option>Choose one</option>'
+//             + '<option value="1" selected>Admin</option>'
+//             +  '<option value="0">User</option>'
+//             + '</select>');
+//           }
+//           else if (columnValues[i] === 'User') {
+//             formGroup.append('<select class="form-control" name="role" id="role">'
+//             + '<option>Choose one</option>'
+//             + '<option value="1">Admin</option>'
+//             +  '<option value="0" selected>User</option>'
+//             + '</select>');
+//           }
+//           else {
+//             formGroup.append('<select class="form-control" name="role" id="role">'
+//             + '<option selected>Choose one</option>'
+//             + '<option value="1">Admin</option>'
+//             +  '<option value="0">User</option>'
+//             + '</select>');
+//           }
+//           modalForm.append(formGroup);
+//         }
+//         else {
+//           if(columnHeader === 'Id#') {
+//             // //alert(i + ' ' + columnValues[i])
+//             // var modalBody = $('<div id="modalContent"></div>');
+//             // var modalForm = $('<form role="form" name="modalForm" action="/user/edit/' + columnValues[i] +'" method="post"></form>');
+//
+//             return;
+//           }
+//          var formGroup = $('<div class="form-group"></div>');
+//          formGroup.append('<label for="'+columnHeader+'">'+columnHeader+'</label>');
+//          formGroup.append('<input class="form-control" name="'+columnHeader+'" id="'+columnHeader+'" value="'+columnValues[i]+'" />');
+//          modalForm.append(formGroup);
+//        }
+//     });
+//     modalBody.append(modalForm);
+//     $('.modal-body').html(modalBody);
+//   });
+//     $('.modal-footer .btn-primary').click(function() {
+//        $('form[name="modalForm"]').submit();
+//     });
+
+
+var $table = $('#usertable');
+
+// $(function () {
+  	$table.on('click-row.bs.table', function (e, row, $element) {
+    		$('.success').removeClass('success');
+    		$($element).addClass('success');
+  	});
+    $('#button').click(function () {
+    		alert('Selected name: ' + getSelectedRow().name + 'Stars: ' + getSelectedRow().stargazers_count);
+    });
+// });
+
+function getSelectedRow() {
+    var index = $table.find('tr.success').data('index');
+    return $table.bootstrapTable('getData')[index];
+}
+
+
+});
+
+
+//validation to not allow submit until accept is checked
+function modalValidation() {
+var bool;
+$("#check1").change(function() {
+    bool = $("#check1:not(:checked)").length != 0;
+// enable/disable
+   $("#savemodal").prop('disabled', bool);
+
+
+
+ })
+
+}
+
+</script>
+
+
+
+
+
+<div id="users">
+<div class="col-md-12 row" id="test">
+  <h3 class="col-md-2" id="userlabel">Users</h3>
+    <div class="col-md-1 offset-md-5" id="inputgroup2">
+  <!-- <button class="btn btn-primary" type="button" id="create">Create</button> -->
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal11" id="create">
+    <i class="fa fa-user-plus" aria-hidden="true"></i> Create
+</button>
+<button type="button" class="btn btn-primary" id="edituser">Edit</button>
+<!-- <a href="#modal11" data-toggle="modal"> -->
+  </div>
+  <div class="col-md-4" id="inputgroup">
+  <input type="text" class="form-control" placeholder="Search..." aria-describedby="basic-addon2">
+  </div>
+</div>
+
+
+<!-- New User Modal Start-->
+<div id="modal11" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Create New User</h4>
+      </div>
+      <div class="modal-body ">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-12 col-md-offset-1">
+                  <form id ="register" role="form" method="POST" action="/admin/create">
+                    <fieldset>
+                      <legend>Personal Info</legend>
+                      <div class="form-group col-md-6">
+                          <label for="first_name">First name</label>
+                          <input type="text" class="form-control" name="first_name" id="first_name" required placeholder="First Name" value="">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="last_name">Last name</label>
+                          <input type="text" class="form-control" name="last_name" id="last_name" required placeholder="Last Name">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="">Email</label>
+                          <input type="email" class="form-control" name="email" id="email" required placeholder="Email" value="">
+                      </div>
+                      <div class="form-group col-md-6">
+                          <label for="found_site">Role</label>
+                          <select class="form-control" name="role" id="role" required>
+                              <option selected>Choose one</option>
+                              <option value="1">Admin</option>
+                              <option value="0">User</option>
+                          </select>
+                      </div>
+                    </fieldset>
+                      <div class="form-group">
+                        <div class="col-md-6 offset-md-5">
+                          <div class="form-check">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" id="check1"> Accept
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="savemodal" form="register" disabled>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- New User Modal End -->
+
+
+
+<!-- Edit User Modal Start -->
+<!-- <div id="editmodal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content"></div>
+    </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"> <span aria-hidden="true" class="">×   </span><span class="sr-only">Close</span>
+
+                </button>
+                 <h4 class="modal-title" id="myModalLabel">Edit User</h4>
+
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<!-- Edit User Modal End -->
+
+
+
+  <table class="table table-sm table-hover table-bordered" id="usertable">
+    <thead class="thead-default">
+      <tr>
+        <th data-field="uid">Id#</th>
+        <th data-field="uname">Name</th>
+        <th data-field="uemail">Email</th>
+        <th data-field="uusername">Username</th>
+        <th data-field="urole">Role</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(function(u) { %>
+        <%- include('_users', {users: u}) %>
+      <% }); %>
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+<!-- Create a form to sign up a user. -->

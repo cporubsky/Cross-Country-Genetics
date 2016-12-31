@@ -1,5 +1,36 @@
-#users {
-  padding-top:10px;
-  padding-left: 10px;
-  padding-right: 10px;
+.navbar {
+   margin-bottom: 10px;
 }
+.jumbotron {
+  margin-bottom: 10px;
+}
+ #test {
+   margin-right: 0;
+   margin-left: 0;
+   padding-left: 0;
+   padding-right: 0;
+   padding-bottom: 10px;
+ }
+
+ #inputgroup {
+   width: 230px;
+   float: right;
+   padding-left: 0;
+   padding-right: 0;
+
+
+ }
+
+ #inputgroup2 {
+
+
+   padding-left: 0;
+   padding-right: 0;
+
+
+ }
+
+ #userlabel {
+   padding-left: 0;
+   margin-bottom: 0;
+ }

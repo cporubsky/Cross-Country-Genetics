@@ -1,7 +1,8 @@
 <!doctype html>
   <html>
     <head>
-      <script src="https://use.fontawesome.com/5a9dc3fa11.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://use.fontawesome.com/5a9dc3fa11.js"></script>    
       <title><%= title %></title>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,23 +10,25 @@
       <link href="/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-      <nav class="navbar navbar-dark bg-primary">
+      <nav class="navbar navbar-dark bg-primary navbar-fixed-top">
         <div class="container-fluid">
           <% if(user.username == "Guest") { %>
-          <div class="navbar-header invisible">
-            <a class="navbar-brand" class="nav-link" href=""><%= title %></a>
+          <div class="navbar-header">
+            <a class="navbar-brand" class="nav-link" href=""><img src="/images/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">  <%= title %></a>
+            <!-- <a class="navbar-brand" class="nav-link" href="/logout"><i class="fa fa-sign-in fa-lg" aria-hidden="true"></i>  Login </a> -->
           </div>
           <% } %>
           <% if(user.username != "Guest") { %>
           <div class="navbar-header">
             <a class="navbar-brand" class="nav-link" href=""><%= title %></a>
+            <!-- <li class="nav-item active"><a class="navbar-brand" class="nav-link" href=""><%= title %></a></li> -->
           </div>
           <ul class="nav navbar-nav pull-xs-right">
             <!-- use logic to see if logged in -->
               <li class="nav-item active"><a class="nav-link" href="/index"><i class="fa fa-home fa-lg" aria-hidden="true"></i>  Home </a></li>
-              <li class="nav-item active"><a class="nav-link" href=""><i class="fa fa-user fa-lg" aria-hidden="true"></i>  Welcome <%= user.username %>!</a></li>
+              <li class="nav-item active"><a class="nav-link" href="/user/edit/<%= user.id %>"><i class="fa fa-user fa-lg" aria-hidden="true"></i>  <%= user.username %></a></li>
               <% if(user.is_admin) { %>
-                <li class="nav-item active"><a class="nav-link" href="/admin"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i>  Manage </a></li>
+                <li class="nav-item active"><a class="nav-link" href="/admin"><i class="fa fa-wrench fa-lg" aria-hidden="true"></i>  Manage</a></li>
               <% } %>
               <li class="nav-item active"><a class="nav-link" href="/logout"><i class="fa fa-sign-out fa-lg" aria-hidden="true"></i>  Logout </a></li>
             <% } %>
