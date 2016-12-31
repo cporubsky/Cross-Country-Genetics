@@ -8,21 +8,6 @@ var express = require('express'),
     session = require('supertest-session'),
     PORT = 8080;
 
-
-    /*================*/
-    /******************/
-    /*      TODO      */
-    /******************/
-    /*================*/
-
-    //TEST:
-    //
-
-    //FORMATTING:
-    //Have access tests
-    //Have tests for posting separate from access tests
-
-
     //entry point tests
     describe('Entry Point Unit Tests', function() {
       it('app should exist', function() {
@@ -624,10 +609,10 @@ var express = require('express'),
         it("should allow admin to: delete a user [GET](/admin/delete/:id)",function(done){
           admin
           .get("/admin/delete/4")
-          .expect(302)
+          .expect(200)
           .end(function(err,res){
             (err === null).should.be.true;
-            res.status.should.equal(302);
+            res.status.should.equal(200);
             done();
           });
         }); //end [GET](/admin/delete/:id)

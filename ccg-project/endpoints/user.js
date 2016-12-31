@@ -135,8 +135,8 @@ class User {
 
             //for testing purposes only
             var testEmail = 'ccgtestkansas@gmail.com';
-            var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'reset'));
+            //var transporter = helper.createTransporter();
+            var ok = new Boolean(helper.sendMail(tempPassword, testEmail, 'reset'));
             if(!ok) {
               logger.error("Error in sending email.");
               console.log("Error in sending email.");
@@ -171,6 +171,42 @@ class User {
   reset(req, res){
     //TODO add title
     return res.render("user/reset", {title: "Reset Password", user: {username: "Guest"}, message: ""});
+  }
+
+  edit(req, res) {
+    res.render('user/edit_user', {title: "Account Details", user: req.user, users:req.user, message: ""});
+  }
+
+  //TODO Implement!!
+  /*commitEdit(req, res) {
+
+  }*/
+
+  verifyToken(req, res) {
+    req.session.reset();
+    console.log(req);
+    console.log(req.params.token);
+    console.log(query.selectAll('users','temp_password'))
+    db.get(query.selectAll('users','temp_password'), req.params.token, function(err, user) {
+      if(err) {
+        logger.error("Error occured validating token.");
+        console.error(err);
+        return res.sendStatus(500);
+      }
+    //res.render('admin/users', {title: config.admin.console, user: req.user, users: users});
+    console.log(user);
+    //console.log("users.id: " + user.id);
+    //console.log("req.session.user_id: " + req.session.user_id);
+    console.log("verified: " + user.verified);
+    //req.session.user_id = user.id;
+
+    //console.log("req.user.username: " + req.user.username);
+    console.log(user.temp_password);
+    //new_user
+
+
+    res.render('user/new_user', {title: "Account Details", user: user, users: user, message: ""});
+    });
   }
 
 

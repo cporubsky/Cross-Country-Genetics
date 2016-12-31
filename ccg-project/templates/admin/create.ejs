@@ -4,39 +4,9 @@ form {
   padding-top: 10px;
 }
 </style>
-<form class="col-md-6" action="/admin/create" method="POST">
-<!-- Name -->
-  <div class="form-group row">
-    <label class="col-xs-2 col-form-label">Name</label>
-    <div class="col-xs-10">
-      <input class="form-control" type="text" name="name">
-    </div>
-  </div>
-  <!-- Username -->
-  <div class="form-group row">
-    <label class="col-xs-2 col-form-label">Username</label>
-    <div class="col-xs-10">
-      <input class="form-control" type="search" name="username">
-    </div>
-  </div>
-  <!-- Email -->
-  <div class="form-group row">
-    <label for="example-email-input" class="col-xs-2 col-form-label">Email</label>
-    <div class="col-xs-10">
-      <input class="form-control" type="email" name="email">
-    </div>
-  </div>
-  <div class="form-group row">
-    <!-- Role -->
-    <label class="col-xs-2 col-form-label">Role</label>
-      <div class="col-xs-10">
-        <select class="form-control" name="role">
-          <option value="1">Admin</option>
-          <option value="0">User</option>
-        </select>
-      </div>
-    </div>
-<button class="btn btn-primary" type="submit">Create</button>
+
+
+<!-- <button class="btn btn-primary" type="submit">Create</button>
 <a class="btn btn-danger" href="/admin" role="button">Back</a>
 <% if(message) { %>
   <div class="alert alert-danger alert-dismissible fade in" role="alert">
@@ -46,5 +16,124 @@ form {
     <%= message %>
   </div>
 <% } %>
-</form>
+</form> -->
+
+
+
+<div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <form id ="register" role="form" method="POST" action="/admin/create">
+
+
+                    <fieldset>
+                        <legend>Personal Info</legend>
+
+                        <div class="form-group col-md-6">
+                            <label for="first_name">First name</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name" required placeholder="First Name" value="">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="last_name">Last name</label>
+                            <input type="text" class="form-control" name="last_name" id="" required placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="last_name">Username</label>
+                            <input type="text" class="form-control" name="username" id="" required placeholder="Username" value="">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" name="email" id="" required placeholder="Email" value="">
+                        </div>
+
+                        <!-- <div class="form-group col-md-6">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="" id="password" required placeholder="Password" value="">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" name="" id="confirm_password" required placeholder="Confirm Password" value="">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          Password Strength:
+                            <span id="strength">
+                            </span>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                          Passwords Match:
+                            <span id="match">
+                            </span>
+                        </div> -->
+
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Other Options</legend>
+
+                        <!-- <div class="form-group col-md-6">
+                            <label for="country">Country of Residence</label>
+                            <select class="form-control" name="" id="country">
+                                <option>Country 1</option>
+                                <option>Country 2</option>
+                                <option>Country 3</option>
+                            </select>
+                        </div> -->
+
+                        <div class="form-group col-md-6">
+                            <label for="found_site">Role</label>
+                            <select class="form-control" name="role" id="found_site" required>
+                                <option selected>Choose one</option>
+                                <option value="1">Admin</option>
+                                <option value="0">User</option>
+                            </select>
+                        </div>
+
+                        <!-- <div class="form-group col-md-12 hidden"> -->
+                            <!-- <label for="specify">Please Specify</label> -->
+                            <!-- <input type="text" class="form-control" name="" id="" placeholder="Answer" required>
+                        </div> -->
+
+                    </fieldset>
+
+                    <!-- <div class="form-group">
+                        <div class="col-md-12">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="">
+                                    I accept that I want to make changes.
+                                </label>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+
+                    <!-- Keep -->
+                    <!-- <div class="form-group">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                Cancel
+                            </button>
+                        </div>
+                    </div> -->
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
 <%- include('../layout/footer') %>

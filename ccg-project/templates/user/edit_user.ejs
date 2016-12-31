@@ -1,0 +1,431 @@
+<%- include('../layout/header', {title: title, user: user}) %>
+
+<style>
+/* Keep Below */
+/*form * {
+    border-radius:0 !important;
+}
+
+form > fieldset > legend {
+    font-size:120%;
+}*/
+/* Keep Above */
+
+form {
+  padding-top: 10px;
+}
+
+ul, li {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+}
+
+/*body {
+  padding-top: 50px;
+}*/
+
+
+/*#pw1{
+    float:left;
+}
+#pw2{
+  float:left;
+clear: left;
+}
+#strength1{
+  float:left;
+clear: left;
+}
+#match1{
+  float:left;
+clear: left;
+}*/
+
+</style>
+<script>
+$(document).ready(function() {
+
+
+
+
+
+
+  $('#match').html(match($('#password').val(), $('#password').val()))
+
+  $('#confirm_password').keyup(function() {
+    $('#match').html(match($('#password').val(), $('#confirm_password').val()))
+  })
+
+  $('#password').keyup(function() {
+    $('#match').html(match($('#password').val(), $('#confirm_password').val()))
+  })
+
+
+  //check password on load
+  $('#strength').html(checkStrength($('#password').val()))
+
+  //check password after every keystroke
+  $('#password').keyup(function() {
+    $('#strength').html(checkStrength($('#password').val()))
+  })
+
+  function match(password1, password2) {
+    if(password1 === '' && password2 === '') {
+
+      if($('#match').hasClass('text-success')) {
+        $('#match').removeClass('text-success')
+      }
+
+      if($('#match').hasClass('text-danger')) {
+        $('#match').removeClass('text-danger')
+      }
+
+      if($('#pw1').hasClass('has-danger')) {
+        $('#pw1').removeClass('has-danger')
+      }
+      if($('#pw1').hasClass('has-success')) {
+        $('#pw1').removeClass('has-success')
+      }
+      if($('#pw2').hasClass('has-danger')) {
+        $('#pw2').removeClass('has-danger')
+      }
+      if($('#pw1').hasClass('has-success')) {
+        $('#pw1').removeClass('has-success')
+      }
+      if($('#password').hasClass('form-control-danger')) {
+        $('#password').removeClass('form-control-danger')
+      }
+      if($('#password').hasClass('form-control-success')) {
+        $('#password').removeClass('form-control-success')
+      }
+      if($('#confirm_password').hasClass('form-control-danger')) {
+        $('#confirm_password').removeClass('form-control-danger')
+      }
+      if($('#confirm_password').hasClass('form-control-success')) {
+        $('#confirm_password').removeClass('form-control-success')
+      }
+
+
+
+      // $('#pw1').removeClass()
+      // $('#pw2').removeClass()
+      // $('#password').removeClass()
+      // $('#confirm_password').removeClass()
+
+      return ' '
+    }
+
+    if(password1 === password2) {
+      $('#match').removeClass('text-danger')
+      $('#match').addClass('text-success')
+      $('#pw1').removeClass('has-danger')
+      $('#pw1').addClass('has-success')
+      $('#pw2').removeClass('has-danger')
+      $('#pw2').addClass('has-success')
+
+      $('#password').removeClass('form-control-danger')
+      $('#password').addClass('form-control-success')
+      $('#confirm_password').removeClass('form-control-danger')
+      $('#confirm_password').addClass('form-control-success')
+
+
+      return 'Match!'
+
+    }
+    else {
+      $('#match').removeClass('text-success')
+      $('#match').addClass('text-danger')
+
+      $('#pw1').removeClass('has-success')
+      $('#pw1').addClass('has-danger')
+      $('#pw2').removeClass('has-success')
+      $('#pw2').addClass('has-danger')
+
+      $('#password').removeClass('form-control-success')
+      $('#password').addClass('form-control-danger')
+      $('#confirm_password').removeClass('form-control-success')
+      $('#confirm_password').addClass('form-control-danger')
+
+      return 'Don\'t match!'
+    }
+  }
+
+  function checkStrength(password) {
+
+    if(password.length == 0) {
+      $('#progress_bar').val(0)
+      $('#strength').removeClass()
+      $('#lengthicon').removeClass()
+      $('#lengthicon').addClass('fa fa-times text-danger')
+      $('#numbericon').removeClass()
+      $('#numbericon').addClass('fa fa-times text-danger')
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-times text-danger')
+      $('#capitalicon').removeClass()
+      $('#capitalicon').addClass('fa fa-times text-danger')
+
+
+      return '';
+    }
+
+    var strength = 0
+    if (password.length < 8) {
+      $('#lengthicon').removeClass()
+      $('#lengthicon').addClass('fa fa-times  text-danger')
+      // $('#progress_bar').removeClass()
+      // $('#progress_bar').addClass('progress progress-danger')
+      // $('#progress_bar').val(25)
+      // $('#strength').removeClass()
+      // $('#strength').addClass('text-danger')
+      //return 'Too short'
+    }
+    if (password.length > 7) {
+       strength += 1
+       $('#lengthicon').removeClass()
+       $('#lengthicon').addClass('fa fa-check text-success')
+     }
+    // If password contains both lower and uppercase characters, increase strength value.
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+       strength += 1
+
+     }
+     if(password.match(/([0-9])/)) {
+       strength += 1
+       $('#numbericon').removeClass()
+       $('#numbericon').addClass('fa fa-check text-success')
+     }
+     if(!password.match(/([0-9])/)) {
+       strength -= 1
+       $('#numbericon').removeClass()
+       $('#numbericon').addClass('fa fa-times text-danger')
+     }
+    // If it has characters, increase strength value.
+    if (password.match(/([a-zA-Z])/)) {
+      strength += 1
+
+
+    }
+    if (!password.match(/([a-zA-Z])/)) {
+      strength -= 1
+
+
+    }
+    if (password.match(/([A-Z])/)) {
+      strength += 0.5
+      $('#capitalicon').removeClass('fa fa-times text-danger')
+      $('#capitalicon').addClass('fa fa-check text-success')
+
+    }
+    if (!password.match(/([A-Z])/)) {
+      strength -= 0.5
+      $('#capitalicon').removeClass('fa fa-check text-success')
+      $('#capitalicon').addClass('fa fa-times  text-danger')
+
+    }
+    // If it has one special character, increase strength value.
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~,.])/)) {
+      strength += 1
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-check text-success')
+
+    }
+    if (!password.match(/([!,%,&,@,#,$,^,*,?,_,~,.])/)) {
+      strength -= 1
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-times  text-danger')
+
+    }
+    // If it has two special characters, increase strength value.
+    if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+    // Calculated strength value, we can return messages
+    // If value is less than 2
+
+    if (strength < 2) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-danger')
+      $('#progress_bar').val(25)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-danger')
+      return 'Very Weak'
+    }
+    else if (strength > 2 && strength < 4) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-warning')
+      $('#progress_bar').val(50)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-warning')
+      return 'Weak'
+    }
+    else if (strength > 4 && strength < 6) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-info')
+      $('#progress_bar').val(75)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-info')
+      return 'Good'
+    }
+    else {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-success')
+      $('#progress_bar').val(100)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-success')
+      return 'Strong'
+    }
+  } //end check strength
+
+
+});
+</script>
+
+<div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+                <form id ="register" role="form" method="POST" action="#">
+
+
+                    <fieldset>
+                        <legend>Personal Info</legend>
+
+                        <div class="form-group col-md-6">
+                            <label for="first_name">First name</label>
+                            <input type="text" class="form-control" name="first_name" id="" required placeholder="First Name" value="<%= users.first_name %>">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="last_name">Last name</label>
+                            <input type="text" class="form-control" name="last_name" id="" required placeholder="Last Name" value="<%= users.last_name %>">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="last_name">Username</label>
+                            <input type="text" class="form-control" name="username" id="" required placeholder="Username" value="<%= users.username %>">
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label for="">Email</label>
+                            <input type="email" class="form-control" name="email" id="" required placeholder="Email" value="<%= users.email %>">
+                        </div>
+
+                        <div class="form-group col-md-6" id="pw1">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="" id="password" required placeholder="Password" value="">
+
+                        </div>
+
+                        <div class="form-group col-md-6" id="pw2">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" name="" id="confirm_password" required placeholder="Confirm Password" value="">
+
+                            <!-- <div <div class="form-control-feedback" value="" id="match"> </div> -->
+                        </div>
+
+                        <div class="form-group col-md-6" id="contain">
+                          <label>Password must contain:</label>
+                          <ul>
+                              <li id="length" class="invalid"><i class="fa fa-times" aria-hidden="true" id="lengthicon"></i> At least <strong>8 characters</strong></li>
+                              <li id="letter" class="invalid"><i class="fa fa-times" aria-hidden="true" id="symbolicon"></i> At least <strong>one special character</strong></li>
+                              <li id="capital" class="invalid"><i class="fa fa-times" aria-hidden="true" id="capitalicon"></i> At least <strong>one capital letter</strong></li>
+                              <li id="number" class="invalid"><i class="fa fa-times" aria-hidden="true" id="numbericon"></i> At least <strong>one number</strong></li>
+                          </ul>
+
+                        </div>
+
+                        <div class="form-group col-md-6" id="strength1">
+                          <label>Password Strength: <span id="strength"></span></label>
+                          <progress id="progress_bar" class="progress" value="0" max="100" aria-describedby=""></progress>
+
+                        </div>
+
+
+
+                        <!-- Keep what is below-->
+                          <!-- <div class="form-group col-md-6 offset-md-3" id="strength1">
+                            Password Strength: <span id="strength"></span>
+                            <progress id="progress_bar" class="progress" value="0" max="100" aria-describedby=""></progress>
+
+                          </div>
+
+                          <div class="form-group col-md-6 offset-md-3" id="contain">
+                            Password Must Contain:
+
+                          </div> -->
+
+                          <!-- Keep what is above -->
+
+                          <!-- <div class="form-group col-md-6" id="match1">
+                            Passwords Match: <span id="match"></span>
+                          </div> -->
+
+                        <!-- <div class="form-group col-md-6">
+                          <progress id="progress_bar" class="progress" value="0" max="100" aria-describedby=""></progress>
+                        </div> -->
+
+
+
+
+
+
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Password Reset Options</legend>
+
+                        <!-- <div class="form-group col-md-6">
+                            <label for="country">Country of Residence</label>
+                            <select class="form-control" name="" id="country">
+                                <option>Country 1</option>
+                                <option>Country 2</option>
+                                <option>Country 3</option>
+                            </select>
+                        </div> -->
+
+                        <div class="form-group col-md-12">
+                            <label for="found_site">Choose a security question to answer:</label>
+                            <select class="form-control" name="security_question" id="found_site" required>
+                                <option selected>Choose one</option>
+                                <option value="1">What city were you born in?</option>
+                                <option value="2">What is the name of your first pet?</option>
+                                <option value="3">What street did you grow up on?</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group col-md-12 hidden">
+                            <!-- <label for="specify">Please Specify</label> -->
+                            <input type="text" class="form-control" name="" id="" placeholder="Answer" required>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="form-group">
+                          <div class="col-md-6 offset-md-4">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" value="" id="">
+                                    I accept these changes.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6 offset-md-4">
+                        <div >
+                            <button type="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <button type="submit" class="btn btn-danger">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+<%- include('../layout/footer') %>
