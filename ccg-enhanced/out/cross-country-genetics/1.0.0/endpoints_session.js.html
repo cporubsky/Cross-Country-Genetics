@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>endpoints/session.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">endpoints/session.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict"
+
+var encryption = require('../encryption'),
+    db = require('../db'),
+    formidable = require('formidable'),
+    company_name = "Cross Country Genetics",
+    logged_out = "Logged Out!",
+    login_failed = "Login Failed. Please try again.",
+    guest = "Guest";
+
+
+/**
+ *  This class handles the encryption for user passwords.
+ *  @class
+ */
+class Session {
+
+  /**
+   *  @function redirect
+   *  @memberof Session
+   *  @description Redirects to login page.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  redirect(req, res) {
+      res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
+          res.end("This page has moved to &lt;a href='/login'>login&lt;/a>");
+    }
+
+  /**
+   *  @function login
+   *  @memberof Session
+   *  @description Renders a login form with no error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  login(req, res) {
+    res.render('session/login', {title: company_name, message: "", user: req.user});
+  }
+
+  /**
+   *  @function start
+   *  @memberof Session
+   *  @description Creates a new session, provided the username and password match one in the database.
+   *  If login fails, the page will be redirected back to login with error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  start(req, res, next) {
+    req.session.reset();
+    var form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+      //console.log(fields);
+      if(err) return res.sendStatus(500);
+      db.get("SELECT * FROM users WHERE username = ?", fields.username, (err, user) => {
+        if(err || !user) {
+          res.statusCode = 500;
+           return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+         }
+        if(user.password_digest != encryption.digest(fields.password + user.salt)) {
+          res.statusCode = 500;
+         return res.render('session/login', {title: company_name, message: login_failed, user: req.user});
+       }
+        req.session.user_id = user.id;
+        return res.redirect('/index');
+      });
+    });
+  }
+
+  /**
+   *  @function stop
+   *  @memberof Session
+   *  @description Ends a user session by flushing the session cookie.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  stop(req, res) {
+    req.session.reset();
+    return res.render("session/logout", {title: logged_out, user: {username: guest}});
+  }
+
+
+}
+
+module.exports = exports = new Session();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Fri Dec 02 2016 23:38:41 GMT-0600 (CST)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

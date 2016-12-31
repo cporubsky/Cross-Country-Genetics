@@ -1,0 +1,81 @@
+
+<style>
+.tile{
+	width: 272px;
+	height: 100px;
+	//background-color: #0275d8;
+	background-color: #337ab7;
+	padding: 10px;
+	display: inline;
+	border: solid 3 black;
+	margin: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 5px grey;
+	text-align: center;
+	position: relative;
+	color: #f2f2f2;
+}
+
+.tile:hover{
+	filter: brightness(120%);
+	cursor: pointer;
+}
+
+a:hover{
+	text-decoration: none;
+}
+
+.whiteText{
+	color: white;
+	font-size: 20px;
+}
+
+.jumbotron {
+  margin-top: 20px;
+  margin-bottom: 10px
+}
+
+
+</style>
+
+
+
+
+<script>
+
+$(document).ready(function() {
+
+  $(".tile").click(function(){
+  	id = $(this).children("h3").attr('id');
+  	window.location.href= "/" + id;
+  });
+
+});
+
+</script>
+  <div class="jumbotron">
+    <h1 class="display-3">Hello, <%= user.username %>!</h1>
+    <p class="lead">Here you can manage many aspects of your company.</p>
+  </div>
+  <div class="row">
+
+
+
+  <div class="tile col-md-3">
+      <h3 class="whiteText" id="admin/users">Manage Users</h3>
+	  <p>Add, modify, and delete users.</p>
+	</div>
+  <div class="tile col-md-3">
+      <h3 class="whiteText" href="#" id="">TBD</h3>
+    <p>Test</p>
+  </div>
+  <div class="tile col-md-3">
+      <h3 class="whiteText" href="#" id="">TBD</h3>
+	  <p>Test</p>
+	</div>
+	<div class="tile col-md-3">
+      <h3 class="whiteText" href="#" id="">TBD</h3>
+	  <p>Test</p>
+	</div>
+
+  </div>

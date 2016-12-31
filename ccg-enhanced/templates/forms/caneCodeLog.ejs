@@ -1,0 +1,49 @@
+<%- include('../layout/header', {title: "Cane Code Log", user: user}) %>
+<% title = "Cane Code Log" %>
+<link href="/css/form.css" rel="stylesheet" type="text/css">
+<div id="page">
+  <div id="container">
+    <div id="newLog">
+      <span>Select a Client Location: </span><select id="clientLocation" name="clientLocation"><option value="Test">Test</option></select>
+      <br><br>
+      <table>
+        <thead>
+          <tr>
+            <th><span>Cane Code</span></th>
+            <th><span>LOC</span></th>
+            <th><span>Freeze Date</span></th>
+            <th><span>Client</span></th>
+            <th><span>Donor</span></th>
+            <th><span>Sire</span></th>
+            <th><span>G1</span></th>
+            <th><span>G2</span></th>
+            <th><span>G3</span></th>
+            <th><span>Total</span></th>
+            <th><span>Age</span></th>
+            <th><span>State</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" id="caneCode" name="caneCode"></td>
+            <td><input type="text" id="loc" name="loc"></td>
+            <td><input type="text" id="freezeDate" name="freezeDate"></td>
+            <td><input type="text" id="client" name="client"></td>
+            <td><input type="text" id="donor" name="donor"></td>
+            <td><input type="text" id="sire" name="sire"></td>
+            <td><input type="text" id="g1" name="g1"></td>
+            <td><input type="text" id="g2" name="g2"></td>
+            <td><input type="text" id="g3" name="g3"></td>
+            <td><input type="text" id="total" name="total"></td>
+            <td><input type="text" id="age" name="age"></td>
+            <td><input type="text" id="state" name="state"></td>
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <input type="submit" class="btn btn-primary" id="submitLog" name="submitLog" value="Submit Log"/>
+    </div>
+  </div>
+</div>
+<%- include('../layout/footer') %>
+<script src="/js/caneCodeLog.js"></script>

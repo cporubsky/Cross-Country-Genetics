@@ -1,0 +1,26 @@
+{
+  "logger": "logger",
+  "company_name": "Cross Country Genetics",
+  "email": {
+    "transporter": {
+      "user": "ccgkansas@gmail.com",
+      "pass": "ccgkansas1",
+      "service": "Gmail"
+    },
+    "message": {
+      "from": "CCG Admin <crosscountrygeneticskansas@gmail.com>",
+      "subject": "Action Required"
+    }
+  },
+  "landing": {
+    "home": "Home"
+  },
+  "admin": {
+    "console": "Admin Console"
+  },
+  "user": {
+    "guest": "Guest",
+    "logged_out": "Logged Out!",
+    "login_failed": "Login Failed. Please try again."
+  }
+}

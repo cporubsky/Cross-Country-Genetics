@@ -1,0 +1,380 @@
+<%- include('../layout/header', {title: title, user: user}) %>
+<style>
+form {
+  padding-top: 10px;
+}
+
+ul, li {
+    margin:0;
+    padding:0;
+    list-style-type:none;
+}
+
+#progress_bar {
+  margin-bottom: 0px;
+  vertical-align: middle;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+
+
+
+
+  var enable = false
+
+  //$('#match').html(match($('#password').val(), $('#password').val()))
+
+  $('#confirm_password').keyup(function() {
+    $('#match').html(match($('#password').val(), $('#confirm_password').val()))
+  })
+
+  $('#password').keyup(function() {
+    $('#match').html(match($('#password').val(), $('#confirm_password').val()))
+  })
+
+
+  //check password on load
+  $('#strength').html(checkStrength($('#password').val()))
+
+  //check password after every keystroke
+  $('#password').keyup(function() {
+    $('#strength').html(checkStrength($('#password').val()))
+  })
+
+  function match(password1, password2) {
+    if(password1 === '' && password2 === '') {
+
+      if($('#match').hasClass('text-success')) {
+        $('#match').removeClass('text-success')
+      }
+
+      if($('#match').hasClass('text-danger')) {
+        $('#match').removeClass('text-danger')
+      }
+
+      if($('#pw1').hasClass('has-danger')) {
+        $('#pw1').removeClass('has-danger')
+      }
+      if($('#pw1').hasClass('has-success')) {
+        $('#pw1').removeClass('has-success')
+      }
+      if($('#pw2').hasClass('has-danger')) {
+        $('#pw2').removeClass('has-danger')
+      }
+      if($('#pw1').hasClass('has-success')) {
+        $('#pw1').removeClass('has-success')
+      }
+      if($('#passwordspan').hasClass('glyphicon-ok')) {
+        $('#passwordspan').removeClass('glyphicon-ok')
+      }
+      if($('#passwordspan').hasClass('glyphicon-remove')) {
+        $('#passwordspan').removeClass('glyphicon-remove')
+      }
+      if($('#passwordspan2').hasClass('glyphicon-ok')) {
+        $('#passwordspan2').removeClass('glyphicon-ok')
+      }
+      if($('#passwordspan2').hasClass('glyphicon-remove')) {
+        $('#passwordspan2').removeClass('glyphicon-remove')
+      }
+      // if($('#password').hasClass('form-control-danger')) {
+      //   $('#password').removeClass('form-control-danger')
+      // }
+      // if($('#password').hasClass('form-control-success')) {
+      //   $('#password').removeClass('form-control-success')
+      // }
+      // if($('#confirm_password').hasClass('form-control-danger')) {
+      //   $('#confirm_password').removeClass('form-control-danger')
+      // }
+      // if($('#confirm_password').hasClass('form-control-success')) {
+      //   $('#confirm_password').removeClass('form-control-success')
+      // }
+
+
+
+      // $('#pw1').removeClass()
+      // $('#pw2').removeClass()
+      // $('#password').removeClass()
+      // $('#confirm_password').removeClass()
+      enable = false
+      return enable
+    }
+
+    if(password1 === password2) {
+      $('#match').removeClass('text-danger')
+      $('#match').addClass('text-success')
+      $('#pw1').removeClass('has-danger')
+      $('#pw1').addClass('has-success')
+      $('#passwordspan').addClass('glyphicon-ok');
+      $('#passwordspan').removeClass('glyphicon-remove');
+      $('#pw2').removeClass('has-danger')
+      $('#pw2').addClass('has-success')
+      $('#passwordspan2').addClass('glyphicon-ok');
+      $('#passwordspan2').removeClass('glyphicon-remove');
+
+      // $('#password').removeClass('form-control-danger')
+      // $('#password').addClass('form-control-success')
+      // $('#confirm_password').removeClass('form-control-danger')
+      // $('#confirm_password').addClass('form-control-success')
+
+      enable = true
+      return enable
+
+    }
+    else {
+      $('#match').removeClass('text-success')
+      $('#match').addClass('text-danger')
+
+      $('#pw1').removeClass('has-success')
+      $('#pw1').addClass('has-danger')
+      $('#pw2').removeClass('has-success')
+      $('#pw2').addClass('has-danger')
+      $('#passwordspan').removeClass('glyphicon-ok')
+      $('#passwordspan').addClass('glyphicon-remove')
+      $('#passwordspan2').removeClass('glyphicon-ok')
+      $('#passwordspan2').addClass('glyphicon-remove')
+
+      // $('#password').removeClass('form-control-success')
+      // $('#password').addClass('form-control-danger')
+      // $('#confirm_password').removeClass('form-control-success')
+      // $('#confirm_password').addClass('form-control-danger')
+
+      enable = false
+      return enable
+    }
+  }
+
+  function checkStrength(password) {
+
+    if(password.length == 0) {
+      $('#progress_bar').val(0)
+      $('#strength').removeClass()
+      $('#lengthicon').removeClass()
+      $('#lengthicon').addClass('fa fa-times text-danger')
+      $('#numbericon').removeClass()
+      $('#numbericon').addClass('fa fa-times text-danger')
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-times text-danger')
+      $('#capitalicon').removeClass()
+      $('#capitalicon').addClass('fa fa-times text-danger')
+
+      enable = false
+      return '';
+    }
+
+    var strength = 0
+    if (password.length < 8) {
+      $('#lengthicon').removeClass()
+      $('#lengthicon').addClass('fa fa-times  text-danger')
+      // $('#progress_bar').removeClass()
+      // $('#progress_bar').addClass('progress progress-danger')
+      // $('#progress_bar').val(25)
+      // $('#strength').removeClass()
+      // $('#strength').addClass('text-danger')
+      //return 'Too short'
+    }
+    if (password.length > 7) {
+       strength += 1
+       $('#lengthicon').removeClass()
+       $('#lengthicon').addClass('fa fa-check text-success')
+       enable = true
+     }
+    // If password contains both lower and uppercase characters, increase strength value.
+    if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+       strength += 1
+
+     }
+     if(password.match(/([0-9])/)) {
+       strength += 1
+       $('#numbericon').removeClass()
+       $('#numbericon').addClass('fa fa-check text-success')
+       enable = true
+     }
+     if(!password.match(/([0-9])/)) {
+       strength -= 1
+       $('#numbericon').removeClass()
+       $('#numbericon').addClass('fa fa-times text-danger')
+       enable = false
+     }
+    // If it has characters, increase strength value.
+    if (password.match(/([a-zA-Z])/)) {
+      strength += 1
+
+
+    }
+    if (!password.match(/([a-zA-Z])/)) {
+      strength -= 1
+
+
+    }
+    if (password.match(/([A-Z])/)) {
+      strength += 0.5
+      $('#capitalicon').removeClass('fa fa-times text-danger')
+      $('#capitalicon').addClass('fa fa-check text-success')
+      enable = true
+
+    }
+    if (!password.match(/([A-Z])/)) {
+      strength -= 0.5
+      $('#capitalicon').removeClass('fa fa-check text-success')
+      $('#capitalicon').addClass('fa fa-times  text-danger')
+      enable = false
+    }
+    // If it has one special character, increase strength value.
+    if (password.match(/([!,%,&,@,#,$,^,*,?,_,~,.])/)) {
+      strength += 1
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-check text-success')
+      enable = true
+    }
+    if (!password.match(/([!,%,&,@,#,$,^,*,?,_,~,.])/)) {
+      strength -= 1
+      $('#symbolicon').removeClass()
+      $('#symbolicon').addClass('fa fa-times text-danger')
+      enable = false
+    }
+    // If it has two special characters, increase strength value.
+    if (password.match(/(.*[!,%,&,@,#,$,^,*,?,_,~].*[!,%,&,@,#,$,^,*,?,_,~])/)) strength += 1
+    // Calculated strength value, we can return messages
+    // If value is less than 2
+
+    if (strength < 2) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-danger')
+      $('#progress_bar').val(25)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-danger')
+      return 'Very Weak'
+    }
+    else if (strength > 2 && strength < 4) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-warning')
+      $('#progress_bar').val(50)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-warning')
+      return 'Weak'
+    }
+    else if (strength > 4 && strength < 6) {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-info')
+      $('#progress_bar').val(75)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-info')
+      return 'Good'
+    }
+    else {
+      $('#progress_bar').removeClass()
+      $('#progress_bar').addClass('progress progress-success')
+      $('#progress_bar').val(100)
+      $('#strength').removeClass()
+      $('#strength').addClass('text-success')
+      return 'Strong'
+    }
+
+    if(enable) {
+
+    }
+    else {
+
+    }
+  } //end check strength
+
+
+});
+</script>
+
+
+<div class="container">
+        <div class="row">
+
+            <div class="col-md-8 col-md-offset-2">
+
+                <form id ="register" role="form" action="/user/reset/<%= user.temp_password %>" method="POST">
+                    <% if(message) { %>
+                      <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <%= message %>
+                      </div>
+                    <% } %>
+
+                    <fieldset>
+                        <legend> Reset Password </legend>
+
+
+
+                        <div class="form-group col-md-8">
+                            <label for="last_name">Username</label>
+                            <input type="text" class="form-control" name="username" id="" placeholder="Username" value="<%= user.username %>">
+                        </div>
+
+
+                        <div class="col-md-8">
+
+
+                        <div class="form-group has-feedback" id="pw1">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="">
+                            <span class="glyphicon form-control-feedback" id="passwordspan"></span>
+                        </div>
+                        </div>
+
+                        <div class="col-md-8">
+                        <div class="form-group has-feedback" id="pw2">
+                            <label for="confirm_password">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" value="">
+                            <span class="glyphicon form-control-feedback" id="passwordspan2"></span>
+                            <!-- <div <div class="form-control-feedback" value="" id="match"> </div> -->
+                        </div>
+                          </div>
+
+
+                        <div class="form-group col-md-8" id="strength1">
+                          <label>Password Strength: <span id="strength"></span></label>
+                          <progress id="progress_bar" class="progress" value="0" max="100" aria-describedby=""></progress>
+                        </div>
+
+                        <div class="form-group col-md-8" id="contain">
+                          <label>Password must contain:</label>
+                          <ul>
+                              <li id="length" class="invalid"><i class="fa fa-times" aria-hidden="true" id="lengthicon"></i> At least <strong>8 characters</strong></li>
+                              <li id="letter" class="invalid"><i class="fa fa-times" aria-hidden="true" id="symbolicon"></i> At least <strong>one special character</strong></li>
+                              <li id="capital" class="invalid"><i class="fa fa-times" aria-hidden="true" id="capitalicon"></i> At least <strong>one capital letter</strong></li>
+                              <li id="number" class="invalid"><i class="fa fa-times" aria-hidden="true" id="numbericon"></i> At least <strong>one number</strong></li>
+                          </ul>
+
+                        </div>
+
+
+
+                    </fieldset>
+
+
+
+
+                    <div class="form-group col-md-6 offset-md-4">
+                        <div >
+                          <!-- Submit to function to commit new user -->
+                          <!-- Then in that function, commit new user, clear cookie, and make them log in -->
+                            <button type="submit" id="submit" class="btn btn-primary">
+                                Submit
+                            </button>
+                            <button class="btn btn-danger">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+<%- include('../layout/footer') %>

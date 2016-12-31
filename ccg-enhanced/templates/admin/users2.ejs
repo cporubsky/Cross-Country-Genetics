@@ -1,0 +1,233 @@
+
+<!-- <link href="/users_style.css" rel="stylesheet" type="text/css"> -->
+<style>
+#invite_email {
+  width: 300px;
+}
+
+#inviteform {
+  padding-bottom: 10px;
+}
+
+#heading {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
+
+</style>
+<script>
+
+$(document).ready(function(){
+
+modalValidation();
+
+
+  $("#editbutton").click(function (e, value, row) {
+        $('#saveupdateuser').prop('disabled', true);
+        $("#deleteupdateuser").addClass('disabled');
+
+        $("#deleteupdateuser").prop('href', '/admin/delete/' + getSelectedRow().uid);
+
+        $('#updateinfo').attr('action', '/admin/edit/' + getSelectedRow().uid);
+        $('#myModal').modal('show')
+        $('#name').val(getSelectedRow().uname)
+        $('#username').val(getSelectedRow().uusername)
+        $('#email').val(getSelectedRow().uemail)
+        $('#user_role').val(getSelectedRow().userrole)
+        $('.success').removeClass('success');
+
+    });
+
+  //validation to not allow subit until accept is checked
+
+
+var $table = $('#table');
+  	$table.on('click-row.bs.table', function (e, row, $element) {
+      if(!$($element).hasClass('danger')){
+        if($($element).hasClass('success')){
+          $($element).removeClass('success')
+        }
+        else {
+          $('.success').removeClass('success');
+          $($element).addClass('success');
+        }
+        if($($element).hasClass('success')){
+          $('#invite_email').prop("disabled", true);
+          $("#invitebutton").prop( "disabled", true );
+          $("#editbutton").prop("disabled", false);
+          $("#editbutton").removeClass('disabled')
+        }
+        else {
+          $('#invite_email').prop("disabled", false);
+          $("#invitebutton").prop( "disabled", false );
+          $("#editbutton").addClass('disabled')
+        }
+      }
+      else if($($element).hasClass('danger')){
+        //add code to handle items with danger
+
+      }
+  	});
+
+function getSelectedRow() {
+    var index = $table.find('tr.success').data('index');
+    return $table.bootstrapTable('getData')[index];
+}
+
+function modalValidation() {
+var bool;
+$("#check1").change(function() {
+    bool = $("#check1:not(:checked)").length != 0;
+// enable/disable
+   $("#saveupdateuser").prop('disabled', bool);
+   //$("#deleteupdateuser").prop('disabled', bool);
+   $("#deleteupdateuser").removeClass('disabled');
+
+
+ })
+
+} //end modal validation
+
+
+});
+
+
+//validation to not allow submit until accept is checked
+
+
+</script>
+<div class="page-header text-center">
+		<h1 id="heading">Users</h1>
+	</div>
+
+
+<!-- Start Users -->
+<div id="users">
+
+
+
+  <form class="form-inline pull-left" action="/admin/invite" method="post" id="inviteform">
+    <div class="form-group">
+      <label class="sr-only" for="exampleInputAmount"></label>
+      <input class="form-control" type="email" id="invite_email" placeholder="Email" name="invite_email">
+    </div>
+    <button type="submit" class="btn btn-primary" id="invitebutton">Invite User</button>
+
+
+  </form>
+
+  <a class="btn btn-success pull-right disabled" role="button" id="editbutton">Edit User</a>
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog" tabindex="-1">
+  <!-- Modal-Dialog -->
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+              <div class="col-md-6">
+                  <form id ="updateinfo" role="form" method="POST" action="">
+                    <fieldset>
+                      <!-- Name -->
+                      <!-- Need to split at [space] so we can have first and last name in backend -->
+                      <div class="form-group col-md-6">
+                          <label for="itemname">Name</label>
+                          <input type="text" class="form-control" name="name" id="name" required placeholder="Name" value="">
+                      </div>
+                      <!-- Email -->
+                      <div class="form-group col-md-6">
+                          <label for="price">Email</label>
+                          <input type="email" class="form-control" name="email" id="email" required placeholder="Email">
+                      </div>
+                      <!-- Username -->
+                      <div class="form-group col-md-6">
+                          <label for="onhand">Username</label>
+                          <input type="text" class="form-control" name="username" id="username" required placeholder="Username" value="">
+                      </div>
+                      <!-- Role -->
+                      <div class="form-group col-md-6">
+                          <label for="found_site">Role</label>
+                          <select class="form-control" name="user_role" id="user_role">
+                              <option>Choose one</option>
+                              <!-- CHECK WHEN SUBMITTING FORM!! -->
+                              <!-- Check that Admin == 1 -->
+                              <!-- And that User == 0 -->
+                              <option>Admin</option>
+                              <option>User</option>
+                          </select>
+                      </div>
+                    </fieldset>
+                    <!-- Checkbox -->
+                    <div class="form-group">
+                      <div class="col-md-6 offset-md-5">
+                        <div class="form-check">
+                          <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" id="check1"> Accept
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- ADDED ABOVE -->
+      </div>
+        <div class="modal-footer">
+          <!-- POST Changes -->
+          <button type="submit" class="btn btn-primary" form="updateinfo" id="saveupdateuser">Save User</button>
+          <!-- Delete User -->
+          <a href="" class="btn btn-danger" role="button" id="deleteupdateuser">Delete User</a>
+          <!-- Close Modal -->
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div> <!-- End Modal Footer -->
+    </div> <!-- End Modal Content -->
+  </div> <!-- End Modal Dialog -->
+</div> <!-- End Modal -->
+
+
+  <!-- Table -->
+  <table  id="table" data-toggle="table" class="col-md-12">
+    <thead>
+      <tr>
+        <th data-field="uid">Id#</th>
+        <th data-field="uname">Name</th>
+        <th data-field="uemail">Email</th>
+        <th data-field="uusername">Username</th>
+        <th data-field="userrole">Role</th>
+        <th data-field="verified">Verified</th>
+        <th data-field="pending">Pending Actions</th>
+        <th data-field="lastdate">Modified By</th>
+        <th data-field="modifiedby">Modified On</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% users.forEach(function(u) { %>
+        <%- include('_users', {users: u}) %>
+      <% }); %>
+    </tbody>
+  </table> <!-- End Table -->
+
+
+
+</div> <!-- End Users -->
+
+
+
+
+
+
+<!-- Create a form to sign up a user. -->

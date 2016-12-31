@@ -1,0 +1,3 @@
+$("#submitLog").click(function(){
+  alert();
+});

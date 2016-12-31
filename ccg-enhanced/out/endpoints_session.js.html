@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>endpoints/session.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">endpoints/session.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict"
+
+const config = require('../config/config.json');
+var encryption = require('../encryption');
+var db = require('../db');
+var formidable = require('formidable');
+var logger = require('log4js').getLogger(config.logger);
+var query  = require('../database/query');
+
+/**
+ *  This class handles the encryption for user passwords.
+ *  @class
+ */
+class Session {
+
+  /**
+   *  @function redirect
+   *  @memberof Session
+   *  @description Redirects to login page.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  redirect(req, res) {
+      res.writeHead(301, {"Content-Type":"text/html", "Location":"/login"});
+      res.end("This page has moved to &lt;a href='/login'>login&lt;/a>");
+    }
+
+  /**
+   *  @function login
+   *  @memberof Session
+   *  @description Renders a login form with no error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  login(req, res) {
+    //console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
+    //console.log(query.update('users', 'name, username, email', 'id'));
+    //console.log(query.selectAll('users', 'name, or, username, or, email'));
+    //console.log(query.selectAll('users', 'name, or, username, or, email'));
+    //console.log(query.selectAll('users', 'username', ''));
+    /*console.log(query.update('users', 'password_digest, temp_password, salt', 'username'));
+    console.log(query.insert('users', 'name, username, email, is_admin, temp_password'));
+    console.log(query.delete('users', 'id'));*/
+    res.render('session/login', {title: config.company_name, message: "", user: req.user});
+  }
+
+  /**
+   *  @function start
+   *  @memberof Session
+   *  @description Creates a new session, provided the username and password match one in the database.
+   *  If login fails, the page will be redirected back to login with error message.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  start(req, res, next) {
+    logger.info("New session requested.")
+    req.session.reset();
+    var form = new formidable.IncomingForm();
+    form.parse(req, (err, fields, files) => {
+      //console.log(fields);
+      if(err) return res.sendStatus(500);
+      db.get(query.selectAll('users', 'username'), fields.username, (err, user) => {
+        if(err || !user) {
+          logger.error("No user found.");
+          logger.error("Session request denied.");
+          res.statusCode = 500;
+           return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+         }
+        if(user.password_digest != encryption.digest(fields.password + user.salt)) {
+          logger.error("No user/password match found.");
+          logger.error("Session request denied.");
+          res.statusCode = 500;
+         return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+       }
+        logger.info("Session request approved.");
+        logger.info("Session starting.")
+        req.session.user_id = user.id;
+        return res.redirect('/index');
+      });
+    });
+  }
+
+  /**
+   *  @function stop
+   *  @memberof Session
+   *  @description Ends a user session by flushing the session cookie.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  stop(req, res) {
+    logger.info("Session stopping.");
+    req.session.reset();
+    return res.render("session/logout", {title: config.user.logged_out, user: {username: config.user.guest}});
+  }
+
+
+}
+
+module.exports = exports = new Session();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    <!-- Commented out below code to not show date in documentation -->
+    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

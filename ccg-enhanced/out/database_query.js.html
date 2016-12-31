@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>database/query.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">database/query.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict"
+
+/**
+ *  This class handles query functions.
+ *  @class
+ */
+class Query {
+
+  /**
+   *  @function selectAll
+   *  @memberof Query
+   *  @description Selects all from 'table'.
+   *  @param {string} table - Database table
+   *  @param {string} columns - Database columns, and operators
+   *  @returns {string} Database query
+   *  @instance
+   */
+  selectAll(table, columns) {
+
+    var query = 'SELECT * FROM ' + table;
+    if((columns === '')) return query;
+    else {
+
+      var col = columns.split(',');
+      var colCount = col.length;
+
+      query += ' WHERE ';
+      for(var i = 0; i &lt; colCount; i++) {
+        if ((i % 2) == 0) {
+          query += col[i] + ' = ? '
+        }
+        else {
+          query += col[i].toUpperCase().trim();
+        }
+      }
+    }
+    return query;
+  }
+
+  /**
+   *  @function insert
+   *  @memberof Query
+   *  @description Inserts into 'table'.
+   *  @param {string} table - Database table
+   *  @param {string} columns - Database columns
+   *  @returns {string} Database query
+   *  @instance
+   */
+  insert(table, columns) {
+
+    var col = columns.split(',');
+    var count = col.length;
+
+    var query = 'INSERT INTO ' + table + ' (';
+    var question = '';
+    for(var i = 0; i &lt; count; i++) {
+      if (i &lt; count - 1) {
+        question += '?,';
+        query += col[i] + ','
+      }
+      else {
+        question += '?';
+        query += col[i] + ') VALUES (' + question + ')';
+      }
+    }
+    return query;
+  }
+
+  /**
+   *  @function update
+   *  @memberof Query
+   *  @description Updates 'table'.
+   *  @param {string} table - Database table
+   *  @param {string} columns - Database columns
+   *  @param {string} search - Databse column to search on, and operators
+   *  @returns {string} Database query
+   *  @instance
+   */
+  update(table, columns, search) {
+
+    var col = columns.split(',');
+    var colCount = col.length;
+    var srch = search.split(',');
+    var srchCount = srch.length;
+
+    var query = 'UPDATE ' + table + ' SET ';
+    for(var i = 0; i &lt; colCount; i++) {
+      if (i &lt; colCount - 1) {
+        query += col[i] + ' = ?,'
+      }
+      else {
+        query += col[i] + ' = ? WHERE ';
+        for (var ii = 0; ii &lt; srchCount; ii++){
+          if ((ii % 2) == 0) {
+            query += srch[ii] + ' = ?';
+          }
+          else {
+            query += srch[ii];
+          }
+        }
+      }
+    }
+    return query;
+  }
+
+  /**
+   *  @function delete
+   *  @memberof Query
+   *  @description Delete from 'table'.
+   *  @param {string} table - Database table
+   *  @param {string} search - Databse column to search on
+   *  @returns {string} Database query
+   *  @instance
+   */
+  delete(table, search) {
+    return 'DELETE FROM ' + table + ' WHERE ' + search + ' = ?';
+  }
+
+  //TODO: Make DELETE flexible
+
+
+}
+module.exports = exports = new Query();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    <!-- Commented out below code to not show date in documentation -->
+    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
