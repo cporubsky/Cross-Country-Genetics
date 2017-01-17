@@ -1,7 +1,7 @@
 <% if(!users.temp_password) { %>
   <tr>
-    <th scope="row"><%= users.id %></th>
-    <td><%= users.name %></td>
+    <td><%= users.id %></td>
+    <td><%= users.first_name %> <%= users.last_name %></td>
     <td><%= users.email %></td>
     <td><%= users.username %></td>
     <% if(users.is_admin) { %>
@@ -12,13 +12,14 @@
 
     <% if(!users.temp_password) { %>
       <!-- highlight them so admin knows there is a request pending -->
-      <td><a class="btn btn-success btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td>
+      <!-- <td><a class="btn btn-success btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td> -->
+      <td><button class="btn btn-success">Edit</button></td>
     <% } %>
   </tr>
 <% } else { %>
   <tr class="table-danger">
     <th scope="row"><%= users.id %></th>
-    <td><%= users.name %></td>
+    <td><%= users.first_name %> <%= users.last_name %></td>
     <td><%= users.email %></td>
     <td><%= users.username %></td>
     <% if(users.is_admin) { %>
@@ -28,7 +29,8 @@
     <% } %>
     <% if(users.temp_password) { %>
       <!-- need to add button to edit user -->
-    <td><a class="btn btn-danger btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td>
+    <!-- <td><a class="btn btn-danger btn-sm" href="/admin/edit/<%= users.id %>" role="button">Edit User</a></td> -->
+  <td><button class="btn btn-danger">Edit</button></td>
     <% } %>
   </tr>
 

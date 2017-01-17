@@ -7,6 +7,7 @@ var express = require('express'),
     load_user = require('./middleware/load_user'),
     admin_only = require('./middleware/admin_only'),
     no_guests = require('./middleware/no_guests'),
+    new_user = require('./middleware/new_user'),
     formidable = require('formidable'),
     bodyParser = require('body-parser'),
     PORT = 8080;
@@ -62,11 +63,14 @@ var express = require('express'),
     a user account is an admin account */
     var admin = require('./endpoints/admin');
     app.get('/admin', admin_only, admin.index);                       //Admin landing page
-    app.get('/admin/create', admin_only, admin.createUser);           //Create user form
+    app.get('/admin/users', admin_only, admin.viewUsers);
+    //app.get('/admin/create', admin_only, admin.createUser);           //Create user form
     app.post('/admin/create', admin_only, admin.commitCreateUser);    //Create user with temp password
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser); //Deletes a user
     app.get('/admin/edit/:id(\\d+)', admin_only, admin.edit);         //Edit user form
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);  //Edits a user
+
+
 
     //used to confirm new user
     var user = require('./endpoints/user');
@@ -74,6 +78,12 @@ var express = require('express'),
     app.post('/user/confirm', user.commitConfirm); //Confirms a user
     app.get('/user/reset', user.reset);            //Reset password form
     app.post('/user/reset', user.resetPassword);   //Sends email to reset password
+    app.get('/user/edit/:id(\\d+)', no_guests, user.edit);         //Edit user form
+    //app.get('/user/edit/:id(\\d+)', no_guests, new_user, user.edit);         //Edit user form
+    //app.post('/user/edit/:id(\\d+)', no_guests, user.commitEdit);  //Edits a user
+
+    //for password reset
+    app.get('/user/reset/:token', user.verifyToken);
 
     //app.get('/manageusers', admin_only, admin.manageusers);
 

@@ -6,6 +6,7 @@ var db = require('../db');
 var formidable = require('formidable');
 var logger = require('log4js').getLogger(config.logger);
 var query  = require('../database/query');
+var template = require('../helpers/template');
 
 /**
  *  This class handles the encryption for user passwords.
@@ -35,6 +36,7 @@ class Session {
    *  @instance
    */
   login(req, res) {
+    console.log(template.newUserEmail());
     //console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
     //console.log(query.update('users', 'name, username, email', 'id'));
     //console.log(query.selectAll('users', 'name, or, username, or, email'));

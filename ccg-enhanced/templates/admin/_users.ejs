@@ -1,0 +1,53 @@
+<% if(users.is_verified && !users.temp_password) { %>
+  <tr>
+    <td><%= users.id %></td>
+    <td><%= users.first_name %> <%= users.last_name %></td>
+    <td><%= users.email %></td>
+    <td><%= users.username %></td>
+    <% if(users.is_admin) { %>
+      <td>Admin</td>
+    <% } else { %>
+      <td>User</td>
+    <% } %>
+    <td>VERIFIED</td>
+    <td>N/A</td>
+    <td><%= users.createdBy %></td>
+    <td><%= users.createdOn %></td>
+  </tr>
+<% } else if (users.is_verified && users.temp_password) { %>
+  <tr class="info">
+    <td><%= users.id %></td>
+    <td><%= users.first_name %> <%= users.last_name %></td>
+    <td><%= users.email %></td>
+    <td><%= users.username %></td>
+    <% if(users.is_admin) { %>
+      <td>Admin</td>
+    <% } else { %>
+      <td>User</td>
+    <% } %>
+    <td>VERIFIED</td>
+    <td>Password Reset</td>
+    <td><%= users.createdBy %></td>
+    <td><%= users.createdOn %></td>
+  </tr>
+<% } else { %>
+  <tr class="danger">
+    <td><%= users.id %></td>
+    <td><%= users.first_name %> <%= users.last_name %></td>
+    <td><%= users.email %></td>
+    <td><%= users.username %></td>
+    <% if(users.is_admin) { %>
+      <td>Admin</td>
+    <% } else { %>
+      <td>User</td>
+    <% } %>
+    <td>NOT VERIFIED</td>
+    <% if(users.temp_password) { %>
+      <td>Account Activation</td>
+    <% } else { %>
+      <td>N/A</td>
+    <% } %>
+    <td><%= users.createdBy %></td>
+    <td><%= users.createdOn %></td>
+  </tr>
+  <% } %>

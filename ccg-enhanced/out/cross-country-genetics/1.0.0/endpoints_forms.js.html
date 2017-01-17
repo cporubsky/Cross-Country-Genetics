@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>endpoints/forms.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#.commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#.commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#.createUser">createUser</a></li><li data-type='method'><a href="Admin.html#.deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#.edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#.abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#.caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#.donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#.firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#.formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#.viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#.index">index</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#.login">login</a></li><li data-type='method'><a href="Session.html#.redirect">redirect</a></li><li data-type='method'><a href="Session.html#.start">start</a></li><li data-type='method'><a href="Session.html#.stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#.commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#.confirm">confirm</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">endpoints/forms.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict"
+
+var db = require('../db'),
+    formidable = require('formidable');
+
+
+/**
+ *  This class handles forms.
+ *  @class
+ */
+class Forms {
+
+  /**
+   *  @function abcForm
+   *  @memberof Forms
+   *  @description Sends user to ABC form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  abcForm(req, res){
+	  res.render('forms/formAbc', {user: req.user});
+  }
+
+  /**
+   *  @function firstForm
+   *  @memberof Forms
+   *  @description Sends user to First form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  firstForm(req, res){
+	  res.render('forms/firstForm', {user: req.user});
+  }
+
+  /**
+   *  @function donorCowEnrollment
+   *  @memberof Forms
+   *  @description Sends user to Donor Cow Enrollment form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  donorCowEnrollment(req, res){
+	  res.render('forms/donorCowEnrollment', {user: req.user});
+  }
+
+  /**
+   *  @function caneCodeLog
+   *  @memberof Forms
+   *  @description Sends user to Cane Code Log form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  caneCodeLog(req, res){
+	  res.render('forms/caneCodeLog', {user: req.user});
+  }
+
+  /**
+   *  @function viewForms
+   *  @memberof Forms
+   *  @description Sends user to view forms.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  viewForms(req, res){
+    res.render('forms/viewForms', {user: req.user});
+  }
+
+  /**
+   *  @function formAbcAjax
+   *  @memberof Forms
+   *  @description Ajax for ABC form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   */
+  formAbcAjax(req, res){
+    console.log("In the ajax receive)")
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      console.log(fields);
+      db.run('INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) VALUES (?,?,?,?,?,?,?,?)',
+        "AjaxUser4",
+        "user4",
+        "user_4@gmail.com",
+        true,                                 //is admin
+        true,                                 //is approved
+        "passwordAjax", //digest
+        "hiddenPasswordAjax",                                  //salt
+        null
+      );
+      res.redirect('forms/formAbc');
+    });
+  }
+
+}
+
+module.exports = exports = new Forms();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated at Fri Dec 02 2016 23:38:41 GMT-0600 (CST)
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

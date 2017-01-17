@@ -1,0 +1,84 @@
+/*#container{
+	width: 800px !important;
+	margin: 0 auto !important;
+	//border: 3px solid black !important;
+	background-color: white !important;
+}*/
+
+.container{
+	margin-top: 20px !important;
+}
+
+span{
+	font-weight: bold;
+	font-size: 12px;
+	white-space: initial;
+}
+
+input[type="text"]{
+	border: 0;
+    border-bottom: 1px solid;
+	outline: none;
+	max-width: 100%;
+	margin-top: 5px;
+}
+
+label{
+	display: inline-block;
+}
+
+.center{
+	display: table;
+	margin: 0 auto;
+}
+
+tr{
+	line-height: 10px;
+}
+
+td{
+	white-space: nowrap !important;
+	padding: 5px;
+}
+td > input[type='text']
+{
+    width: 100%; /*this will set the width of the textbox equal to its container td*/
+}
+table{
+	table-layout: fixed;
+	width: 100%;
+}
+
+.smallLine{
+	width: 100% !important;
+}
+
+td > span{
+	word-wrap: break-word !important;
+}
+
+.indent{
+	text-indent: 25px;
+}
+
+hr{
+	margin-left: 3%;
+	margin-right: 3%;
+	border-color: black;
+	border: none;
+    height: 2px;
+    color: black;
+    background-color: black;
+}
+
+input{
+	font-size: 12px;
+}
+
+.smallFont{
+	font-size: 12px;
+}
+
+input[type="text"]:disabled{
+	background-color:#a6a6a6;
+}
