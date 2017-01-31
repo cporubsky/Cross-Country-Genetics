@@ -83,11 +83,12 @@ class Admin {
               //return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
           //if we get here, no user exists, insert user
-          db.run(query.insert('users', 'email, temp_password, is_verified, createdBy, createdOn'),
+          db.run(query.insert('users', 'email, temp_password, is_verified, createdBy, createdOn, tempPassCreatedOn'),
             email,
             tempPassword,
             false,
             createdBy,
+            createdOnDate,
             createdOnDate,
             (err, user) => {
               if(err) {

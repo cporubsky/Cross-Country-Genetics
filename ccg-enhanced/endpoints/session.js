@@ -61,13 +61,13 @@ class Session {
           logger.error("No user found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-           return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+           return res.render('session/login', {title: config.company_name, message: "Login Failed. Please try again.", user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
           logger.error("No user/password match found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-         return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+          return res.render('session/login', {title: config.company_name, message: "Login Failed. Please try again.", user: req.user});
        }
         logger.info("Session request approved.");
         logger.info("Session starting.")

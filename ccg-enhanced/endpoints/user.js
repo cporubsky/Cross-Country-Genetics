@@ -20,67 +20,6 @@ var moment = require('moment');
 class User {
 
   /**
-   *  @function commitConfirm
-   *  @memberof User
-   *  @description Updates appropriate fields if new user can be confirmed.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  commitConfirm(req, res) {
-    logger.info("Commit new user started.");
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      var first = fields.first.toString().trim();
-      var second = fields.second.toString().trim();
-      var salt = encryption.salt();
-
-      //check if username matches with temp password
-      db.get(query.selectAll('users', 'username, and, temp_password'), fields.username, fields.temporary, (err, row) => {
-        //console.log(row);
-        //no such user or temp password
-        if(row == null) {
-          console.log("Error");
-          logger.error("Commit new user unsuccessful.");
-          //redirect to confirm page with an error
-          res.statusCode = 500;
-          return res.render('user/confirm', {title: "Confirm", user: req.user, users:row, message: "Oops, an error happened!"});
-        }
-        else{
-          //check if both new passwords match
-          if(first === second) {
-            var password = encryption.digest(first + salt);
-            db.run(query.update('users', 'password_digest, temp_password, salt', 'username'),
-               password,
-               null,
-               salt,
-               fields.username
-            );
-            logger.info("Commit new user successful.");
-            return res.redirect('/login');
-          }
-          //they don't match
-          else {
-            logger.error("Commit new user unsuccessful.");
-            //redirect to confirm page with an error
-            res.statusCode = 500;
-            return res.render('user/confirm', {title: "Confirm", user: req.user, users:row, message: "Oops, an error happened!"});
-          }
-        }
-      });
-
-      // //TODO ONLY FOR DEBUGGING
-      // console.log("After Insert:\n");
-      // db.get('SELECT * from users WHERE username = ?', fields.username, (err, row) => {
-      //
-      //   console.log(row);
-      //
-      // });
-    });
-  } //end commitConfirm
-
-
-  /**
    *  @function resetEmail
    *  @memberof User
    *  @description Updates appropriate fields, sets temp password.
@@ -93,68 +32,70 @@ class User {
 
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      var userName = fields.username;
-      //check if username matches with temp password
-      db.get(query.selectAll('users', 'username'), userName, (err, row) => {
-        console.log(row);
-        //no such user or temp password
+      var username = fields.username;
+      //check if username exists
+      db.get(query.selectAll('users', 'username'), username, (err, row) => {
+        console.log("Row: " + row);
+        //no such user
         if(row == null) {
-          console.log("Error");
-          logger.error("Reset password unsuccessful.");
-          //TODO No username -> make error message
-          //redirect to reset page with an error
-          res.statusCode = 500;
-          //send to login screen not showing error to user for security reasons
-          //so probably need to fix line directly below this
-          return res.render('user/reset_initiate', {title: "Title Here", user: req.user, users:row, message: "Oops, an error happened!"});
+          req.session.sessionFlash = {
+            type: 'danger',
+            message: 'There was an error.'
+          }
+          return res.redirect('/login');
         }
-        else{
-          var tempPassword = helper.generateTempPassword();
+        else {
 
-          //there is a user, send them a temp password
-          var timestamp = helper.getTimestamp();
-          console.log(tempPassword);
-          console.log(timestamp);
-          console.log(userName);
-          //TODO need to update temp password, temp password generated date
-          db.run(query.update('users', 'temp_password, tempPassCreatedOn', 'username'),
-            tempPassword,
-            timestamp,
-            userName,
-            (err, user) => {
-              if(err) {
-                logger.error("Reset password unsuccessful.");
-                //TODO set res status
-                return res.render('session/login', {title: "Title Here", user: req.user, message: "Error, In Insert!"});
-            }
-
-            //for testing purposes only
-            var testEmail = 'ccgtestkansas@gmail.com';
-            //var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail));
-            if(!ok) {
-              logger.error("Error in sending email.");
-              console.log("Error in sending email.");
-              res.statusCode = 500;
-              return res.render('user/reset_initiate', {title: '', user: req.user, users:row, message: "Oops, an error happened!"});
-            }
-            else {
-              logger.info("Success! Email sent!");
-              logger.info("Reset password successful.");
-              console.log("Success! Email sent!");
-              //TODO add message like -> "Success! Please log in!"
+        var timestamp = helper.getTimestamp();
+        var tempPassword = helper.generateTempPassword();
+        db.run(query.update('users', 'temp_password, tempPassCreatedOn, createdBy, createdOn', 'username'),
+          tempPassword,
+          timestamp,
+          username,
+          timestamp,
+          username,
+          (err, users) => {
+            if(err) {
               req.session.sessionFlash = {
                 type: 'danger',
-                message: 'Password reset email has been sent.'
+                message: 'Error in resetEmail update.'
               }
               return res.redirect('/login');
+          }
+
+          console.log("Email to be sent to: " + row.email);
+          //for testing purposes only
+          var testEmail = 'ccgtestkansas@gmail.com';
+          var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail));
+          //var ok = new Boolean(helper.sendResetMail(tempPassword, row.email));
+          if(!ok) {
+            res.statusCode = 500;
+            req.session.sessionFlash = {
+              type: 'danger',
+              message: 'There was an error sending the email.'
             }
-          }); //end insert
-        }
-      });
+            return res.redirect('/login');
+          }
+          else {
+            logger.info("Success! Email sent!");
+            logger.info("Reset password successful.");
+            console.log("Success! Email sent!");
+            //TODO add message like -> "Success! Please log in!"
+            req.session.sessionFlash = {
+              type: 'danger',
+              message: 'Password reset email has been sent.'
+            }
+            return res.redirect('/login');
+          }
+        }); //end update
+      }
+    }); //end selectall
+  }); //end form parse
 
 
-    });
+
+
+
 
   } //end resetPassword
 
@@ -225,25 +166,44 @@ class User {
                   console.log("Passwords match.");
                   //update fields, clear out: temp_password, tempPassCreatedOn
                   //update new password
+                  var salt = encryption.salt();
+
+                  db.run(query.update('users', 'temp_password, tempPassCreatedOn, password_digest, salt, createdBy, createdOn', 'username'),
+                    null,
+                    null,
+                    encryption.digest(password1 + salt),
+                    salt,
+                    username,
+                    currTimestamp,
+                    username,
+                    (err, user) => {
+                      if(err) {
+                        logger.error("Reset password unsuccessful.");
+                        req.session.sessionFlash = {
+                          type: 'danger',
+                          message: 'Password reset token has expired. Please request a new one if needed.'
+                        }
+                        res.redirect('/login');
+                    }
+                    req.session.sessionFlash = {
+                      type: 'danger',
+                      message: 'Password reset successfully.\n Please sign in.'
+                    }
+                    res.redirect('/login');
+                  });
                 }
                 else {
                   console.log("Passwords dont match.");
                 }
               }
-
-
-
             }
             else {
               //put msg here like: An error occured
               res.redirect('/login');
             }
           }
-
-
-
         }); //end db.get
-      });
+      }); //end parse form
   }
 
   edit(req, res) {
@@ -255,11 +215,79 @@ class User {
   commitEdit(req, res) {
     console.log('Commit Edit.');
     console.log(req.params.id);
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      if(err){
+        console.log(err);
+      }
+      var firstname = fields.first_name;
+      var lastname = fields.last_name;
+      var email = fields.email;
+      var username = fields.username;
+      var password1 = fields.password1;
+      var password2 = fields.password2;
+      var currTimestamp = helper.getTimestamp();
+
+      if((password1 === '') || (password2 === '')) {
+        console.log("One of the passwords are blank.");
+        db.run(query.update('users', 'first_name, last_name, username, email, createdBy, createdOn', 'id'),
+          firstname,
+          lastname,
+          username,
+          email,
+          'USER',
+          currTimestamp,
+          req.user.id,
+          (err, user) => {
+            if(err) {
+              res.statusCode = 500;
+              res.render('landing/index', {title: config.landing.home, user: req.user, message: "An error occured."});
+          }
+          req.session.sessionFlash = {
+            type: 'danger',
+            message: 'Your information has been updated successfully.'
+          }
+          //this refreshes the page, but need to find a way to do that better.
+          res.redirect('/index');
+
+        });
+      }
+      else {
+        console.log("in else.");
+        var salt = encryption.salt();
+        if(password1 === password2) {
+
+          db.run(query.update('users', 'first_name, last_name, username, email, password_digest, salt, createdBy, createdOn', 'id'),
+            firstname,
+            lastname,
+            username,
+            email,
+            encryption.digest(password1 + salt),
+            salt,
+            'USER',
+            currTimestamp,
+            req.user.id,
+            (err, user) => {
+              if(err) {
+                res.statusCode = 500;
+                res.render('landing/index', {title: config.landing.home, user: req.user, message: "An error occured."});
+            }
+            req.session.sessionFlash = {
+              type: 'danger',
+              message: 'Your information has been updated successfully.'
+            }
+            //this refreshes the page, but need to find a way to do that better.
+            res.redirect('/index');
+
+          });
+        }
+        else {
+          res.statusCode = 500;
+          res.render('user/user_acct', {title: "Account Information", user: req.user, message: "An error occured."});
+        }
+      }
+    }); //end parse form
   }
-
-
-
-
 
   verifyToken(req, res) {
     req.session.reset();
@@ -270,6 +298,8 @@ class User {
         console.error(err);
         return res.sendStatus(500);
       }
+      console.log('In verifyToken:');
+      console.log(user);
 
       var userTimestamp = user.tempPassCreatedOn;
       var currTimestamp = helper.getTimestamp();
@@ -308,7 +338,38 @@ class User {
 
   commitNewUser(req, res) {
     console.log("Commit new user.");
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      if(err){
+        console.log(err);
+      }
+      var firstname =  fields.first_name;
+      var lastname = fields.last_name;
+      var username = fields.username;
+      var email = fields.email;
+      var password1 = fields.password1;
+      var password2 = fields.password2;
+      var currTimestamp = helper.getTimestamp();
 
+
+
+
+      console.log("First name: " + firstname);
+      console.log("Last name: " + lastname);
+      console.log("Username: " + username);
+      console.log("Email: " + email);
+      console.log("Password1: " + password1);
+      console.log("Password2: " + password2);
+
+      if(password1 === password2) {
+        console.log('Match!')
+      }
+      else {
+        console.log('Dont Match!');
+      }
+      console.log("Current Time: " + currTimestamp);
+
+    }); //end parse form
     //for inspiration
     /*commitCreateUser(req, res) {
       logger.info("User creation started.");

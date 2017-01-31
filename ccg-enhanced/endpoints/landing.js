@@ -18,7 +18,7 @@ class Landing {
    *  @instance
    */
   index(req, res){
-      res.render('landing/index', {title: config.landing.home, user: req.user});
+      res.render('landing/index', {title: config.landing.home, user: req.user, message: ""});
   }
 }
 
