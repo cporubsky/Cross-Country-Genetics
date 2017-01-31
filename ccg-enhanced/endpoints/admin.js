@@ -165,9 +165,8 @@ class Admin {
     logger.info("Commit user edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      //TODO: For testing only
-      //console.log(fields)
 
+      var id = req.params.id;
       var name = fields.name.split(' ');
       var firstName = S(name[0]).capitalize().s;
       var lastName = S(name[1]).capitalize().s;
@@ -178,16 +177,6 @@ class Admin {
       var changedBy = req.user.username;
       if(role === 'Admin') role = 1;
       else if (role === 'User') role = 0;
-      var id = req.params.id;
-
-      //TODO: For testing only
-      // console.log('First Name: ' + firstName); //first_name
-      // console.log('Last Name: ' + lastName); //last_name
-      // console.log('Username: ' + username); //username
-      // console.log('Email: ' + email); //email
-      // console.log('Role: ' + role); //is_admin
-      // console.log('Current Time: ' + date); //createdOn
-      // console.log('Changed By: ' + changedBy); //createdBy
 
       db.run(query.update('users', 'first_name, last_name, username, email, is_admin, createdOn, createdBy', 'id'),
         firstName,
@@ -200,25 +189,10 @@ class Admin {
         id
       );
 
-      //TODO: For testing only
-      // db.all(query.selectAll('users','id',''), id, function(err, user){
-      //   if(err) {
-      //     logger.error("Error getting current user with id: " + id + ".");
-      //     console.error(err);
-      //     return res.sendStatus(500);
-      //   }
-      //   console.log(user);
-      // });
-
-
       logger.info("Commit user edit successful.");
       res.redirect('/admin/users');
     });
   }
-
-  // cancelPasswordRequest(req, res) {
-  //
-  // }
 
 
 
