@@ -4,7 +4,7 @@ form {
   padding-top: 10px;
 }
 </style>
-<form class="col-md-6" action="/user/reset/email" method="POST">
+<form class="col-md-6" action="/user/reset" method="POST">
   <!-- Username -->
   <div class="form-group row">
     <div class="col-xs-10">
@@ -16,7 +16,7 @@ form {
 
 
 <a class="btn btn-danger" href="/login" role="button">Back</a>
-<% if(message) { %>
+<% if(sessionFlash && sessionFlash.message) { %>
   <div class="alert alert-danger alert-dismissible fade in" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>

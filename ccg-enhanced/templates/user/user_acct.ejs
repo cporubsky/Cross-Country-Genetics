@@ -319,13 +319,13 @@ $(document).ready(function() {
 
                         <div class="form-group col-md-6" id="pw1">
                             <label for="password">Password</label>
-                            <input type="password" class="form-control" name="" id="password" placeholder="Password" value="">
+                            <input type="password" class="form-control" name="password1" id="password" placeholder="Password" value="">
 
                         </div>
 
                         <div class="form-group col-md-6" id="pw2">
                             <label for="confirm_password">Confirm Password</label>
-                            <input type="password" class="form-control" name="" id="confirm_password" placeholder="Confirm Password" value="">
+                            <input type="password" class="form-control" name="password2" id="confirm_password" placeholder="Confirm Password" value="">
 
                             <!-- <div <div class="form-control-feedback" value="" id="match"> </div> -->
                         </div>
@@ -362,15 +362,12 @@ $(document).ready(function() {
                             </select>
                         </div>
 
-                        <div class="form-group col-md-12 hidden">
-                            <!-- <label for="specify">Please Specify</label> -->
-                            <input type="text" class="form-control" name="" id="" placeholder="Answer">
-                        </div>
+
 
                     </fieldset>
 
-                    <div class="form-group">
-                          <div class="col-md-6 offset-md-4">
+
+                          <div class="form-group col-md-12 text-center">
                             <div class="checkbox">
                                 <label>
                                     <input type="checkbox" value="" id="">
@@ -378,10 +375,8 @@ $(document).ready(function() {
                                 </label>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group col-md-6 offset-md-4">
-                        <div >
+                        <div class="form-group col-md-12 text-center">
                           <!-- Submit to function to commit new user -->
                           <!-- Then in that function, commit new user, clear cookie, and make them log in -->
                             <button type="submit" class="btn btn-primary">
@@ -391,7 +386,23 @@ $(document).ready(function() {
                                 Cancel
                             </button>
                         </div>
-                    </div>
+
+                        <% if(sessionFlash && sessionFlash.message) { %>
+                          <div class="alert alert-<%= sessionFlash.type %> alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <%= sessionFlash.message %>
+                          </div>
+                        <% } else if (message) { %>
+                          <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                            <%= message %>
+                          </div>
+                          <% } %>
+
 
                 </form>
             </div>

@@ -4,7 +4,23 @@
   <!-- <h1 style="margin-top: 30px">Cross Country Genetics Home</h1> -->
   <div class="page-header text-center" style="margin-top: 10px">
   		<h1 id="heading">Cross Country Genetics</h1>
-  	</div>
+  </div>
+  <% if(sessionFlash && sessionFlash.message) { %>
+    <div class="alert alert-<%= sessionFlash.type %> alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%= sessionFlash.message %>
+    </div>
+  <% } else if (message) { %>
+    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <%= message %>
+    </div>
+  <% } %>
+
 	<br>
     <h5>Search Existing Form</h5>
     <input type="number" class="form-control" id="searchInput" placeholder="Enter form 'tag' or 'tattoo' - ex. 550">

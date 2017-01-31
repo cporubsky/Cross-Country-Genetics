@@ -90,7 +90,7 @@ class Helper {
         name: usersplit, //split email at the '@' symbol and just use the first part
         invite_sender_name: 'Joel Anderson',
         invite_sender_organization_name: 'Cross Country Genetics',
-        action_url: 'http://localhost:8080/user/verfiy/' + tempPass,
+        action_url: 'http://localhost:8080/user/verify/' + tempPass,
         support_email: 'joel_email@ccg.com',
         help_url: 'helpurl.com'
 

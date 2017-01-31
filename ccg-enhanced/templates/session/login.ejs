@@ -23,14 +23,21 @@ $(document).ready(function() {
       <div>
         Forgot your password? Reset it<a href="/user/reset" class="need-help"> here.</a><span class="clearfix"></span>
       </div>
-      <% if( sessionFlash && sessionFlash.message) { %>
-        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+      <% if(sessionFlash && sessionFlash.message) { %>
+        <div class="alert alert-<%= sessionFlash.type %> alert-dismissible fade in" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           <%= sessionFlash.message %>
         </div>
-      <% } %>
+      <% } else if (message) { %>
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= message %>
+        </div>
+        <% } %>
     </form>
   </div> <!-- /container -->
 </div>

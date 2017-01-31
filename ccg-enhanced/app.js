@@ -101,18 +101,20 @@ var express = require('express'),
 
     //COMPLETE (At least works.)
     app.get('/user/reset', user.reset);
-    app.post('/user/reset/email', user.resetEmail);
+    app.post('/user/reset', user.resetEmail);
+
     app.get('/user/verify/:token', user.verifyToken);
+    app.post('/user/reset/:token', user.resetCommit); //working on 12/31/16
     app.get('/user/edit/:id(\\d+)', no_guests, user.edit);
+    app.post('/user/edit/:id(\\d+)', user.commitEdit);
 
     //NOT COMPLETE YET
-    app.post('/user/reset/:token', user.resetCommit);
     app.post('/user/new/:token', user.commitNewUser);
-    app.post('/user/edit/:id(\\d+)', no_guests, user.commitEdit);
 
 
-    //PROBABLY NOT USED
-    app.post('/user/confirm', user.commitConfirm); //Confirms a user
+
+    //PROBABLY NOT USED, replaced by: app.post('/user/new/:token', user.commitNewUser);
+    //app.post('/user/confirm', user.commitConfirm); //Confirms a user
 
 
     //handles invalid urls
