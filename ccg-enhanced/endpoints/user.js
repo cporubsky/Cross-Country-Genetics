@@ -27,77 +27,70 @@ class User {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  resetEmail(req, res) {
-    logger.info("Reset password started.");
+   resetEmail(req, res) {
+     logger.info("Reset password started.");
 
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      var username = fields.username;
-      //check if username exists
-      db.get(query.selectAll('users', 'username'), username, (err, row) => {
-        console.log("Row: " + row);
-        //no such user
-        if(row == null) {
-          req.session.sessionFlash = {
-            type: 'danger',
-            message: 'There was an error.'
-          }
-          return res.redirect('/login');
-        }
-        else {
+     var form = new formidable.IncomingForm();
+     form.parse(req, function(err, fields, files) {
+       var username = fields.username;
+       //check if username exists
+       db.get(query.selectAll('users', 'username'), username, (err, row) => {
+         console.log("Row: " + row);
+         //no such user
+         if(row == null) {
+           req.session.sessionFlash = {
+             type: 'danger',
+             message: 'There was an error.'
+           }
+           return res.redirect('/login');
+         }
+         else {
 
-        var timestamp = helper.getTimestamp();
-        var tempPassword = helper.generateTempPassword();
-        db.run(query.update('users', 'temp_password, tempPassCreatedOn, createdBy, createdOn', 'username'),
-          tempPassword,
-          timestamp,
-          username,
-          timestamp,
-          username,
-          (err, users) => {
-            if(err) {
-              req.session.sessionFlash = {
-                type: 'danger',
-                message: 'Error in resetEmail update.'
-              }
-              return res.redirect('/login');
-          }
-
-          console.log("Email to be sent to: " + row.email);
-          //for testing purposes only
-          var testEmail = 'ccgtestkansas@gmail.com';
-          var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail));
-          //var ok = new Boolean(helper.sendResetMail(tempPassword, row.email));
-          if(!ok) {
-            res.statusCode = 500;
-            req.session.sessionFlash = {
-              type: 'danger',
-              message: 'There was an error sending the email.'
-            }
-            return res.redirect('/login');
-          }
-          else {
-            logger.info("Success! Email sent!");
-            logger.info("Reset password successful.");
-            console.log("Success! Email sent!");
-            //TODO add message like -> "Success! Please log in!"
-            req.session.sessionFlash = {
-              type: 'danger',
-              message: 'Password reset email has been sent.'
-            }
-            return res.redirect('/login');
-          }
-        }); //end update
-      }
-    }); //end selectall
-  }); //end form parse
-
-
-
-
-
-
-  } //end resetPassword
+         var timestamp = helper.getTimestamp();
+         var tempPassword = helper.generateTempPassword();
+         db.run(query.update('users', 'temp_password, tempPassCreatedOn, createdBy, createdOn', 'username'),
+           tempPassword,
+           timestamp,
+           username,
+           timestamp,
+           username,
+           (err, users) => {
+             if(err) {
+               req.session.sessionFlash = {
+                 type: 'danger',
+                 message: 'Error in resetEmail update.'
+               }
+               return res.redirect('/login');
+           }
+           console.log("Email to be sent to: " + row.email);
+           //for testing purposes only
+           var testEmail = 'ccgtestkansas@gmail.com';
+           var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail));
+           //var ok = new Boolean(helper.sendResetMail(tempPassword, row.email));
+           if(!ok) {
+             res.statusCode = 500;
+             req.session.sessionFlash = {
+               type: 'danger',
+               message: 'There was an error sending the email.'
+             }
+             return res.redirect('/login');
+           }
+           else {
+             logger.info("Success! Email sent!");
+             logger.info("Reset password successful.");
+             console.log("Success! Email sent!");
+             //TODO add message like -> "Success! Please log in!"
+             req.session.sessionFlash = {
+               type: 'danger',
+               message: 'Password reset email has been sent.'
+             }
+             return res.redirect('/login');
+           }
+         }); //end update
+       }
+     }); //end selectall
+   }); //end form parse
+ } //end resetPassword
 
 
   /**
@@ -122,15 +115,10 @@ class User {
 
       var form = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
-        console.log(fields);
         var token = req.params.token;
         var username = fields.username.toLowerCase();
         var password1 = fields.password;
         var password2 = fields.confirm_password;
-        // console.log("Token: " + token);
-        // console.log("Username: " + username);
-        // console.log("Password1: " + password1);
-        // console.log("Password2: " + password2)
         db.get(query.selectAll('users', 'username, and, temp_password'), username, token, (err, user) => {
           if(err) {
             console.log(err);
@@ -140,30 +128,20 @@ class User {
             if((user.username === username) && (user.temp_password === token)) {
               var userTimestamp = user.tempPassCreatedOn;
               var currTimestamp = helper.getTimestamp();
-
-              // console.log('userTimestamp: ' + userTimestamp);
-              // console.log('currTimestamp: ' + currTimestamp);
               var date1 = new Date(userTimestamp);
               var date2 = new Date(currTimestamp);
-
               var diff = date2.valueOf() - date1.valueOf();
               var diffInHours = diff/1000/60/60; // Convert milliseconds to hours
-              console.log('Hours diff: ' + diffInHours);
 
               if(diffInHours >= 24) {
-                console.log("More than 24hrs.");
                 req.session.sessionFlash = {
                   type: 'danger',
                   message: 'Password reset token has expired. Please request a new one if needed.'
                 }
                 res.redirect('/login');
-
               }
               else {
-
-                console.log("Everything Matches In Database.");
                 if(password1 === password2) {
-                  console.log("Passwords match.");
                   //update fields, clear out: temp_password, tempPassCreatedOn
                   //update new password
                   var salt = encryption.salt();
@@ -193,12 +171,14 @@ class User {
                   });
                 }
                 else {
+                  //TODO Implement route when passwords don't match
                   console.log("Passwords dont match.");
                 }
               }
             }
             else {
-              //put msg here like: An error occured
+              //TODO Put msg here like: An error occured
+              //username or token don't match
               res.redirect('/login');
             }
           }
@@ -207,14 +187,11 @@ class User {
   }
 
   edit(req, res) {
-    // res.render('user/edit_user', {title: "Account Details", user: req.user, users:req.user, message: ""});
     res.render('user/user_acct', {title: "Account Details", user: req.user, message: ""});
   }
 
-  //TODO Implement!!
+
   commitEdit(req, res) {
-    console.log('Commit Edit.');
-    console.log(req.params.id);
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if(err){
@@ -229,7 +206,6 @@ class User {
       var currTimestamp = helper.getTimestamp();
 
       if((password1 === '') || (password2 === '')) {
-        console.log("One of the passwords are blank.");
         db.run(query.update('users', 'first_name, last_name, username, email, createdBy, createdOn', 'id'),
           firstname,
           lastname,
@@ -253,7 +229,6 @@ class User {
         });
       }
       else {
-        console.log("in else.");
         var salt = encryption.salt();
         if(password1 === password2) {
 
@@ -278,7 +253,6 @@ class User {
             }
             //this refreshes the page, but need to find a way to do that better.
             res.redirect('/index');
-
           });
         }
         else {
@@ -298,38 +272,27 @@ class User {
         console.error(err);
         return res.sendStatus(500);
       }
-      console.log('In verifyToken:');
-      console.log(user);
-
       var userTimestamp = user.tempPassCreatedOn;
       var currTimestamp = helper.getTimestamp();
-
-      console.log('userTimestamp: ' + userTimestamp);
-      console.log('currTimestamp: ' + currTimestamp);
       var date1 = new Date(userTimestamp);
       var date2 = new Date(currTimestamp);
 
       var diff = date2.valueOf() - date1.valueOf();
       var diffInHours = diff/1000/60/60; // Convert milliseconds to hours
-      console.log('Hours diff: ' + diffInHours);
 
       if(diffInHours >= 24) {
-        console.log("More than 24hrs.");
         req.session.sessionFlash = {
           type: 'danger',
           message: 'Password reset token has expired. Please request a new one if needed.'
         }
         res.redirect('/login');
-
       }
       else {
 
         if(user.is_verified) {
-          console.log("Less than 24hrs.");
           res.render('user/reset_complete', {title: "Account Details", user: user, message: ""});
         }
         else {
-          console.log("Less than 24hrs.");
           res.render('user/user_acct', {title: "Account Details", user: user, message: ""});
         }
       }
@@ -351,9 +314,7 @@ class User {
       var password2 = fields.password2;
       var currTimestamp = helper.getTimestamp();
 
-
-
-
+      //for testing only
       console.log("First name: " + firstname);
       console.log("Last name: " + lastname);
       console.log("Username: " + username);
@@ -370,66 +331,8 @@ class User {
       console.log("Current Time: " + currTimestamp);
 
     }); //end parse form
-    //for inspiration
-    /*commitCreateUser(req, res) {
-      logger.info("User creation started.");
 
-      var tempPassword = helper.generateTempPassword();
-
-
-      //parse form and insert data
-      var form = new formidable.IncomingForm();
-      form.parse(req, function(err, fields, files) {
-        db.serialize(function() {
-          //checks to see if username or email exits
-          //possibly check for first and last name as well
-          db.get(query.selectAll('users', 'username, or, email'),
-            fields.username,
-            fields.email,
-            (err, rows) => {
-              if(rows != null) {
-                //username is taken
-                logger.error("Username is taken.");
-                logger.error("User creation unsuccessful.");
-                return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
-              }
-            //if we get here, no user exists, insert user
-            db.run(query.insert('users', 'first_name, last_name, email, is_admin, temp_password'),
-              fields.first_name,
-              fields.last_name,
-              fields.email,
-              fields.role,
-              tempPassword,
-              (err, user) => {
-                if(err) {
-                  //TODO set res status
-                  //find specific error for logger
-                  logger.error("Some error 1");
-                  logger.error("User creation unsuccessful.");
-                  return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
-              }
-              //for testing purposes only
-              var testEmail = 'ccgtestkansas@gmail.com';
-              //var transporter = helper.createTransporter();
-              //template.test2();
-              var ok = new Boolean(helper.sendMail(tempPassword, testEmail, 'new'));
-              if(!ok) {
-                logger.error("Error in sending email.");
-                console.log("Error in sending email.");
-                return res.redirect('/admin');
-              }
-              else {
-                logger.info("Success! Email sent!");
-                logger.info("User creation successful.");
-                console.log("Success! Email sent!");
-                return res.redirect('/admin');
-              }
-            }); //end insert
-          }); //end check
-        }); //end serialize
-      }); //end form parsing
-    } //end commitCreateUser
-    */
+    //TODO Finish implementation
 
 
 
