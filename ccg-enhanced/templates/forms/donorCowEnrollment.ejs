@@ -1,146 +1,115 @@
 <%- include('../layout/header', {title: "Donor Cow Enrollment", user: user}) %>
 <% title = "Donor Cow Enrollment" %>
 <link href="/css/form.css" rel="stylesheet" type="text/css">
-<div id="page">
-  <div id="container">
-    <span style="text-decoration: underline" class="center"><b>DONOR COW ENROLLMENT FORM</b></span>
-    <br>
-    <table>
-      <thead>
-      </head>
-      <tbody>
-        <tr>
-          <td><span>I.D. NO. </span><input type="text" id="idNum" name="idNum"></td>
-          <td><span>ARRIVAL </span><input type="text" id="arrival" name="arrival"></td>
-          <td><span>DEPARTURE </span><input type="text" id="departure" name="departure"></td>
-        </tr>
-        <tr>
-          <td><span>NAME </span><input type="text" id="name" name="name"></td>
-          <td><span>CALF SEX/ID </span><input type="text" id="calfID" name="calfID"></td>
-          <td><span>DATE OF BIRTH </span><input type="text" id="dob1" name="dob1"></td>
-        </tr>
-        <tr>
-          <td><span>REGISTRATION NO. </span><input type="text" id="regNum" name="regNum"></td>
-          <td colspan=2><span class="center">DONOR IDENTIFICATION </span></td>
-        </tr>
-        <tr>
-          <td><span>BREED </span><input type="text" id="breed" name="breed"></td>
-          <td colspan=2><span>RE </span><input type="text" id="re" name="re"></td>
-        </tr>
-        <tr>
-          <td><span>DATE OF BIRTH </span><input type="text" id="dob2" name="dob2"></td>
-          <td colspan=2><span>MT </span><input type="text" id="mt1" name="mt1"></td>
-        </tr>
-        <tr>
-          <td><span>OWNER </span><input type="text" id="owner" name="owner"></td>
-          <td colspan=2><span>LE </span><input type="text" id="le" name="le"></td>
-        </tr>
-        <tr>
-          <td><span>ADDRESS </span><input type="text" id="address" name="address"></td>
-          <td colspan=2><span>MT </span><input type="text" id="mt2" name="mt2"></td>
-        </tr>
-        <tr>
-          <td><span>TELEPHONE NO. </span><input type="text" id="telephoneNum" name="telephoneNum"></td>
-          <td colspan=2><span>BRAND/LOC </span><input type="text" id="brandLoc" name="brandLoc"></td>
-        </tr>
-      </tbody>
-    </table>
-    <hr>
-    <table>
-      <thead>
-      </head>
-      <tbody>
-        <tr>
-          <td><span>COLL. NO.</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>DATE</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. EMBRYOS</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. TRANS.</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. FROZEN</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. DEGEN.</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. UNFERTIL.</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>SIRE</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><span>NO. PREG.</span></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-    <hr>
-    <table>
-      <thead>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span><b>BULL SELECTION</b></span></td>
-          <td><span><b>EMBRYO DISPOSITION</b></span></td>
-        </tr>
-        <% for(var i=0; i<6; i++){ %>
-        <tr>
-          <td><span><%=i+1%>st COLLECTION</span><input type="text" id="collection<%=i %>" id="collection<%=i %>"/></td>
-          <td><input type="text" id="embryoDisp<%=i %>" id="embryoDisp<%=i %>"/></td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
+
+<form id="window" name="window" role="form">
+  <div id="page">
+    <div id="container">
+      <span style="text-decoration: underline" class="center"><b>DONOR COW ENROLLMENT FORM</b></span>
+      <br>
+      <table>
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td><span>I.D. NO. </span><input type="text" id="idNum" name="idNum"></td>
+            <td><span>ARRIVAL </span><input type="text" id="arrival" name="arrival"></td>
+            <td><span>DEPARTURE </span><input type="text" id="departure" name="departure"></td>
+          </tr>
+          <tr>
+            <td><span>NAME </span><input type="text" id="name" name="name"></td>
+            <td><span>CALF SEX/ID </span><input type="text" id="calfID" name="calfID"></td>
+            <td><span>DATE OF BIRTH </span><input type="text" id="dob1" name="dob1"></td>
+          </tr>
+          <tr>
+            <td><span>REGISTRATION NO. </span><input type="text" id="regNum" name="regNum"></td>
+            <td colspan=2><span class="center">DONOR IDENTIFICATION </span></td>
+          </tr>
+          <tr>
+            <td><span>BREED </span><input type="text" id="breed" name="breed"></td>
+            <td colspan=2><span>RE </span><input type="text" id="re" name="re"></td>
+          </tr>
+          <tr>
+            <td><span>DATE OF BIRTH </span><input type="text" id="dob2" name="dob2"></td>
+            <td colspan=2><span>MT </span><input type="text" id="mt1" name="mt1"></td>
+          </tr>
+          <tr>
+            <td><span>OWNER </span><input type="text" id="owner" name="owner"></td>
+            <td colspan=2><span>LE </span><input type="text" id="le" name="le"></td>
+          </tr>
+          <tr>
+            <td><span>ADDRESS </span><input type="text" id="address" name="address"></td>
+            <td colspan=2><span>MT </span><input type="text" id="mt2" name="mt2"></td>
+          </tr>
+          <tr>
+            <td><span>TELEPHONE NO. </span><input type="text" id="telephoneNum" name="telephoneNum"></td>
+            <td colspan=2><span>BRAND/LOC </span><input type="text" id="brandLoc" name="brandLoc"></td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td><span>COLL. NO.</span></td>
+            <td><span>DATE</span></td>
+            <td><span>NO. EMBRYOS</span></td>
+            <td><span>NO. TRANS.</span></td>
+            <td><span>NO. FROZEN</span></td>
+            <td><span>NO. DEGEN.</span></td>
+            <td><span>NO. UNFERTIL.</span></td>
+            <td><span>SIRE</span></td>
+            <td><span>NO. PREG.</span></td>
+          </tr>
+          <% for(var i=0; i<6; i++){ %>
+          <tr>
+            <td><input type="text" id="collNum<%=i %>" name="CollNum<%=i %>"/></td>
+            <td><input type="text" id="collDate<%=i %>" name="collDate<%=i %>"/></td>
+            <td><input type="text" id="numEmbryos<%=i %>" name="numEmbryos<%=i %>"/></td>
+            <td><input type="text" id="numTrans<%=i %>" name="numTrans<%=i %>"/></td>
+            <td><input type="text" id="numDegen<%=i %>" name="numDegen<%=i %>"/></td>
+            <td><input type="text" id="numUnfertil<%=i %>" name="numUnfertil<%=i %>"/></td>
+            <td><input type="text" id="sire<%=i %>" name="sire<%=i %>"/></td>
+            <td><input type="text" id="numPreg<%=i %>" name="numPreg<%=i %>"/></td>
+            <td><input type="text" id="collNum<%=i %>" name="collNum<%=i %>"/></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+      <hr>
+      <table>
+        <thead>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span><b>BULL SELECTION</b></span></td>
+            <td><span><b>EMBRYO DISPOSITION</b></span></td>
+          </tr>
+          <% for(var i=0; i<6; i++){ %>
+          <tr>
+            <td><span><%=i+1%>st COLLECTION</span><input type="text" id="collection<%=i %>" name="collection<%=i %>"/></td>
+            <td><span style="visibility: hidden">ff</span><input type="text" id="embryoDisp<%=i %>" name="embryoDisp<%=i %>"/></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</form>
+<br><input style="float: right" type="submit" class="btn btn-primary" id="submit" name="submit" value="Submit Form"/><br><br><br><br><br><br>
 <%- include('../layout/footer') %>
+
+<script>
+
+  $("#submit").click(function(){
+    if($("#idNum").val() != "" && $("#arrival").val() != "" && $("#name").val() != "" && $("#regNum").val() != "" && $("#breed").val() != "" && $("#re").val() != ""
+    && $("#owner").val() != "" && $("#le").val() != "" && $("#le").val() != "" && $("#address").val() != "" && $("#collNum0").val() != "" && $("#date0").val() != ""
+    && $("#numEmbryos0").val() != "" && $("#numTrans0").val() != "" && $("#numFrozen0").val() != "" && $("#numDegen0").val() != "" && $("#numUnfertil0").val() != "" && $("#sire0").val() != ""
+    && $("#numPreg0").val() != "" && $("#collection0").val() != "" && $("#collection1").val() != "" && $("#collection2").val() != "" && $("#collection3").val() != "" && $("#collection4").val() != ""){
+      alert();
+    }
+  });
+
+</script>
