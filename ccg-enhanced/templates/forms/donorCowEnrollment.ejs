@@ -12,6 +12,11 @@
         </head>
         <tbody>
           <tr>
+            <td></td>
+            <td><span>LOCATION</span><input type="text" id="location" name="location"></td>
+            <td></td>
+          </tr>
+          <tr>
             <td><span>I.D. NO. </span><input type="text" id="idNum" name="idNum"></td>
             <td><span>ARRIVAL </span><input type="text" id="arrival" name="arrival"></td>
             <td><span>DEPARTURE </span><input type="text" id="departure" name="departure"></td>
@@ -48,7 +53,7 @@
         </tbody>
       </table>
       <hr>
-      <table>
+      <table id="numTable">
         <thead>
         </head>
         <tbody>
@@ -95,6 +100,29 @@
           <% } %>
         </tbody>
       </table>
+      <hr>
+      <table id="treatment">
+        <thead>
+        </head>
+        <tbody>
+          <tr>
+            <td><img width=18px height=18px src="images/plus.png" class="plus"><img width=18px height=18px src="images/minus.png" class="minus"></td>
+            <td><span>DATE</span></td>
+            <td><span>RIGHT OVARY</span></td>
+            <td><span>LEFT OVARY</span></td>
+            <td><span>UT.</span></td>
+            <td><span>TUBB NO.</span></td>
+            <td><span>COMMENTS</span></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="text" class="smallLine" id="date" name="date"></td>
+  					<td><input type="text" class="smallLine" id="rightOvary" name="rightOvary"></td>
+  					<td><input type="text" class="smallLine" id="leftOvary" name="leftOvary"></td>
+  					<td><input type="text" class="smallLine" id="ut" name="ut"></td>
+  					<td><input type="text" class="smallLine" id="tubbNum" name="tubbNum"></td>
+  					<td><input type="text" class="smallLine" id="comments" name="comments"></td>
+          </tr>
     </div>
   </div>
 </form>
@@ -104,12 +132,60 @@
 <script>
 
   $("#submit").click(function(){
-    if($("#idNum").val() != "" && $("#arrival").val() != "" && $("#name").val() != "" && $("#regNum").val() != "" && $("#breed").val() != "" && $("#re").val() != ""
-    && $("#owner").val() != "" && $("#le").val() != "" && $("#le").val() != "" && $("#address").val() != "" && $("#collNum0").val() != "" && $("#date0").val() != ""
-    && $("#numEmbryos0").val() != "" && $("#numTrans0").val() != "" && $("#numFrozen0").val() != "" && $("#numDegen0").val() != "" && $("#numUnfertil0").val() != "" && $("#sire0").val() != ""
-    && $("#numPreg0").val() != "" && $("#collection0").val() != "" && $("#collection1").val() != "" && $("#collection2").val() != "" && $("#collection3").val() != "" && $("#collection4").val() != ""){
+    if($("#idNum").val() != "" && $("#owner").val() != ""){
       alert();
+    }
+    else{
+      alert("At least the ID number and owner must be filled out to submit a form.");
     }
   });
 
+    //Adds rows to the B table
+  $(".plus").click(function(){
+  //var rows = document.getElementById("treatment").rows.length;
+  var rows = $(this).parents("table:first");
+  rows = document.getElementById(rows).rows.length;
+  alert(rows);
+  var index = 0;
+  if(rows < 13){
+    var array = ["date", "rightOvary", "leftOvary", "ut", "tubbNum", "comments"];
+    var newRow = document.getElementById("treatment").insertRow(rows);
+    for(var i=0;i<6;i++){
+      if(i==0){
+        var td = newRow.insertCell(i);
+        index--;
+      }
+      else{
+        var td = newRow.insertCell(i);
+        var textbox = document.createElement("input");
+        textbox.id = array[index] + rows;
+        textbox.name = array[index] + rows;
+        textbox.class = "smallLine";
+        textbox.type = "text";
+        td.appendChild(textbox);
+        if (i==5){
+          $(td).attr("colspan",2);
+        }
+      }
+      index++;
+    }
+  }
+  else{
+    alert("Cannot have more than 12 rows");
+  }
+  });
+
+  //Subtracts rows from the B table
+  $(".minus").click(function(){
+  var rows = document.getElementById("treatment").rows.length;
+  if(rows>2){
+    document.getElementById("treatment").deleteRow(rows-1);
+  }
+  else{
+  alert("Must have at least one row");
+  }
+  });
+
+  //come back to form for full details
+  //work on "Search existing form" on main page
 </script>
