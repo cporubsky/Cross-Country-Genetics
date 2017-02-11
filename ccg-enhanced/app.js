@@ -40,7 +40,6 @@ var express = require('express'),
     //set static directory
     app.use(express.static('public'));
 
-
     // Main middleware
     app.use(function(req, res, next){
       // if there's a flash message in the session request, make it available in the response, then delete it
@@ -83,18 +82,10 @@ var express = require('express'),
     app.get('/admin', admin_only, admin.index);
     app.get('/admin/users', admin_only, admin.viewUsers);
     app.post('/admin/invite', admin_only, admin.inviteUser);
+
+    //Tested
     app.post('/admin/edit/:id(\\d+)', admin_only, admin.commitEdit);
     app.get('/admin/delete/:id(\\d+)', admin_only, admin.deleteUser);
-
-    //NOT COMPLETE YET
-
-
-
-
-    //PROBABLY NOT USED
-    //app.get('/admin/create', admin_only, admin.createUser);
-    //app.post('/admin/create', admin_only, admin.commitCreateUser);
-
 
     //used to confirm new user
     var user = require('./endpoints/user');
@@ -111,21 +102,10 @@ var express = require('express'),
     //NOT COMPLETE YET
     app.post('/user/new/:token', user.commitNewUser);
 
-
-
-    //PROBABLY NOT USED, replaced by: app.post('/user/new/:token', user.commitNewUser);
-    //app.post('/user/confirm', user.commitConfirm); //Confirms a user
-
-
     //handles invalid urls
     app.all('*', function(req, res) {
       res.redirect("/index");
     });
-
-    //app.get('/manageusers', admin_only, admin.manageusers);
-
-
-
 
     //start express app
     app.listen(PORT, () => {

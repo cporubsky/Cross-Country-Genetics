@@ -33,6 +33,14 @@ class Admin {
   }
 
 
+  /**
+   *  @function viewUsers
+   *  @memberof Admin
+   *  @description Selects all users from database for admin to view.
+   *  @param {req} Request - Http Request Object
+   *  @param {res} Response - Http Response Object
+   *  @instance
+   */
   viewUsers(req, res) {
     logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
@@ -47,7 +55,7 @@ class Admin {
   }
 
   /**
-   *  @function userInvite
+   *  @function inviteUser
    *  @memberof Admin
    *  @description Sends email to new user, to invite them to set up account.
    *  @param {object} Request - Http Request Object
@@ -60,7 +68,7 @@ class Admin {
     var createdBy = req.user.username;
     var createdOnDate = helper.getTimestamp();
 
-    console.log('In userInvite');
+    //console.log('In userInvite');
     //parse form and insert data
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -101,13 +109,13 @@ class Admin {
             var ok = new Boolean(helper.sendNewUserMail(tempPassword, email));
             if(!ok) {
               logger.error("Error in sending email.");
-              console.log("Error in sending email.");
+              //console.log("Error in sending email.");
               return res.redirect('/admin');
             }
             else {
               logger.info("Success! Email sent!");
               logger.info("User creation successful.");
-              console.log("Success! Email sent!");
+              //console.log("Success! Email sent!");
               return res.redirect('/admin/users');
             }
           }); //end insert
@@ -125,8 +133,8 @@ class Admin {
    *  @instance
    */
   deleteUser(req, res) {
-    console.log(req.session.user_id);
-    console.log(req.params.id);
+    //console.log(req.session.user_id);
+    //console.log(req.params.id);
 
     //check to see if you are deleting yourself, if you are send to '/admin'
     if (req.session.user_id == req.params.id) {
