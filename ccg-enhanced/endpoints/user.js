@@ -106,6 +106,14 @@ class User {
     return res.render("user/reset_initiate", {title: "Reset Password", user: {username: "Guest"}, message: ""});
   }
 
+  /**
+   *  @function resetCommit
+   *  @memberof User
+   *  @description Commits new password to database for resetting password.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   resetCommit(req, res) {
 
       //look up username and compare it with token to validate
@@ -186,11 +194,26 @@ class User {
       }); //end parse form
   }
 
+  /**
+   *  @function edit
+   *  @memberof User
+   *  @description Sends to page to edit user account.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   edit(req, res) {
     res.render('user/user_acct', {title: "Account Details", user: req.user, message: ""});
   }
 
-
+  /**
+   *  @function commitEdit
+   *  @memberof User
+   *  @description Commits edit of user to database.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   commitEdit(req, res) {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
@@ -263,6 +286,14 @@ class User {
     }); //end parse form
   }
 
+  /**
+   *  @function verifyToken
+   *  @memberof User
+   *  @description Verifies token to create new user or reset a password.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   verifyToken(req, res) {
     req.session.reset();
     var token = req.params.token;
@@ -299,6 +330,14 @@ class User {
     });
   }
 
+  /**
+   *  @function commitNewUser
+   *  @memberof User
+   *  @description Commits new user to database.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
   commitNewUser(req, res) {
     console.log("Commit new user.");
     var form = new formidable.IncomingForm();
@@ -334,14 +373,8 @@ class User {
 
     //TODO Finish implementation
 
-
-
-
     //eventually clear session, and redirect to login
   }
-
-
-
 
 
 }
