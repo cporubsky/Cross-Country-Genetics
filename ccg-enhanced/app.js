@@ -71,6 +71,7 @@ var express = require('express'),
     app.post('/formAbc', parseBody, forms.formAbcAjax);                  //Abc Form Ajax
     app.get('/firstForm', no_guests, forms.firstForm);                   //First Form
     app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment); //Donor Cow Enrollment
+    app.post('/donorCowEnrollment', parseBody, forms.donorCowEnrollment);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
     app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
 
