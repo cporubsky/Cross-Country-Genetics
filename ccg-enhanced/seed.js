@@ -2,7 +2,7 @@
 
 var encryption = require('./encryption'),
     sqlite3 = require('sqlite3'),
-    db = new sqlite3.Database('development.sqlite3');
+    db = new sqlite3.Database('./database/development.sqlite3');
 
 /**
  *  @function db.serialize
@@ -19,7 +19,7 @@ var encryption = require('./encryption'),
    //salt from encryption
    var salt = encryption.salt();
 
-   /*//Drop users table if it exists
+   //Drop users table if it exists
    db.run("DROP TABLE IF EXISTS users");
 
    //Create the users table
@@ -65,7 +65,7 @@ var encryption = require('./encryption'),
    db.each("SELECT * FROM users", function(err, row){
      if(err) return console.error(err);
      console.log(row);
-   });*/
+   });
 
    /********************
    ** EMBRYO RECOVERY **
