@@ -97,8 +97,26 @@ class Forms {
       res.setHeader('content-type', 'text/json');
       res.send(JSON.stringify(rows));
     });
-
   } //end formAbcAjax
+
+  donorCowEnrollment(req, res){
+    if (req.method == 'POST') {
+      var idNum = req.body.idNum;
+      var owner = req.body.owner;
+      console.log(idNum);
+      console.log(owner);
+      // Create donor test data
+      db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
+         idNum,
+         'AR',
+         1546741,
+         'Z040',
+         'Mushrush Lana'
+      );
+      console.log("Data inserted.");
+    }
+    res.render('forms/donorCowEnrollment', {user: req.user});
+  }
 }
 
 

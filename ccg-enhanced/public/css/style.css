@@ -16,6 +16,11 @@ body {
     color: white;
 }
 
+#footer{
+    width: 100%;
+    min-height: 50px;
+}
+
 /*.form-signin {
   max-width: 330px;
   padding: 15px;
