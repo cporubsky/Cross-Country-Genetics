@@ -82,3 +82,7 @@ input{
 input[type="text"]:disabled{
 	background-color:#a6a6a6;
 }
+
+.plus, .minus{
+	cursor: pointer !important;
+}
