@@ -188,21 +188,13 @@ function autoFill() {
             console.log('success');
             console.log(data);
             console.log(data.name);
-            $("#breed").val(data.breed);
-            $("#regNum1").val(data.reg_num);
-            $("#freezeDate1").val(data.freeze_date);
-            $("#estrusOnset").val(data.estrus_onset);
-            $("#breedDate").val(data.breed_date);
-            $("#recoveryDate").val(data.recovery_date);
-            $("#numRecovered").val(data.num_recovered);
-            $("#numTransferred").val(data.num_transferred);
-            $("#numFrozen1").val(data.num_frozen);
-            $("#etCodeA").val(data.et_code);
-            $("#donor").val(data.name);
-            $("#address").val(data.address);
-            $("#serviceSire1").val(data.name);
-            $("#regNum1").val(data.reg_num);
-            $("#idCode1").val(data.code);
+            $("#breed").val(data.donorBreed);
+            $("#regNum1").val(data.donorRegNum);
+            $("#donor").val(data.donorName);
+            $("#address").val(data.clientAddress);
+            $("#serviceSire1").val(data.sireName);
+            $("#regNum1").val(data.donorRegNum);
+            $("#regNum2").val(data.sireRegNum);
             //alert(JSON.stringify(data));
         },
         error: function(error) {
