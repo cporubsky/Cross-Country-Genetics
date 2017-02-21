@@ -44,8 +44,8 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  donorCowEnrollment(req, res){
-	  res.render('forms/donorCowEnrollment', {user: req.user});
+  individualDonorFile(req, res){
+	  res.render('forms/individualDonorFile', {user: req.user});
   }
 
   /**
@@ -99,7 +99,7 @@ class Forms {
     });
   } //end formAbcAjax
 
-  donorCowEnrollment(req, res){
+  individualDonorFile(req, res){
     if (req.method == 'POST') {
       var idNum = req.body.idNum;
       var owner = req.body.owner;
@@ -122,7 +122,7 @@ class Forms {
         console.log('problem with request: ' + e.message);
       }
     }
-    res.render('forms/donorCowEnrollment', {user: req.user});
+    res.render('forms/individualDonorFile', {user: req.user});
   }
 }
 
