@@ -1,11 +1,11 @@
-<%- include('../layout/header', {title: "Donor Cow Enrollment", user: user}) %>
-<% title = "Donor Cow Enrollment" %>
+<%- include('../layout/header', {title: "Individual Donor File", user: user}) %>
+<% title = "Individual Donor File" %>
 <link href="/css/form.css" rel="stylesheet" type="text/css">
 
 <form method="post" id="window" name="window">
   <div id="page">
     <div id="container">
-      <span style="text-decoration: underline" class="center"><b>DONOR COW ENROLLMENT FORM</b></span>
+      <span style="text-decoration: underline" class="center"><b>Individual Donor File</b></span>
       <br>
       <table>
         <thead>
@@ -94,7 +94,7 @@
           </tr>
           <% for(var i=0; i<6; i++){ %>
           <tr>
-            <td><span><%=i+1%>st COLLECTION</span><input type="text" id="collection<%=i %>" name="collection<%=i %>"/></td>
+            <td><span>COLLECTION <%=i+1%></span><input type="text" id="collection<%=i %>" name="collection<%=i %>"/></td>
             <td><span style="visibility: hidden">ff</span><input type="text" id="embryoDisp<%=i %>" name="embryoDisp<%=i %>"/></td>
           </tr>
           <% } %>
@@ -130,4 +130,12 @@
   </div>
 </form>
 <%- include('../layout/footer') %>
-<script src="/js/donorCowEnrollment.js"></script>
+<script src="/js/individualDonorFile.js"></script>
+
+<%#
+if returning to form, give option to edit form, if admin, lock all inputs if not admin, and print PDF
+Index: Search by id and have a dropdown to order by dates and sections to view previous forms
+"Last edited by" would be nice to have
+Change title of page to "Individual Donor File"
+Fill out freezing information on abcForm, and have that stuff autofill on stimulation
+%>

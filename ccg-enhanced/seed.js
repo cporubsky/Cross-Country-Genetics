@@ -95,36 +95,98 @@ var encryption = require('./encryption'),
       console.log(row);
     });
 
+    /**********
+    donor table
+    ***********/
+    // Drop donor table if exists
+    db.run("DROP TABLE IF EXISTS donor");
+
+    // Create the donor table
+    db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, donorClientId INTEGER, donorBreed TEXT, donorRegNum INTEGER, donorTag TEXT, donorName TEXT, FOREIGN KEY(donorClientId) REFERENCES client(id))");
+
+    // Create donor test data
+    db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
+       1,
+       'AR',
+       1546741,
+       'Z040',
+       'Mushrush Lana'
+    );
+    db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
+       2,
+       'BR',
+       1234567,
+       'AC16',
+       'What is Beef?'
+    );
+
+    // Log contents of the donor table to the console
+     db.each("SELECT * FROM donor", function(err, row){
+       if(err) return console.error(err);
+       console.log(row);
+     });
+
    /**********
-   donor table
+   bullSelection table
    ***********/
-   // Drop donor table if exists
-   db.run("DROP TABLE IF EXISTS donor");
+   // Drop bullSelection table if exists
+   db.run("DROP TABLE IF EXISTS bullSelection");
 
-   // Create the donor table
-   db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, donorClientId INTEGER, donorBreed TEXT, donorRegNum INTEGER, donorTag TEXT, donorName TEXT, FOREIGN KEY(donorClientId) REFERENCES client(id))");
+   // Create the bullSelection table
+   db.run("CREATE TABLE bullSelection (id INTEGER PRIMARY KEY AUTOINCREMENT, bullSelectionDonorTag TEXT, bullSelectionCollectionNum TEXT, bullSelectionEmbryoDisposition TEXT, FOREIGN KEY(bullSelectionDonorTag) REFERENCES donor(donorTag))");
 
-   // Create donor test data
-   db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
-      1,
-      'AR',
-      1546741,
+   // Create bullSelection test data
+   db.run("INSERT INTO bullSelection (bullSelectionDonorTag, bullSelectionCollectionNum, bullSelectionEmbryoDisposition) values (?,?,?)",
       'Z040',
-      'Mushrush Lana'
+      'Power Eye',
+      'Bad disposition'
    );
-   db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName) values (?,?,?,?,?)",
-      2,
-      'BR',
-      1234567,
+   db.run("INSERT INTO bullSelection (bullSelectionDonorTag, bullSelectionCollectionNum, bullSelectionEmbryoDisposition) values (?,?,?)",
       'AC16',
-      'What is Beef?'
+      'Broker',
+      'Good disposition'
    );
 
-   // Log contents of the donor table to the console
-    db.each("SELECT * FROM donor", function(err, row){
+   // Log contents of the bullSelection table to the console
+    db.each("SELECT * FROM bullSelection", function(err, row){
       if(err) return console.error(err);
       console.log(row);
     });
+
+    /**********
+    treatment table
+    ***********/
+    // Drop treatment table if exists
+    db.run("DROP TABLE IF EXISTS treatment");
+
+    // Create the treatment table
+    db.run("CREATE TABLE treatment (id INTEGER PRIMARY KEY AUTOINCREMENT, treatmentDonorTag TEXT, teatmentDate TEXT, treatmentRightOvary TEXT, treatmentLeftOvary TEXT, treatmentUT TEXT, treatmentTubbNum INTEGER, treatmentComments TEXT, FOREIGN KEY(treatmentDonorTag) REFERENCES donor(donorTag))");
+
+    // Create treatment test data
+    db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
+       'Z040',
+       '11/24/16',
+       'Done',
+       'Not done',
+       'UT Test',
+       3,
+       'Testing comment'
+    );
+    db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
+      'AC16',
+      '11/27/16',
+      'Done',
+      'Not done',
+      'UT Test',
+      7,
+      'Testing comment'
+    );
+
+    // Log contents of the treatment table to the console
+     db.each("SELECT * FROM treatment", function(err, row){
+       if(err) return console.error(err);
+       console.log(row);
+     });
 
    /*********
    sire table
