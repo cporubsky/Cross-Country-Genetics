@@ -46,6 +46,7 @@ class User {
          }
          else {
 
+
          var timestamp = helper.getTimestamp();
          var tempPassword = helper.generateTempPassword();
          db.run(query.update('users', 'temp_password, tempPassCreatedOn, createdBy, createdOn', 'username'),
@@ -65,7 +66,10 @@ class User {
            console.log("Email to be sent to: " + row.email);
            //for testing purposes only
            var testEmail = 'ccgtestkansas@gmail.com';
-           var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail));
+           var service = config.email.transporter.service;
+           var user = config.email.transporter.user;
+           var userPassword = config.email.transporter.pass;
+           var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail, service, user, userPassword));
            //var ok = new Boolean(helper.sendResetMail(tempPassword, row.email));
            if(!ok) {
              res.statusCode = 500;
@@ -368,6 +372,7 @@ class User {
         console.log('Dont Match!');
       }
       console.log("Current Time: " + currTimestamp);
+      //add as default user, not admin
 
     }); //end parse form
 

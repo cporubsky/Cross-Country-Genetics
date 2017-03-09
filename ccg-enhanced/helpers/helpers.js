@@ -56,7 +56,9 @@ class Helper {
    *  @param {string} email - Email to send message to.
    *  @instance
    */
-  sendNewUserMail(tempPass, email) {
+
+  sendNewUserMail(tempPass, email, service, user, userPassword) {
+  //sendNewUserMail(tempPass, email) {
     console.log('Temporary password: ' + tempPass);
     console.log('Email to send invite to: ' + email);
     var split = email.split('@');
@@ -65,10 +67,10 @@ class Helper {
 
     //transporter
     var transporter = nodemailer.createTransport({
-          service: config.email.transporter.service,
+          service: service,
           auth: {
-            user: config.email.transporter.user,
-            pass: config.email.transporter.pass
+            user: user,
+            pass: userPassword
           }
         }); //end transporter
 
@@ -99,6 +101,7 @@ class Helper {
            console.log('Error');
         }else{
             console.log('New user email sent');
+
         }
     });
 
@@ -106,7 +109,7 @@ class Helper {
   } //end send email
 
 
-  sendResetMail(tempPass, email) {
+  sendResetMail(tempPass, email, service, user, userPassword) {
     console.log('Temporary password: ' + tempPass);
     console.log('Email to send invite to: ' + email);
     var split = email.split('@');
