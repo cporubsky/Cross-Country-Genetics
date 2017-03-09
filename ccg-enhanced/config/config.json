@@ -22,5 +22,8 @@
     "guest": "Guest",
     "logged_out": "Logged Out!",
     "login_failed": "Login Failed. Please try again."
+  },
+  "search": {
+    "results": "Search Results"
   }
 }
