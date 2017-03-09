@@ -201,6 +201,21 @@ var encryption = require('./encryption'),
       0,
       'S0117'
     );
+    db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoSireId, embryoTwoId, embryoFreezeDate, " +
+           "embryoEstrusOnsetDate, embryoBreedDate, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoEtCode) " +
+           "values (?,?,?,?,?,?,?,?,?,?,?)",
+       2,
+       2,
+       null,
+       '2017-01-18',
+       '2017-10-17',
+       '2017-10-17',
+       '2017-05-16',
+       8,
+       8,
+       0,
+       'S0117'
+     );
 
     // Log contents of the embryo_transfer table to the console
     db.each("SELECT * FROM embryo_recovery", function(err, row){
