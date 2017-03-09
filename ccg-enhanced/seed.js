@@ -17,55 +17,55 @@ var encryption = require('./encryption'),
    **********/
 
    //salt from encryption
-   var salt = encryption.salt();
-
-   //Drop users table if it exists
-   db.run("DROP TABLE IF EXISTS users");
-
-   //Create the users table
-   db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, is_approved BOOLEAN, password_digest TEXT, salt TEXT, temp_password TEXT)");
-
-   //Create a default admin
-   db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
-     'Admin user',                         //name
-     'admin',                              //username
-     'admin@none.com',                     //email
-     true,                                 //is admin
-     true,                                 //is approved
-     encryption.digest('password' + salt), //digest
-     salt,                                  //salt
-     null
-   );
-
-   //Create a default user
-   db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
-     'Standard User',                      //name
-     'user',                               //username
-     'user@none.com',                      //email
-     false,                                //not admin
-     true,                                 //is approved
-     encryption.digest('password' + salt), //digest
-     salt,                                 //salt
-     null
-   );
-
-   //Create an unapproved std user
-   db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
-     'Another User',                       //name
-     'user2',                              //username
-     'user_2@none.com',                    //email
-     false,                                //not admin
-     false,                                //not approved
-     encryption.digest('password' + salt), //digest
-     salt,                                 //salt
-     null
-   );
-
-  //  Log contents of the user table to the console
-   db.each("SELECT * FROM users", function(err, row){
-     if(err) return console.error(err);
-     console.log(row);
-   });
+  //  var salt = encryption.salt();
+  //
+  //  //Drop users table if it exists
+  //  db.run("DROP TABLE IF EXISTS users");
+  //
+  //  //Create the users table
+  //  db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT UNIQUE, username TEXT UNIQUE, email TEXT UNIQUE, is_admin BOOLEAN, is_approved BOOLEAN, password_digest TEXT, salt TEXT, temp_password TEXT)");
+  //
+  //  //Create a default admin
+  //  db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
+  //    'Admin user',                         //name
+  //    'admin',                              //username
+  //    'admin@none.com',                     //email
+  //    true,                                 //is admin
+  //    true,                                 //is approved
+  //    encryption.digest('password' + salt), //digest
+  //    salt,                                  //salt
+  //    null
+  //  );
+  //
+  //  //Create a default user
+  //  db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
+  //    'Standard User',                      //name
+  //    'user',                               //username
+  //    'user@none.com',                      //email
+  //    false,                                //not admin
+  //    true,                                 //is approved
+  //    encryption.digest('password' + salt), //digest
+  //    salt,                                 //salt
+  //    null
+  //  );
+  //
+  //  //Create an unapproved std user
+  //  db.run("INSERT INTO users (name, username, email, is_admin, is_approved, password_digest, salt, temp_password) values (?,?,?,?,?,?,?,?)",
+  //    'Another User',                       //name
+  //    'user2',                              //username
+  //    'user_2@none.com',                    //email
+  //    false,                                //not admin
+  //    false,                                //not approved
+  //    encryption.digest('password' + salt), //digest
+  //    salt,                                 //salt
+  //    null
+  //  );
+  //
+  // //  Log contents of the user table to the console
+  //  db.each("SELECT * FROM users", function(err, row){
+  //    if(err) return console.error(err);
+  //    console.log(row);
+  //  });
 
    /********************
    ** EMBRYO RECOVERY **
@@ -263,6 +263,21 @@ var encryption = require('./encryption'),
       0,
       'S0117'
     );
+    db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoSireId, embryoTwoId, embryoFreezeDate, " +
+           "embryoEstrusOnsetDate, embryoBreedDate, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoEtCode) " +
+           "values (?,?,?,?,?,?,?,?,?,?,?)",
+       2,
+       2,
+       null,
+       '2017-01-18',
+       '2017-10-17',
+       '2017-10-17',
+       '2017-05-16',
+       8,
+       8,
+       0,
+       'S0117'
+     );
 
     // Log contents of the embryo_transfer table to the console
     db.each("SELECT * FROM embryo_recovery", function(err, row){

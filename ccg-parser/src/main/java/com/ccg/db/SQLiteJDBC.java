@@ -26,42 +26,11 @@ public class SQLiteJDBC {
 
         try {
 
-//            for (List<String> row : data) {
-//
-//                String sql = "INSERT INTO cane_log (tag_id, loc, freeze_date, client, donor, sire, g1, g2, g3, total, age) values (";
-//
-//                for (int i = 0; i < row.size(); i++) {
-//
-//
-//                    if (i >= 6 && i <= 9) {
-//                        sql += row.get(i) + ",";
-//                    } else sql += "'" + row.get(i) + "'" + ",";
-//
-//                }
-//
-//                String insert = sql.substring(0, sql.length() - 1) + ");";
-//                stmt.executeUpdate(insert);
-//                System.out.println(insert);
-//            }
-
             for (List<String> row : data) {
-
                 PreparedStatement pstmt = conn.prepareStatement(sql);
 
                 pstmt.setString(1, row.get(0));
                 pstmt.setString(2, row.get(1));
-                // TODO: Needs to be date
-                // TODO: Last 6 years
-//                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-//                Date startDate;
-//                try {
-//                    startDate = df.parse(startDateString);
-//                    String newDateString = df.format(startDate);
-//                    System.out.println(newDateString);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-
                 pstmt.setString(3, row.get(2));
                 pstmt.setString(4, row.get(3));
                 pstmt.setString(5, row.get(4));
@@ -90,13 +59,10 @@ public class SQLiteJDBC {
                 } else pstmt.setNull(10, Types.INTEGER);
 
                 pstmt.setString(11, row.get(10));
-
                 pstmt.executeUpdate();
-
             }
 
         } catch (Exception ex) {
-
             System.out.println(ex.getMessage());
             System.out.println("Error writing");
             ex.printStackTrace();
