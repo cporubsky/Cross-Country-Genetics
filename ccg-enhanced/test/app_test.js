@@ -26,6 +26,8 @@ var guest_route = require('./guest/route_verification.js');
 var guest_session = require('./guest/session_verification.js');
 var guest_operations = require('./guest/operations.js');
 
+var email_tests = require('./email_tests.js')
+
 
     //entry point tests
     describe('Entry Point Unit Tests', function() {
@@ -64,9 +66,8 @@ var guest_operations = require('./guest/operations.js');
       admin_operations.tests();
       non_admin_operations.tests();
       guest_operations.tests();
-
-
-
-
-
     }); //end admin operations verification
+
+    describe('Email Verification', function() {
+      email_tests.tests();
+    }); //end email verification

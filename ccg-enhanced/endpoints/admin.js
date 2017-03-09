@@ -106,7 +106,10 @@ class Admin {
                 logger.error("User creation unsuccessful.");
                 //return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
-            var ok = new Boolean(helper.sendNewUserMail(tempPassword, email));
+            var service = config.email.transporter.service;
+            var user = config.email.transporter.user;
+            var userPassword = config.email.transporter.pass;
+            var ok = new Boolean(helper.sendNewUserMail(tempPassword, email, service, user, userPassword));
             if(!ok) {
               logger.error("Error in sending email.");
               //console.log("Error in sending email.");

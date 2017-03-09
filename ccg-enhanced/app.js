@@ -32,7 +32,7 @@ var express = require('express'),
     app.use(flash());
 
     //log every request to console
-    //app.use(morgan('dev'));
+    app.use(morgan('dev'));
 
     //load user
     app.use(load_user);
@@ -64,6 +64,7 @@ var express = require('express'),
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
+    app.post('/index/search', parseBody, landing.search);      // Search Results
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);                       //Abc Form
