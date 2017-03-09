@@ -20,6 +20,10 @@ class Landing {
   index(req, res){
       res.render('landing/index', {title: config.landing.home, user: req.user, message: ""});
   }
+
+  
+
+
 }
 
 module.exports = exports = new Landing();
