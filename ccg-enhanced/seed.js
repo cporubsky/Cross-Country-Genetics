@@ -1,6 +1,6 @@
 "use strict"
 
-var encryption = require('./encryption'),
+var encryption = require('./encryption.js'),
     sqlite3 = require('sqlite3'),
     db = new sqlite3.Database('./database/development.sqlite3');
 

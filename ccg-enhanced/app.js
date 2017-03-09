@@ -32,7 +32,7 @@ var express = require('express'),
     app.use(flash());
 
     //log every request to console
-    //app.use(morgan('dev'));
+    app.use(morgan('dev'));
 
     //load user
     app.use(load_user);
