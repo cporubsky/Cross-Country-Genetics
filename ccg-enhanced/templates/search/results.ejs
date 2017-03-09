@@ -8,20 +8,17 @@
   <table  id="table" data-toggle="table" class="col-md-12">
     <thead>
       <tr>
-        <th data-field="uid">Id#</th>
-        <th data-field="uname">Name</th>
-        <th data-field="uemail">Email</th>
-        <th data-field="uusername">Username</th>
-        <th data-field="userrole">Role</th>
-        <th data-field="verified">Verified</th>
-        <th data-field="pending">Pending Actions</th>
-        <th data-field="lastdate">Modified By</th>
-        <th data-field="modifiedby">Modified On</th>
+        <th data-field="donortag">Donor Tag</th>
+        <th data-field="donorname">Donor Name</th>
+        <th data-field="freezedate">Freeze Date</th>
+        <th data-field="estrusonsetdate">Estrus On Set Date</th>
+        <th data-field="breeddate">Breed Date</th>
+        <th data-field="recoverydate">Recovery Date</th>
       </tr>
     </thead>
     <tbody>
-      <% users.forEach(function(u) { %>
-        <%- include('_users', {users: u}) %>
+      <% results.forEach(function(result) { %>
+        <%- include('results_row', {results: result}) %>
       <% }); %>
     </tbody>
   </table> <!-- End Table -->

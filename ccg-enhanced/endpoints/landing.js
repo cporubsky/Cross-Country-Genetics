@@ -69,10 +69,8 @@ class Landing {
           searchResults.push(searchResult);
         });
         console.log("Search Results", searchResults);
-        res.render('landing/index', {title: config.landing.home, user: req.user, message: ""});
+        res.render('search/results', {title: config.landing.home, user: req.user, results: searchResults});
       });
-
-      // res.render('landing/index', {title: config.landing.home, user: req.user, message: ""});
     });
 
   }
