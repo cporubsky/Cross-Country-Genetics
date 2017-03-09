@@ -56,12 +56,7 @@
 				<tr>
 					<td colspan=1><span>Donor Name </span><input type="text" id="donor" name="donor"></td>
 					<td colspan=2><span>Reg. No. </span><input type="text" id="regNum1" name="regNum1"></td>
-					<td colspan=1><span>Blood Typed </span>
-						<select class="smallFont" id="tag" name="tag">
-							<option class="smallFont" value="yes">Yes</option>
-							<option class="smallFont" value="no">No</option>
-						</select>
-					</td>
+					<td colspan=1><span>Blood Typed </span><input type="text" id="bloodTyped" name="bloodTyped"></td>
 				</tr>
 				<tr>
 					<td colspan=1><span>Owner </span><input type="text" id="owner" name="owner"></td>
@@ -277,3 +272,10 @@
 </div>
 <%- include('../layout/footer') %>
 <script src="/js/bundle.js"></script>
+
+<%#
+if returning to form, give option to edit form, if admin, lock all inputs if not admin, and print PDF
+Index: Search by id and have a dropdown to order by dates and sections to view previous forms
+"Last edited by" would be nice to have
+Change title of page to "Individual Donor File"
+%>

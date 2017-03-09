@@ -70,8 +70,8 @@ var express = require('express'),
     app.get('/formAbc', no_guests, forms.abcForm);                       //Abc Form
     app.post('/formAbc', parseBody, forms.formAbcAjax);                  //Abc Form Ajax
     app.get('/firstForm', no_guests, forms.firstForm);                   //First Form
-    app.get('/donorCowEnrollment', no_guests, forms.donorCowEnrollment); //Donor Cow Enrollment
-    app.post('/donorCowEnrollment', parseBody, forms.donorCowEnrollment);
+    app.get('/individualDonorFile', no_guests, forms.individualDonorFile); //Donor Cow Enrollment
+    app.post('/individualDonorFile', parseBody, forms.individualDonorFile);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
     app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
 

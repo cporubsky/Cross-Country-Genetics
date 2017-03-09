@@ -74,6 +74,10 @@ class Landing {
     });
 
   }
+
+  
+
+
 }
 
 module.exports = exports = new Landing();
