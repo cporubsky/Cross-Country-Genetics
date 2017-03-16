@@ -34,14 +34,17 @@ class Landing {
    * @instance
    */
   search(req, res) {
-    var input = req.body.searchInput.toUpperCase();
+    var input = req.body.searchInput;
+    console.log(input);
     var donor = db.get(query.selectAll('donor', 'donorTag'), input, function(err, donor) {
       if(err || donor == undefined) {
         // FIXME: instead of sending to error page, display bootstrap flash alert
         logger.error("Error occured getting donor.");
-        console.error(err);
+        console.error("ERROR: " + err);
         return res.sendStatus(500);
       }
+      console.log("DONOR ID");
+      console.log(donor.id);
       var donorAbcForms = [];
       donorAbcForms = db.all(query.selectAll('embryo_recovery', 'embryoDonorId'), donor.id, function(err, donorAbcForms) {
         if(err || donorAbcForms == undefined) {
@@ -75,7 +78,7 @@ class Landing {
 
   }
 
-  
+
 
 
 }

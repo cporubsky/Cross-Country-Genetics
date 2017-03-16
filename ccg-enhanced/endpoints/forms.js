@@ -101,25 +101,109 @@ class Forms {
 
   individualDonorFile(req, res){
     if (req.method == 'POST') {
+      var numTableRows = parseInt(req.body.numTableRows)+1;
+      var numTreatmentRows = parseInt(req.body.treatmentRows)+1;
+      console.log(numTableRows);
+      console.log(numTreatmentRows);
+      var collection = "collNum3";
       var idNum = req.body.idNum;
       var owner = req.body.owner;
-      console.log(idNum);
-      console.log(owner);
       // Create donor test data
       if(idNum != "" && owner != ""){
-        db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum) values (?,?,?,?,?)",
-           idNum,
-           req.body.breed,
-           req.body.regNum
+
+        db.run("INSERT INTO client (clientName, clientAddress, clientPhone) values (?,?,?)",
+           req.body.name,
+           req.body.address,
+           req.body.telephoneNum
         );
-        db.run("INSERT INTO client (clientName, clientAddress) values (?,?)",
-           owner,
-           req.body.address
-        );
-        console.log("Data inserted.");
+        db.get("SELECT id FROM client WHERE clientName=? AND clientAddress=? AND clientPhone=?", req.body.name, req.body.address, req.body.telephoneNum, function (err, row) {
+           var clientRowID = row['id'];
+
+          db.run("INSERT INTO donor (donorClientID, donorBreed, donorRegNum, donorTag, donorName, donorLocation, donorArrival, donorDeparture, " +
+          "donorCalfSex, donorCalfDOB, donorDOB, donorRE, donorMT, donorLE, donorMT2, donorBrand) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+             clientRowID,
+             req.body.breed,
+             req.body.regNum,
+             idNum,
+             owner,
+             req.body.location,
+             req.body.arrival,
+             req.body.departure,
+             req.body.calfID,
+             req.body.dob1,
+             req.body.dob2,
+             req.body.re,
+             req.body.mt1,
+             req.body.le,
+             req.body.mt2,
+             req.body.brandLoc
+          );
+
+          for(var i=0; i<6; i++){
+            var collection = "collection" + i;
+            var embryoDisp = "embryoDisp" + i;
+            if(req.param(collection) != ""){
+              db.run("INSERT INTO bullSelection (bullSelectionDonorTag, bullSelectionCollectionNum, bullSelectionEmbryoDisposition) values (?,?,?)",
+                idNum,
+                req.param(collection),
+                req.param(embryoDisp)
+              );
+            }
+          }
+
+          db.get("SELECT id FROM donor WHERE donorTag=?", idNum, function (err, row) {
+             var donorID = row['id'];
+
+              for(var i=1; i<numTableRows; i++){
+                var collection = "collNum" + i;
+                var date = "collDate" + i;
+                var numEmbryos = "numEmbryos" + i;
+                var numTrans = "numTrans" + i;
+                var numFrozen = "numFrozen" + i;
+                var numDegen = "numDegen" + i;
+                var numUnfertil = "numUnfertil" + i;
+                var sire = "sire" + i;
+                var numPreg = "numPreg" + i;
+                db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoCollectionNum, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoNumDegen, " +
+                "embryoNumUnfertil, embryoSireName, embryoNumPreg) " +
+                       "values (?,?,?,?,?,?,?,?,?,?)",
+                   donorID,
+                   req.param(collection),
+                   req.param(date),
+                   req.param(numEmbryos),
+                   req.param(numTrans),
+                   req.param(numFrozen),
+                   req.param(numDegen),
+                   req.param(numUnfertil),
+                   req.param(sire),
+                   req.param(numPreg)
+                );
+              }
+          });
+
+          for(var i=1; i<numTreatmentRows; i++){
+            var date = "date" + i;
+            var rightOvary = "rightOvary" + i;
+            var leftOvary = "leftOvary" + i;
+            var ut = "ut" + i;
+            var tubbNum = "tubbNum" + i;
+            var comments = "comments" + i;
+            db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
+               idNum,
+               req.param(date),
+               req.param(rightOvary),
+               req.param(leftOvary),
+               req.param(ut),
+               req.param(tubbNum),
+               req.param(comments)
+            );
+          }
+        });
+
+        console.log("Data inserted successfully.");
       }
       else{
-        console.log('problem with request: ' + e.message);
+        console.log('problem with request: ' + req.message);
       }
     }
     res.render('forms/individualDonorFile', {user: req.user});

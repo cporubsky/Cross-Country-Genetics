@@ -29,8 +29,8 @@ $(document).ready(function(){
       else{
         var td = newRow.insertCell(i);
         var textbox = document.createElement("input");
-        textbox.id = array[index] + rows;
-        textbox.name = array[index] + rows;
+        textbox.id = array[index].substring(0, array[index].length - 1) + rows;
+        textbox.name = array[index].substring(0, array[index].length - 1) + rows;
         textbox.class = "smallLine";
         textbox.type = "text";
         td.appendChild(textbox);
@@ -38,6 +38,7 @@ $(document).ready(function(){
       }
       index++;
     }
+    $("#" + table + "Rows").val(parseInt($("#" + table + "Rows").val()) + 1);
   }
   else{
     alert("Cannot have more than 12 rows");
@@ -50,6 +51,7 @@ $(document).ready(function(){
     rows = $("#"+table+" tr").length;
     if(rows>2){
       document.getElementById(table).deleteRow(rows-1);
+      $("#" + table + "Rows").val(parseInt($("#" + table + "Rows").val()) - 1);
     }
     else{
     alert("Must have at least one row");
