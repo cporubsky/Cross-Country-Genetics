@@ -34,7 +34,7 @@ class Landing {
    * @instance
    */
   search(req, res) {
-    var input = req.body.searchInput;
+    var input = req.body.donorInput;
     console.log(input);
     var donor = db.get(query.selectAll('donor', 'donorTag'), input, function(err, donor) {
       if(err || donor == undefined) {

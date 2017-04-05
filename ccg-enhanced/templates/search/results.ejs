@@ -1,11 +1,50 @@
 <%- include('../layout/header', {title: title, user: user}) %>
 <link href="/css/index.css" rel="stylesheet" type="text/css">
 
+  <script>
+
+  $(document).ready(function(){
+    var $table = $('#table');
+  	$table.on('click-row.bs.table', function (e, row, $element) {
+      if(!$($element).hasClass('danger')){
+        if($($element).hasClass('success')){
+          $($element).removeClass('success')
+        }
+        else {
+          $('.success').removeClass('success');
+          $($element).addClass('success');
+        }
+        if($($element).hasClass('success')){
+          $('#invite_email').prop("disabled", true);
+          $("#invitebutton").prop( "disabled", true );
+          $("#editbutton").prop("disabled", false);
+          $("#editbutton").removeClass('disabled')
+        }
+        else {
+          $('#invite_email').prop("disabled", false);
+          $("#invitebutton").prop( "disabled", false );
+          $("#editbutton").addClass('disabled')
+        }
+      }
+      else if($($element).hasClass('danger')){
+        //add code to handle items with danger
+      }
+  	});
+
+    function getSelectedRow() {
+      var index = $table.find('tr.success').data('index');
+      return $table.bootstrapTable('getData')[index];
+    }
+
+  });
+
+  </script>
+
   <div class="page-header text-center" style="margin-top: 10px">
       <h1 id="heading">Search Results</h1>
   </div>
 
-  <table  id="table" data-toggle="table" class="col-md-12">
+  <table id="table" data-toggle="table" class="col-md-12">
     <thead>
       <tr>
         <th data-field="donortag">Donor Tag</th>
@@ -22,6 +61,5 @@
       <% }); %>
     </tbody>
   </table> <!-- End Table -->
-
 
 <%- include('../layout/footer') %>

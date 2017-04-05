@@ -22,9 +22,17 @@
   <% } %>
 
 	<br>
-    <h5>Search Existing Form</h5>
-    <form method="post" action="/index/search">
-      <input type="text" class="form-control" placeholder="Enter form 'tag' or 'tattoo' - ex. 550" name="searchInput">
+    <h4>Search Existing Form</h4>
+    <form class="inline" method="post" action="/index/search">
+      <div class="form-group">
+        <label for="donorInput">Donor Tag</label>
+        <input type="text" class="form-control" placeholder="Enter donor tag name" name="donorInput">
+      </div>
+      <div class="form-group">
+        <label for="clientInput">Client</label>
+        <input type="text" class="form-control" placeholder="Enter client name" name="clientInput"/>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 	<br>
 	<!--<div class="btn-group" style="margin-top: 30px; margin-bottom: 10px">-->

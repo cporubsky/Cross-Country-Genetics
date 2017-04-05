@@ -100,6 +100,9 @@ class Forms {
   } //end formAbcAjax
 
   individualDonorFile(req, res){
+    if (req.method == 'GET') {
+      console.log('GET Request: Individual Donor File');
+    }
     if (req.method == 'POST') {
       var numTableRows = parseInt(req.body.numTableRows)+1;
       var numTreatmentRows = parseInt(req.body.treatmentRows)+1;
