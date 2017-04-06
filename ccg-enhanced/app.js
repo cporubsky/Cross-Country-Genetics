@@ -64,7 +64,6 @@ var express = require('express'),
 
     var landing = require('./endpoints/landing');
     app.get('/index', no_guests, landing.index);
-    app.post('/index/search', parseBody, landing.search);      // Search Results
 
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);                       //Abc Form
@@ -73,8 +72,8 @@ var express = require('express'),
     app.get('/individualDonorFile', no_guests, forms.individualDonorFile); //Donor Cow Enrollment
     app.post('/individualDonorFile', parseBody, forms.individualDonorFile);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
-    app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
-
+    app.get('/viewForms', no_guests, forms.viewForms);
+    app.post('/index', parseBody, forms.search);      // Search Results
 
     /* admin routes accessible only if
     a user account is an admin account */
@@ -106,7 +105,7 @@ var express = require('express'),
 
     //handles invalid urls
     app.all('*', function(req, res) {
-      res.redirect("/index");
+      //res.redirect("/index");
     });
 
     //start express app

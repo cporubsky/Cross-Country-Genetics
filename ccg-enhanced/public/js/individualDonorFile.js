@@ -1,11 +1,38 @@
 $(document).ready(function(){
-
-  $("#submit").click(function(){
+  var pathname = window.location.href;
+  if(pathname.indexOf("donorTag") >= 0){
+    $("#submit").prop('disabled', 'true');
+    var id = pathname.split("=").pop();
+    var data = {id: id, ajax: "true"};
+    $.ajax({
+        method: 'POST',
+        data: data,
+        url: '/individualDonorFile',
+        success: function(data) {
+            console.log('success');
+            console.log(data);
+            console.log("Data above");
+            $("#idNum").val(data.donorTag);
+            /*$("#regNum1").val(data.donorRegNum);
+            $("#donor").val(data.donorName);
+            $("#address").val(data.clientAddress);
+            $("#serviceSire1").val(data.sireName);
+            $("#regNum1").val(data.donorRegNum);
+            $("#regNum2").val(data.sireRegNum);
+            //alert(JSON.stringify(data));*/
+        },
+        error: function(error) {
+            console.log("Some error in fetching the notifications.");
+        }
+    });
+  }
+  $("#submit").click(function(e){
     if($("#idNum").val() != "" && $("#owner").val() != ""){
       //var form = $("#window").serialize();
     }
     else{
       alert("At least the ID number and owner must be filled out to submit a form.");
+      e.preventDefault();
     }
   });
 

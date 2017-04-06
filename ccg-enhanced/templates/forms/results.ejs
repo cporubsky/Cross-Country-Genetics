@@ -1,0 +1,47 @@
+<%- include('../layout/header', {title: "Search Results", user: user}) %>
+<link href="/css/index.css" rel="stylesheet" type="text/css">
+
+<div class="page-header text-center" style="margin-top: 10px">
+    <h1 id="heading">Search Results</h1>
+</div>
+
+<form method="post" id="window" name="window">
+  <b>Select a row from the table below, then the form type, and finally click "Search for Previous Form" to search for a form with the selected donor tag.</b>
+  <br><br>
+  <table  id="table" data-toggle="table" class="col-md-12">
+    <thead>
+      <tr>
+        <th data-field="donortag">Donor Tag</th>
+        <th data-field="donorname">Donor Name</th>
+        <th data-field="freezedate">Freeze Date</th>
+        <th data-field="estrusonsetdate">Estrus On Set Date</th>
+        <th data-field="breeddate">Breed Date</th>
+        <th data-field="recoverydate">Recovery Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% results.forEach(function(result) { %>
+        <% tag = result.donorTag %>
+        <tr id="<%=tag%>" name="<%=tag%>">
+          <td><%= result.donorTag %></td>
+          <td><%= result.donorName %></td>
+          <td><%= result.freezeDate %></td>
+          <td><%= result.estrusOnsetDate %></td>
+          <td><%= result.breedDate %></td>
+          <td><%= result.recoveryDate %></td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table> <!-- End Table -->
+  <br><br>
+  <select id="formType" name="formType" class="form-control" style="width: 200px; display: inline;">
+    <option id="individualDonorFile" name="individualDonorFile" value="individualDonorFile">Individual Donor File</option>
+    <option id="abcForm" name="abcForm" value="abcForm">ABC Form</option>
+    <option id="stimulationForm" name="stimulationForm" value="stimulationForm">Stimulation Form</option>
+  </select>
+  <input type="hidden" id="rowID" name="rowID">
+  <input type="submit" id="submit" name="submit" style="display: inline;" value="Search for Previous Form" class="btn btn-primary">
+</form>
+
+<%- include('../layout/footer') %>
+<script src="/js/searchResults.js"></script>
