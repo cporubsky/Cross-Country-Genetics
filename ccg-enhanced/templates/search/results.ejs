@@ -3,40 +3,48 @@
 
   <script>
 
-  // $(document).ready(function(){
-  //   var $table = $('#table');
-  // 	$table.on('click-row.bs.table', function (e, row, $element) {
-  //     if(!$($element).hasClass('danger')){
-  //       if($($element).hasClass('success')){
-  //         $($element).removeClass('success')
-  //       }
-  //       else {
-  //         $('.success').removeClass('success');
-  //         $($element).addClass('success');
-  //       }
-  //       if($($element).hasClass('success')){
-  //         $('#invite_email').prop("disabled", true);
-  //         $("#invitebutton").prop( "disabled", true );
-  //         $("#editbutton").prop("disabled", false);
-  //         $("#editbutton").removeClass('disabled')
-  //       }
-  //       else {
-  //         $('#invite_email').prop("disabled", false);
-  //         $("#invitebutton").prop( "disabled", false );
-  //         $("#editbutton").addClass('disabled')
-  //       }
-  //     }
-  //     else if($($element).hasClass('danger')){
-  //       //add code to handle items with danger
-  //     }
-  // 	});
-  //
-  //   function getSelectedRow() {
-  //     var index = $table.find('tr.success').data('index');
-  //     return $table.bootstrapTable('getData')[index];
-  //   }
-  //
-  // });
+  $(document).ready(function(){
+
+    var $table = $('#table');
+    $table.on('click-row.bs.table', function (e, row, $element) {
+      console.log('element:', $element);
+      console.log('row:', row);
+
+      if(!$($element).hasClass('danger')){
+        if($($element).hasClass('success')){
+          $($element).removeClass('success')
+        }
+        else {
+          $('.success').removeClass('success');
+          $($element).addClass('success');
+        }
+        if($($element).hasClass('success')){
+          $("#editbutton").prop("disabled", false);
+          $("#editbutton").removeClass('disabled')
+        }
+        else {
+          $("#editbutton").addClass('disabled')
+        }
+      }
+    });
+
+    $("#editbutton").click(function (e, value, row) {
+      $('#clientname').val(getSelectedRow().aclientname);
+      $('#donortag').val(getSelectedRow().adonortag);
+      $('#donorname').val(getSelectedRow().adonorname);
+      $('#donorregnum').val(getSelectedRow().adonorregnum);
+      console.log($('#clientname').val());
+      console.log($('#donortag').val());
+      console.log($('#donorname').val());
+      console.log($('#donorregnum').val());
+    });
+
+    function getSelectedRow() {
+        var index = $table.find('tr.success').data('index');
+        return $table.bootstrapTable('getData')[index];
+    }
+
+  });
 
   </script>
 
@@ -44,13 +52,21 @@
       <h1 id="heading">Search Results</h1>
   </div>
 
+  <form class="form-inline pull-right" action="/individualDonorFile/edit" method="post" id="editform" style="margin-bottom: 10px;">
+    <input type="text" id="clientname" style="display: none;"/>
+    <input type="text" id="donortag" style="display: none;"/>
+    <input type="text" id="donorname" style="display: none;"/>
+    <input type="text" id="donorregnum" style="display: none;"/>
+    <button id="editbutton" type="submit" class="btn btn-success pull-right disabled">Edit Form</button>
+  </form>
+
   <table id="table" data-toggle="table" class="col-md-12">
     <thead>
       <tr>
-        <th data-field="clientName">Client Name</th>
-        <th data-field="donortag">Donor Tag</th>
-        <th data-field="donorname">Donor Name</th>
-        <th data-field="donorname">Donor Reg Num</th>
+        <th data-field="aclientname">Client Name</th>
+        <th data-field="adonortag">Donor Tag</th>
+        <th data-field="adonorname">Donor Name</th>
+        <th data-field="adonorregnum">Donor Reg Num</th>
         <!-- <th data-field="freezedate">Freeze Date</th>
         <th data-field="estrusonsetdate">Estrus On Set Date</th>
         <th data-field="breeddate">Breed Date</th>

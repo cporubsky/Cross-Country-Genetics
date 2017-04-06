@@ -143,17 +143,6 @@ class Landing {
   //   searchResults.push(searchResult);
   // });
 
-  // function readEntity(values, table, searchBy, input, res, callback) {
-  //   db.get(query.selectAll(table, searchBy), input, function(err, values) {
-  //     if(err || values == undefined) {
-  //       logger.error("Error occured getting donor.");
-  //       console.error("ERROR: " + err);
-  //       return res.sendStatus(500);
-  //     }
-  //     callback();
-  //   });
-  // }
-
 }
 
 module.exports = exports = new Landing();
