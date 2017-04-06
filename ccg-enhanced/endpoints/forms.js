@@ -211,6 +211,13 @@ class Forms {
     }
     res.render('forms/individualDonorFile', {user: req.user});
   }
+
+  /**
+   * @function EditForm
+   */
+  editForm(req, res) {
+    console.log("Editing form");
+  }
 }
 
 
