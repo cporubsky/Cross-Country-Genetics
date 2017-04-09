@@ -208,6 +208,24 @@ class Forms {
     }
     res.render('forms/individualDonorFile', {user: req.user});
   }
+
+  /**
+   * @function EditForm
+   */
+  editForm(req, res) {
+    console.log("Editing form");
+    var form = new formidable.IncomingForm();
+    form.parse(req, function(err, fields, files) {
+      if (err) {
+        console.log(err);
+        req.end(500);
+      }
+      console.log(fields);
+      var clientName = fields.clientname;
+      console.log("client name:", clientName);
+      res.render('forms/individualDonorFile', {user: req.user});
+    });
+  }
 }
 
 
