@@ -29,10 +29,21 @@
     });
 
     $("#editbutton").click(function (e, value, row) {
+
+
       $('#clientname').val(getSelectedRow().aclientname);
       $('#donortag').val(getSelectedRow().adonortag);
       $('#donorname').val(getSelectedRow().adonorname);
       $('#donorregnum').val(getSelectedRow().adonorregnum);
+
+      var clientName = getSelectedRow().aclientname.replace(" ", "_")
+
+      $('#editbutton').attr('href', '/individualDonorFile/edit/'
+        + getSelectedRow().adonortag + '/'
+        + clientName);
+
+      console.log($())
+
       console.log($('#clientname').val());
       console.log($('#donortag').val());
       console.log($('#donorname').val());
@@ -53,12 +64,16 @@
   </div>
 
   <form class="form-inline pull-right" action="/individualDonorFile/edit" method="post" id="editform" style="margin-bottom: 10px;">
-    <input type="text" id="clientname" style="display: none;"/>
-    <input type="text" id="donortag" style="display: none;"/>
-    <input type="text" id="donorname" style="display: none;"/>
-    <input type="text" id="donorregnum" style="display: none;"/>
-    <button id="editbutton" type="submit" class="btn btn-success pull-right disabled">Edit Form</button>
+    <fieldset>
+      <input type="text" id="clientname" style="display: none;" value="Hello world"/>
+      <input type="text" id="donortag" style="display: none;"/>
+      <input type="text" id="donorname" style="display: none;"/>
+      <input type="text" id="donorregnum" style="display: none;"/>
+    </fieldset>
   </form>
+
+  <button id="editbutton" href="" class="btn btn-success pull-right disabled">Edit Form</button>
+
 
   <table id="table" data-toggle="table" class="col-md-12">
     <thead>
