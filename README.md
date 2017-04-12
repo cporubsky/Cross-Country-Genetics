@@ -15,5 +15,11 @@ Click the plus and minus buttons to add or remove rows
 ## View and Edit Previous Forms
 After this form has been filled out, you can then return to the main page and use the search feature at the top of the page in order to view previous forms that contain that donor tag and/or client. This will take you to a table of all the relevant information for the search. If you select a row, fill out a form type, and then click the "Edit Form" button, it will take you to the form that you chose, already filled out with the latest information for the donor ID/client. From here, you're able to then edit the form to your needs and click the "Update" button, which will save all of your updates.
 
+![alt tag](/READMEImages/viewForms.png)
+Select a row, form type, and then click "Edit Form" to be taken to the previously filled out form
+
 ## Collection Form (ABC Form)
 After filling out the individual donor file, the next step in the process would be to fill out the collection form. After filling out the "Tag or Tattoo" and "Owner" fields with information used from the "Individual Donor File", most of the "A" section of the form will be auto-filled for you with the relevant information. Then, like in the "Individual Donor File", you can fill out the rest of the form to your needs and click the "Submit" button, which creates a collection form for that donor.
+
+![alt tag](/READMEImages/autoFill.png)
+Fill in the "Tag or Tattoo" and "Owner" fields to have more of the "A" section automatically filled out
