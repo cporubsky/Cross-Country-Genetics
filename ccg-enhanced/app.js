@@ -49,7 +49,10 @@ var express = require('express'),
     });
 
     //set api static directory, route, and only users allowed
-    app.use('/api', no_guests, express.static('out'));
+    //app.use('/api', no_guests, express.static('out'));
+    
+    //use only for code review
+    app.use('/api', express.static('out'));
 
     var api = require('./endpoints/api');
     app.get('/api', api.index); //api index
