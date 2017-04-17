@@ -49,7 +49,10 @@ var express = require('express'),
     });
 
     //set api static directory, route, and only users allowed
-    app.use('/api', no_guests, express.static('out'));
+    //app.use('/api', no_guests, express.static('out'));
+    
+    //use only for code review
+    app.use('/api', express.static('out'));
 
     var api = require('./endpoints/api');
     app.get('/api', api.index); //api index
@@ -72,6 +75,7 @@ var express = require('express'),
     app.get('/firstForm', no_guests, forms.firstForm);                   //First Form
     app.get('/individualDonorFile', no_guests, forms.individualDonorFile); //Donor Cow Enrollment
     app.post('/individualDonorFile', parseBody, forms.individualDonorFile);
+    app.get('/individualDonorFile/edit/:tag/:client', no_guests, forms.editForm);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
     app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
 

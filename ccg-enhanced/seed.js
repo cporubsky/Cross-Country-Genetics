@@ -89,6 +89,12 @@ var encryption = require('./encryption.js'),
       'AJ Cabanatuan',
       '808 Street, Manhattan, KS',
       '8673262927'
+   );
+
+   db.run("INSERT INTO client (clientName, clientAddress, clientPhone) values (?,?,?)",
+      'The Bean',
+      '123 Street, Manhattan, KS',
+      '1231230000'
    );*/
 
    // Log contents of the client table to the console
@@ -136,6 +142,46 @@ var encryption = require('./encryption.js'),
        'AC16',
        'What is Beef?',
        'Topeka',
+       '12/22/16',
+       '12/22/16',
+       'Female',
+       '2/24/17',
+       '12/07/16',
+       'sdfsdf',
+       'sfsfsf',
+       'erwrwra',
+       'sfsfsf',
+       'Branded'
+    );
+
+    db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName, donorLocation, donorArrival, donorDeparture, " +
+    "donorCalfSex, donorCalfDOB, donorDOB, donorRE, donorMT, donorLE, donorMT2, donorBrand) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       3,
+       'BR',
+       1234567,
+       'AC16',
+       'What is Beef?',
+       'Topeka',
+       '12/22/16',
+       '12/22/16',
+       'Female',
+       '2/24/17',
+       '12/07/16',
+       'sdfsdf',
+       'sfsfsf',
+       'erwrwra',
+       'sfsfsf',
+       'Branded'
+    );
+
+    db.run("INSERT INTO donor (donorClientId, donorBreed, donorRegNum, donorTag, donorName, donorLocation, donorArrival, donorDeparture, " +
+    "donorCalfSex, donorCalfDOB, donorDOB, donorRE, donorMT, donorLE, donorMT2, donorBrand) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       2,
+       'CR',
+       7654321,
+       'S117',
+       'Master Beef',
+       'Reach',
        '12/22/16',
        '12/22/16',
        'Female',
