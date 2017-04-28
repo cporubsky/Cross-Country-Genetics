@@ -10,6 +10,12 @@
       console.log('element:', $element);
       console.log('row:', row);
 
+      var donorTag = row.adonortag;
+      var clientName = row.aclientname.replace(" ", "_");
+      $('#formEdit').attr('action', '/individualDonorFile/edit/'
+        + donorTag + '/'
+        + clientName);
+
       if(!$($element).hasClass('danger')){
         if($($element).hasClass('success')){
           $($element).removeClass('success')
@@ -31,23 +37,23 @@
     $("#editbutton").click(function (e, value, row) {
 
 
-      $('#clientname').val(getSelectedRow().aclientname);
-      $('#donortag').val(getSelectedRow().adonortag);
-      $('#donorname').val(getSelectedRow().adonorname);
-      $('#donorregnum').val(getSelectedRow().adonorregnum);
+      // $('#clientname').val(getSelectedRow().aclientname);
+      // $('#donortag').val(getSelectedRow().adonortag);
+      // $('#donorname').val(getSelectedRow().adonorname);
+      // $('#donorregnum').val(getSelectedRow().adonorregnum);
 
-      var clientName = getSelectedRow().aclientname.replace(" ", "_")
 
-      $('#editbutton').attr('href', '/individualDonorFile/edit/'
-        + getSelectedRow().adonortag + '/'
-        + clientName);
 
-      console.log($())
+      // $('#editbutton').attr('href', '/individualDonorFile/edit/'
+      //   + donorTag + '/'
+      //   + clientName);
 
-      console.log($('#clientname').val());
-      console.log($('#donortag').val());
-      console.log($('#donorname').val());
-      console.log($('#donorregnum').val());
+      // console.log($())
+
+      // console.log($('#clientname').val());
+      // console.log($('#donortag').val());
+      // console.log($('#donorname').val());
+      // console.log($('#donorregnum').val());
     });
 
     function getSelectedRow() {
@@ -63,16 +69,18 @@
       <h1 id="heading">Search Results</h1>
   </div>
 
-  <form class="form-inline pull-right" action="/individualDonorFile/edit" method="post" id="editform" style="margin-bottom: 10px;">
+  <!-- <form class="form-inline pull-right" action="/individualDonorFile/edit" method="get" id="editform" style="margin-bottom: 10px;">
     <fieldset>
       <input type="text" id="clientname" style="display: none;" value="Hello world"/>
       <input type="text" id="donortag" style="display: none;"/>
       <input type="text" id="donorname" style="display: none;"/>
       <input type="text" id="donorregnum" style="display: none;"/>
     </fieldset>
-  </form>
+  </form> -->
 
-  <button id="editbutton" href="" class="btn btn-success pull-right disabled">Edit Form</button>
+  <form method="post" action="" id="formEdit">
+    <input type="submit" id="editbutton" class="btn btn-success pull-right disabled" role="button">Edit Form</input>
+  </form>
 
 
   <table id="table" data-toggle="table" class="col-md-12">
