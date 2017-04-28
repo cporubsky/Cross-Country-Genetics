@@ -107,9 +107,9 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  formAbcSubmit(req, res){
+  formAbcSubmit(req, res) {
     console.log("Here");
-    res.render('forms/formAbc');
+    res.render('forms/formAbc', {user: req.user});
   }
 
   individualDonorFile(req, res){
@@ -227,17 +227,26 @@ class Forms {
    */
   editForm(req, res) {
     console.log("Editing form");
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      if (err) {
-        console.log(err);
-        req.end(500);
-      }
-      console.log(fields);
-      var clientName = fields.clientname;
-      console.log("client name:", clientName);
-      res.render('forms/individualDonorFile', {user: req.user});
-    });
+    // var form = new formidable.IncomingForm();
+    // form.parse(req, function(err, fields, files) {
+    //   if (err) {
+    //     console.log(err);
+    //     req.end(500);
+    //   }
+    //   console.log(fields);
+    //   var clientName = fields.clientname;
+    //   console.log("client name:", clientName);
+    //   res.render('forms/individualDonorFile', {user: req.user});
+    // });
+    console.log("tag", req.params.tag);
+    console.log("client", req.params.client);
+
+    var client = req.params.client;
+    var donor = {
+      hello: client
+    };
+
+    res.render('forms/individualDonorFile', {user: req.user, donor: donor});
   }
 }
 

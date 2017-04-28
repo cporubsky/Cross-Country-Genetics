@@ -82,6 +82,7 @@ class Landing {
           if (!(donors instanceof Array))
             donors = [donors];
           donors.forEach(function(donor) {
+            // console.log(donor);
             db.get(query.selectAll('client', 'id'), donor.donorClientId, function(err, donorClient) {
               checkError(res, err, donorClient);
               let match = createMatch(donorClient.clientName, donor.donorTag, donor.donorName, donor.donorRegNum);
