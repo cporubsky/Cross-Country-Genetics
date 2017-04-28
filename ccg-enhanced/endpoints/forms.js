@@ -99,6 +99,19 @@ class Forms {
     });
   } //end formAbcAjax
 
+  /**
+   *  @function formAbcAjax
+   *  @memberof Forms
+   *  @description Ajax for ABC form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  formAbcSubmit(req, res){
+    console.log("Here");
+    res.render('forms/formAbc');
+  }
+
   individualDonorFile(req, res){
     if (req.method == 'POST') {
       var numTableRows = parseInt(req.body.numTableRows)+1;

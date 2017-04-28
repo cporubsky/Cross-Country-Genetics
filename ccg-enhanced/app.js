@@ -50,7 +50,7 @@ var express = require('express'),
 
     //set api static directory, route, and only users allowed
     //app.use('/api', no_guests, express.static('out'));
-    
+
     //use only for code review
     app.use('/api', express.static('out'));
 
@@ -72,6 +72,7 @@ var express = require('express'),
     var forms = require('./endpoints/forms');
     app.get('/formAbc', no_guests, forms.abcForm);                       //Abc Form
     app.post('/formAbc', parseBody, forms.formAbcAjax);                  //Abc Form Ajax
+    app.post('/formAbc/submitForm', parseBody, forms.formAbcSubmit);
     app.get('/firstForm', no_guests, forms.firstForm);                   //First Form
     app.get('/individualDonorFile', no_guests, forms.individualDonorFile); //Donor Cow Enrollment
     app.post('/individualDonorFile', parseBody, forms.individualDonorFile);
