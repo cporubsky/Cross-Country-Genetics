@@ -109,7 +109,34 @@ class Forms {
    */
   formAbcSubmit(req, res){
     console.log("Here");
-    res.render('forms/formAbc');
+    console.log(req.body);
+    var grades = [0, 0, 0];
+    for(var i=1; i<parseInt(req.body.tableCRows); i++){
+      var numEmbryos = "numEmbryos";
+      var stageCode = "stageCode";
+      var qualityCode = "qualityCode";
+      if(i != 1){
+        numEmbryos = numEmbryos + i;
+        stageCode + i;
+        qualityCode + i;
+      }
+      console.log(qualityCode);
+      console.log(req.body.qualityCode);
+      for(var i=1; i<4; i++){
+        if(parseInt(req.body.qualityCode) == i){
+          if(req.body.numEmbryos.indexOf("-") > -1){
+            var nums = req.body.numEmbryos.split("-");
+            var total = parseInt(nums[1])-parseInt(nums[0])+1;
+            grades[i] += total;
+          }
+          else{
+            grades[i] += req.body.numEmbryos;
+          }
+        }
+      }
+      console.log(grades);
+    }
+    //res.render('forms/formAbc', {user: req.user});
   }
 
   individualDonorFile(req, res){
