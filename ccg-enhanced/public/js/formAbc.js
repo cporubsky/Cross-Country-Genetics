@@ -74,7 +74,7 @@ $("#plusB").click(function(){
 var rows = document.getElementById("tableB").rows.length;
 var index = 0;
 if(rows < 13){
-  var array = ["number", "earTag", "regNum", "tattoo", "side", "breedCode", "daysSinceEstrus", "stageCode", "qualityCode", "embyroDivided", "commentsB", "results"];
+  var array = ["number", "earTag", "regNum", "tattoo", "side", "breedCode", "daysSinceEstrus", "stageCodeB", "qualityCodeB", "embyroDivided", "commentsB", "results"];
   var newRow = document.getElementById("tableB").insertRow(rows);
   for(var i=0;i<13;i++){
     if(i==0){
