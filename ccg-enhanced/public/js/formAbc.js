@@ -74,7 +74,7 @@ $("#plusB").click(function(){
 var rows = document.getElementById("tableB").rows.length;
 var index = 0;
 if(rows < 13){
-  var array = ["number", "earTag", "regNum", "tattoo", "side", "breedCode", "daysSinceEstrus", "stageCode", "qualityCode", "embyroDivided", "commentsB", "results"];
+  var array = ["number", "earTag", "regNum", "tattoo", "side", "breedCode", "daysSinceEstrus", "stageCodeB", "qualityCodeB", "embyroDivided", "commentsB", "results"];
   var newRow = document.getElementById("tableB").insertRow(rows);
   for(var i=0;i<13;i++){
     if(i==0){
@@ -114,6 +114,7 @@ alert("Must have at least one row");
 
 //Adds rows to the C table
 $("#plusC").click(function(){
+var table = $(this).parents("table:first").attr("id");
 var rows = document.getElementById("tableC").rows.length;
 var index = 0;
 if(rows < 13){
@@ -138,6 +139,7 @@ if(rows < 13){
     }
     index++;
   }
+  $("#"+table+"Rows").val(parseInt($("#"+table+"Rows").val())+1)
 }
 else{
   alert("Cannot have more than 12 rows");
@@ -146,9 +148,11 @@ else{
 
 //Subtracts rows from the C table
 $("#minusC").click(function(){
+var table = $(this).parents("table:first").attr("id");
 var rows = document.getElementById("tableC").rows.length;
 if(rows>2){
   document.getElementById("tableC").deleteRow(rows-1);
+  $("#"+table+"Rows").val(parseInt($("#"+table+"Rows").val())-1)
 }
 else{
 alert("Must have at least one row");

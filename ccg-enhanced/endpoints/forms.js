@@ -100,15 +100,44 @@ class Forms {
   } //end formAbcAjax
 
   /**
-   *  @function formAbcAjax
+   *  @function formAbcSubmit
    *  @memberof Forms
-   *  @description Ajax for ABC form.
+   *  @description Submission handler for Form ABC/Collection Form.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  formAbcSubmit(req, res) {
-    console.log("Here");
+  formAbcSubmit(req, res){
+    console.log(req.body);
+    var grades = [0, 0, 0];
+    for(var i=1; i<parseInt(req.body.tableCRows)+1; i++){
+      var numEmbryos = "numEmbryos";
+      var stageCode = "stageCode";
+      var qualityCode = "qualityCode";
+      if(i != 1){
+        numEmbryos = numEmbryos + i.toString();
+        stageCode = stageCode + i.toString();
+        qualityCode = qualityCode + i.toString();
+      }
+      console.log(numEmbryos);
+      console.log(stageCode);
+      console.log(qualityCode);
+      for(var j=1; j<4; j++){
+        if(parseInt(req.param(qualityCode)) == j){
+          if(req.param(numEmbryos).indexOf("-") > -1){
+            var nums = req.param(numEmbryos).split("-");
+            var total = parseInt(nums[1])-parseInt(nums[0])+1;
+            grades[j-1] += total;
+          }
+          else{
+            grades[j-1] += 1;
+          }
+        }
+      }
+    }
+    total = grades[0] + grades[1] + grades[2];
+    console.log(grades);
+    console.log(total);
     res.render('forms/formAbc', {user: req.user});
   }
 
