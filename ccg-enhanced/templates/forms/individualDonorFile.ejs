@@ -14,42 +14,44 @@
         <tbody>
           <tr>
             <td></td>
-            <td><span>LOCATION</span><input type="text" id="location" name="location"><%=donor.client %></td>
+            <td><span>LOCATION</span>
+                <input type="text" id="location" name="location" value="<%= donor ? donor.location : '' %>">
+            </td>
             <td></td>
           </tr>
           <tr>
-            <td><span>I.D. NO. </span><input type="text" id="idNum" name="idNum"></td>
-            <td><span>ARRIVAL </span><input type="text" id="arrival" name="arrival"></td>
-            <td><span>DEPARTURE </span><input type="text" id="departure" name="departure"></td>
+            <td><span>I.D. NO. </span><input type="text" id="idNum" name="idNum" value="<%= donor ? donor.id : '' %>"></td>
+            <td><span>ARRIVAL </span><input type="text" id="arrival" name="arrival" value="<%= donor ? donor.arrival : '' %>"></td>
+            <td><span>DEPARTURE </span><input type="text" id="departure" name="departure" value="<%= donor ? donor.departure : '' %>"></td>
           </tr>
           <tr>
-            <td><span>NAME </span><input type="text" id="name" name="name"></td>
-            <td><span>CALF SEX/ID </span><input type="text" id="calfID" name="calfID"></td>
-            <td><span>DATE OF BIRTH </span><input type="text" id="dob1" name="dob1"></td>
+            <td><span>NAME </span><input type="text" id="name" name="name" value="<%= donor ? donor.name : '' %>"></td>
+            <td><span>CALF SEX/ID </span><input type="text" id="calfID" name="calfID" value="<%= donor ? donor.calfSex : '' %>"></td>
+            <td><span>DATE OF BIRTH </span><input type="text" id="dob1" name="dob1" value="<%= donor ? donor.calfDOB : '' %>"></td>
           </tr>
           <tr>
-            <td><span>REGISTRATION NO. </span><input type="text" id="regNum" name="regNum"></td>
+            <td><span>REGISTRATION NO. </span><input type="text" id="regNum" name="regNum" value="<%= donor ? donor.regNum : '' %>"></td>
             <td colspan=2><span class="center">DONOR IDENTIFICATION </span></td>
           </tr>
           <tr>
-            <td><span>BREED </span><input type="text" id="breed" name="breed"></td>
-            <td colspan=2><span>RE </span><input type="text" id="re" name="re"></td>
+            <td><span>BREED </span><input type="text" id="breed" name="breed" value="<%= donor ? donor.breed : '' %>"></td>
+            <td colspan=2><span>RE </span><input type="text" id="re" name="re" value="<%= donor ? donor.re : '' %>"></td>
           </tr>
           <tr>
-            <td><span>DATE OF BIRTH </span><input type="text" id="dob2" name="dob2"></td>
-            <td colspan=2><span>MT </span><input type="text" id="mt1" name="mt1"></td>
+            <td><span>DATE OF BIRTH </span><input type="text" id="dob2" name="dob2" value="<%= donor ? donor.dob : '' %>"></td>
+            <td colspan=2><span>MT </span><input type="text" id="mt1" name="mt1" value="<%= donor ? donor.mt : '' %>"></td>
           </tr>
           <tr>
-            <td><span>OWNER </span><input type="text" id="owner" name="owner"></td>
-            <td colspan=2><span>LE </span><input type="text" id="le" name="le"></td>
+            <td><span>OWNER </span><input type="text" id="owner" name="owner" value="<%= donor ? donor.clientName : '' %>"></td>
+            <td colspan=2><span>LE </span><input type="text" id="le" name="le" value="<%= donor ? donor.le : '' %>"></td>
           </tr>
           <tr>
-            <td><span>ADDRESS </span><input type="text" id="address" name="address"></td>
-            <td colspan=2><span>MT </span><input type="text" id="mt2" name="mt2"></td>
+            <td><span>ADDRESS </span><input type="text" id="address" name="address" value="<%= donor ? donor.clientAddress : '' %>"></td>
+            <td colspan=2><span>MT </span><input type="text" id="mt2" name="mt2" value="<%= donor ? donor.mt2 : '' %>"></td>
           </tr>
           <tr>
-            <td><span>TELEPHONE NO. </span><input type="text" id="telephoneNum" name="telephoneNum"></td>
-            <td colspan=2><span>BRAND/LOC </span><input type="text" id="brandLoc" name="brandLoc"></td>
+            <td><span>TELEPHONE NO. </span><input type="text" id="telephoneNum" name="telephoneNum" value="<%= donor ? donor.clientPhone : '' %>"></td>
+            <td colspan=2><span>BRAND/LOC </span><input type="text" id="brandLoc" name="brandLoc" value="<%= donor ? donor.brand : '' %>"></td>
           </tr>
         </tbody>
       </table>
@@ -94,7 +96,11 @@
             <td><span><b>BULL SELECTION</b></span></td>
             <td><span><b>EMBRYO DISPOSITION</b></span></td>
           </tr>
-          <% for(var i=0; i<6; i++){ %>
+          <tr>
+            <td><span>COLLECTION 1</span><input type="text" id="collection1" name="collection1" value="<%= donor ? donor.bsCollectionNum : '' %>"/></td>
+            <td><span style="visibility: hidden">ff</span><input type="text" id="embryoDisp1" name="embryoDisp1" value="<%= donor ? donor.bsEmbryoDisposition : '' %>"/></td>
+          </tr>
+          <% for(var i=1; i<6; i++){ %>
           <tr>
             <td><span>COLLECTION <%=i+1%></span><input type="text" id="collection<%=i %>" name="collection<%=i %>"/></td>
             <td><span style="visibility: hidden">ff</span><input type="text" id="embryoDisp<%=i %>" name="embryoDisp<%=i %>"/></td>
