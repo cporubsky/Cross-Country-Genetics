@@ -79,8 +79,7 @@ var express = require('express'),
     app.post('/individualDonorFile', parseBody, forms.individualDonorFile);
     app.post('/individualDonorFile/edit/:tag/:client', forms.editForm);
     app.get('/caneCodeLog', no_guests, forms.caneCodeLog);               //Cane Code Log
-    app.get('/viewForms', no_guests, forms.viewForms);                   //View Forms
-
+    app.get('/caneCode', no_guests, forms.caneCode);                   //Cane Code
 
     /* admin routes accessible only if
     a user account is an admin account */

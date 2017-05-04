@@ -1,5 +1,5 @@
-<%- include('../layout/header', {title: "View Forms", user: user}) %>
-<% title = "View Forms" %>
+<%- include('../layout/header', {title: "Cane Code", cane: cane}) %>
+<% title = "Cane Code" %>
 <link href="/css/form.css" rel="stylesheet" type="text/css">
 <div id="page">
   <div id="container">
@@ -17,12 +17,11 @@
           <th><span>G3</span></th>
           <th><span>Total</span></th>
           <th><span>Age</span></th>
-          <th><span>State</span></th>
         </tr>
       </thead>
       <tbody>
         <% cane.forEach(function(c) { %>
-          <%- include('_canerow', {users: c}) %>
+          <%- include('_canerow', {cane: c}) %>
         <% }); %>
       </tbody>
     </table>

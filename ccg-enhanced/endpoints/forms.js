@@ -58,20 +58,52 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  caneCodeLog(req, res){
+  caneCodeLog(req, res) {
 	  res.render('forms/caneCodeLog', {user: req.user});
   }
 
   /**
-   *  @function viewForms
-   *  @memberof Forms
-   *  @description Sends user to view forms.
+   *  Cane Code
+   *  @function caneCode
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
-  viewForms(req, res){
-    res.render('forms/viewForms', {user: req.user});
+  caneCode(req, res) {
+    var cane = [];
+    var caneIdCounter = 1;
+    db.all(query.selectAll('cSection', '', ''), function(err, cRows) {
+      checkError(res, err, cRows);
+
+      cRows.forEach(function(cRow) {
+        if (cRow.cSectionGrade1 >= 0) {
+          let caneEntry = {
+            caneCode: caneIdCounter,
+            donor: cRow.cSectionDonorId,
+            freezeDate: cRow.cSectionformAbcDate,
+            g1: cRow.cSectionGrade1,
+            g2: cRow.cSectionGrade2,
+            g3: cRow.cSectionGrade3,
+            total: cRow.cSectionTotal,
+            age: '7.0d'
+          };
+          cane.push(caneEntry);
+          caneIdCounter++;
+        }
+      });
+      res.render('forms/caneCode', {user: req.user, cane: cane});
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
   }
 
   /**
