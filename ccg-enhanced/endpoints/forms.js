@@ -307,6 +307,7 @@ class Forms {
   }
 
   individualDonorFile(req, res){
+    console.log("Here");
     if (req.method == 'POST') {
       var numTableRows = parseInt(req.body.numTableRows)+1;
       var numTreatmentRows = parseInt(req.body.treatmentRows)+1;
@@ -325,6 +326,10 @@ class Forms {
         );
         db.get("SELECT id FROM client WHERE clientName=? AND clientAddress=? AND clientPhone=?", req.body.name, req.body.address, req.body.telephoneNum, function (err, row) {
            var clientRowID = row['id'];
+
+          db.run("DELETE FROM donor WHERE donorTag=?",
+            idNum
+          );
 
           db.run("INSERT INTO donor (donorClientID, donorBreed, donorRegNum, donorTag, donorName, donorLocation, donorArrival, donorDeparture, " +
           "donorCalfSex, donorCalfDOB, donorDOB, donorRE, donorMT, donorLE, donorMT2, donorBrand) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
@@ -350,6 +355,9 @@ class Forms {
             var collection = "collection" + i;
             var embryoDisp = "embryoDisp" + i;
             if(req.param(collection) != ""){
+              db.run("DELETE FROM bullSelection WHERE bullSelectionDonorTag=?",
+                idNum
+              );
               db.run("INSERT INTO bullSelection (bullSelectionDonorTag, bullSelectionCollectionNum, bullSelectionEmbryoDisposition) values (?,?,?)",
                 idNum,
                 req.param(collection),
@@ -359,18 +367,21 @@ class Forms {
           }
 
           db.get("SELECT id FROM donor WHERE donorTag=?", idNum, function (err, row) {
-             var donorID = row['id'];
+             var donorID = clientRowID;
 
               for(var i=1; i<numTableRows; i++){
-                var collection = "collNum" + i;
-                var date = "collDate" + i;
-                var numEmbryos = "numEmbryos" + i;
-                var numTrans = "numTrans" + i;
-                var numFrozen = "numFrozen" + i;
-                var numDegen = "numDegen" + i;
-                var numUnfertil = "numUnfertil" + i;
-                var sire = "sire" + i;
-                var numPreg = "numPreg" + i;
+                var collection = "collNum" + i.toString();
+                var date = "collDate" + i.toString();
+                var numEmbryos = "numEmbryos" + i.toString();
+                var numTrans = "numTrans" + i.toString();
+                var numFrozen = "numFrozen" + i.toString();
+                var numDegen = "numDegen" + i.toString();
+                var numUnfertil = "numUnfertil" + i.toString();
+                var sire = "sire" + i.toString();
+                var numPreg = "numPreg" + i.toString();
+                db.run("DELETE FROM embryo_recovery WHERE embryoDonorId=?",
+                  donorID
+                );
                 db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoCollectionNum, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoNumDegen, " +
                 "embryoNumUnfertil, embryoSireName, embryoNumPreg) " +
                        "values (?,?,?,?,?,?,?,?,?,?)",
@@ -389,12 +400,16 @@ class Forms {
           });
 
           for(var i=1; i<numTreatmentRows; i++){
-            var date = "date" + i;
-            var rightOvary = "rightOvary" + i;
-            var leftOvary = "leftOvary" + i;
-            var ut = "ut" + i;
-            var tubbNum = "tubbNum" + i;
-            var comments = "comments" + i;
+            var date = "date" + i.toString();
+            var rightOvary = "rightOvary" + i.toString();
+            var leftOvary = "leftOvary" + i.toString();
+            var ut = "ut" + i.toString();
+            var tubbNum = "tubbNum" + i.toString();
+            var comments = "comments" + i.toString();
+            db.run("DELETE FROM treatment WHERE treatmentDonorTag=?",
+              idNum
+            );
+
             db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
                idNum,
                req.param(date),
@@ -421,6 +436,7 @@ class Forms {
    * @function EditForm
    */
   editForm(req, res) {
+    console.log("Edit form");
     let tagParam = req.params.tag;
     let clientParam =  req.params.client;
 
@@ -448,7 +464,7 @@ class Forms {
 
           // Create a donor
           let donor = {
-            id: donorRow.id,
+            id: donorRow.donorTag,
             breed: donorRow.donorBreed,
             regNum: donorRow.donorRegNum,
             tag: tagParam,
@@ -489,6 +505,47 @@ class Forms {
       }
     }
   }
+
+  /**
+   * @function EditAbcForm
+   */
+  editAbcForm(req, res) {
+    console.log("Edit ABC form");
+    let tagParam = req.params.tag;
+    let clientParam =  req.params.client;
+
+    // Retrieve donor information from donors table using tag
+    db.get(query.selectAll('donor', 'donorTag'), tagParam, function(err, donorRow) {
+      checkError(res, err, donorRow);
+
+      // Get client info for donor
+      var clientId = donorRow.donorClientId;
+      db.get(query.selectAll('client', 'id'), clientId, function(err, clientRow) {
+        checkError(res, err, clientRow);
+
+        // Assign client info
+        var clientName = clientRow.clientName;
+        var clientAddress = clientRow.clientAddress;
+        var clientPhone = clientRow.clientPhone;
+
+        // Render individualDonorFile template and pass in donor dictionary
+        res.render('forms/formAbc', {user: req.user});
+      });
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
+  }
+
 }
 
 

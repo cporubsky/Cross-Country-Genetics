@@ -1,5 +1,9 @@
 "use strict";
 
+$("#submit").on("click", function(){
+	  alert("Form submitted");
+});
+
 $("#viewPdf").click(function(){
   var PDFDocument = require('pdfkit');
   var fs = require('fs');

@@ -2,7 +2,7 @@
 <% title = "Individual Donor File" %>
 <link href="/css/form.css" rel="stylesheet" type="text/css">
 
-<form method="post" id="window" name="window">
+<form method="post" action="/individualDonorFile" id="window" name="window">
   <div id="page">
     <div id="container">
 	  <br>
@@ -15,7 +15,7 @@
           <tr>
             <td></td>
             <td><span>LOCATION</span>
-                <input type="text" id="location" name="location" value="<%= donor ? donor.location : '' %>">
+                <input type="text" id="location" name="location" value="<%= donor ? donor.donorLocation : '' %>">
             </td>
             <td></td>
           </tr>
