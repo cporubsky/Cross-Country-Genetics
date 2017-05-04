@@ -68,11 +68,11 @@
 					<td colspan=1><span>Service Sire </span><input type="text" id="serviceSire1" name="serviceSire1"></td>
 					<td colspan=1><span>Reg. No. </span><input type="text" id="regNum2" name="regNum2"></td>
 					<td></td>
-					<td colspan=1><span>Estrus Onset </span><input style="width: 78%;" type="text" class="datepicker" id="estrusOnset" name="estrusOnset"><select class="smallFont"><option class="smallFont" value="am">AM</option><option class="smallFont" value="pm">PM</option></select></td>
+					<td colspan=1><span>Estrus Onset </span><input type="text" class="datepicker" id="estrusOnset" name="estrusOnset"></td>
 				</tr>
 				<tr>
 					<td colspan=1 class="indent"><span class="indent">I.D. Code </span><input class="indent" type="text" id="idCode1" name="idCode1"></td>
-					<td colspan=1><span>Freeze Date or Batch No. </span><input type="text" id="freezeDate1" name="freezeDate1"></td>
+					<td colspan=1><span>Freeze Date or Batch No. </span><input type="text" id="freezeDate1B" name="freezeDate1B"></td>
 					<td></td>
 					<td colspan=1><span>Breeding Date </span><input type="text" class="datepicker" id="breedDate" name="breedDate"></td>
 				</tr>
@@ -84,7 +84,7 @@
 				</tr>
 				<tr>
 					<td colspan=1 class="indent"><span class="indent">I.D. Code </span><input class="indent" type="text" id="idCode2" name="idCode2"></td>
-					<td colspan=1><span>Freeze Date or Batch No. </span><input type="text" id="freezeDate2" name="freezeDate2"></td>
+					<td colspan=1><span>Freeze Date or Batch No. </span><input type="text" id="freezeDate2B" name="freezeDate2B"></td>
 					<td></td>
 					<td colspan=1><span>No. Recovered </span><input type="text" id="numRecovered" name="numRecovered"></td>
 				</tr>
@@ -94,7 +94,7 @@
 					<td colspan=1><span>No. Transferred </span><input type="text" id="numTransferred" name="numTransferred"></td>
 				</tr>
 				<tr>
-					<td colspan=1><span>Signature </span><input type="text" id="signatureA" name="signatureA" disabled></td>
+					<td colspan=1><span>Signature </span><input type="text" id="signatureA" name="signatureA"></td>
 					<td colspan=1><span>ET Code </span><input type="text" id="etCodeA" name="etCodeA"></td>
 					<td></td>
 					<td colspan=1><span>No. Frozen </span><input type="text" id="numFrozen1" name="numFrozen1"></td>
@@ -170,7 +170,8 @@
 				</tr>
 			</tbody>
 		</table>
-		<span>Signature </span><input type="text" id="signatureB" name="signatureB" disabled>
+		<input type="number" style="display: none" id="tableBRows" name="tableBRows" value="1"/>
+		<span>Signature </span><input type="text" id="signatureB" name="signatureB">
 		<span>ET Code </span><input type="text" id="etCodeB" name="etCodeB">
 	</div>
 	<br>
@@ -240,7 +241,7 @@
 					<td colspan=6><span>Recommended method of thawing </span><input type="text" id="thawingMethod" name="thawingMethod"></td>
 				</tr>
 				<tr>
-					<td colspan=3><span>Signature </span><input type="text" id="signature3" name="signature3" disabled></td>
+					<td colspan=3><span>Signature </span><input type="text" id="signature3" name="signature3"></td>
 					<td colspan=3><span>ET Code </span><input type="text" id="etCode3" name="etCode3"></td>
 				</tr>
 				<tr>
