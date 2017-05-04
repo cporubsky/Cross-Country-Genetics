@@ -74,7 +74,7 @@ var encryption = require('./encryption.js'),
    client table
    ************/
    // Drop client table if exists
-   /*db.run("DROP TABLE IF EXISTS client");
+   db.run("DROP TABLE IF EXISTS client");
 
    // Create the client table
    db.run("CREATE TABLE client (id INTEGER PRIMARY KEY AUTOINCREMENT, clientName TEXT, clientAddress TEXT, clientPhone TEXT)");
@@ -95,7 +95,7 @@ var encryption = require('./encryption.js'),
       'The Bean',
       '123 Street, Manhattan, KS',
       '1231230000'
-   );*/
+   );
 
    // Log contents of the client table to the console
    db.each("SELECT * FROM client", function(err, row){
@@ -107,7 +107,7 @@ var encryption = require('./encryption.js'),
     donor table
     ***********/
     // Drop donor table if exists
-    /*db.run("DROP TABLE IF EXISTS donor");
+    db.run("DROP TABLE IF EXISTS donor");
 
     // Create the donor table
     db.run("CREATE TABLE donor (id INTEGER PRIMARY KEY AUTOINCREMENT, donorClientId INTEGER, donorBreed TEXT, donorRegNum INTEGER, donorTag TEXT, donorName TEXT, " +
@@ -192,7 +192,7 @@ var encryption = require('./encryption.js'),
        'erwrwra',
        'sfsfsf',
        'Branded'
-    );*/
+    );
 
     // Log contents of the donor table to the console
      db.each("SELECT * FROM donor", function(err, row){
@@ -204,7 +204,7 @@ var encryption = require('./encryption.js'),
     bullSelection table
     ***********/
     // Drop bullSelection table if exists
-    /*db.run("DROP TABLE IF EXISTS bullSelection");
+    db.run("DROP TABLE IF EXISTS bullSelection");
 
     // Create the bullSelection table
     db.run("CREATE TABLE bullSelection (id INTEGER PRIMARY KEY AUTOINCREMENT, bullSelectionDonorTag TEXT, bullSelectionCollectionNum TEXT, bullSelectionEmbryoDisposition TEXT, FOREIGN KEY(bullSelectionDonorTag) REFERENCES donor(donorTag))");
@@ -219,7 +219,7 @@ var encryption = require('./encryption.js'),
       'AC16',
       'Broker',
       'Good disposition'
-    );*/
+    );
 
     // Log contents of the bullSelection table to the console
     db.each("SELECT * FROM bullSelection", function(err, row){
@@ -231,7 +231,7 @@ var encryption = require('./encryption.js'),
     treatment table
     ***********/
     // Drop treatment table if exists
-    /*db.run("DROP TABLE IF EXISTS treatment");
+    db.run("DROP TABLE IF EXISTS treatment");
 
     // Create the treatment table
     db.run("CREATE TABLE treatment (id INTEGER PRIMARY KEY AUTOINCREMENT, treatmentDonorTag TEXT, teatmentDate TEXT, treatmentRightOvary TEXT, treatmentLeftOvary TEXT, treatmentUT TEXT, treatmentTubbNum INTEGER, treatmentComments TEXT, FOREIGN KEY(treatmentDonorTag) REFERENCES donor(donorTag))");
@@ -254,7 +254,7 @@ var encryption = require('./encryption.js'),
       'UT Test',
       7,
       'Testing comment'
-    );*/
+    );
 
     // Log contents of the treatment table to the console
      db.each("SELECT * FROM treatment", function(err, row){
@@ -266,7 +266,7 @@ var encryption = require('./encryption.js'),
    sire table
    **********/
    // Drop sire table if exists
-   /*db.run("DROP TABLE IF EXISTS sire");
+   db.run("DROP TABLE IF EXISTS sire");
 
    // Create the sire table
    db.run("CREATE TABLE sire (id INTEGER PRIMARY KEY AUTOINCREMENT, sireDonorId INTEGER, sireName TEXT, sireBreed TEXT, sireRegNum INTEGER, sireCode TEXT)");
@@ -285,7 +285,7 @@ var encryption = require('./encryption.js'),
       'AR',
       7654321,
       '17AR2017'
-   );*/
+   );
 
    // Log contents of the sire table to the console
    db.each("SELECT * FROM sire", function(err, row){
@@ -297,7 +297,7 @@ var encryption = require('./encryption.js'),
    embryo_recovery table
    *********************/
    // Drop embryo_recovery table if exists
-   /*db.run("DROP TABLE IF EXISTS embryo_recovery");
+   db.run("DROP TABLE IF EXISTS embryo_recovery");
 
    // Create the embryo_recovery table
    db.run("CREATE TABLE embryo_recovery (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -366,7 +366,7 @@ var encryption = require('./encryption.js'),
        'Cow Test3',
        1,
        'S0117'
-     );*/
+     );
 
     // Log contents of the embryo_transfer table to the console
     db.each("SELECT * FROM embryo_recovery", function(err, row){

@@ -361,15 +361,15 @@ class Forms {
              var donorID = row['id'];
 
               for(var i=1; i<numTableRows; i++){
-                var collection = "collNum" + i;
-                var date = "collDate" + i;
-                var numEmbryos = "numEmbryos" + i;
-                var numTrans = "numTrans" + i;
-                var numFrozen = "numFrozen" + i;
-                var numDegen = "numDegen" + i;
-                var numUnfertil = "numUnfertil" + i;
-                var sire = "sire" + i;
-                var numPreg = "numPreg" + i;
+                var collection = "collNum" + i.toString();
+                var date = "collDate" + i.toString();
+                var numEmbryos = "numEmbryos" + i.toString();
+                var numTrans = "numTrans" + i.toString();
+                var numFrozen = "numFrozen" + i.toString();
+                var numDegen = "numDegen" + i.toString();
+                var numUnfertil = "numUnfertil" + i.toString();
+                var sire = "sire" + i.toString();
+                var numPreg = "numPreg" + i.toString();
                 db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoCollectionNum, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoNumDegen, " +
                 "embryoNumUnfertil, embryoSireName, embryoNumPreg) " +
                        "values (?,?,?,?,?,?,?,?,?,?)",
@@ -388,12 +388,12 @@ class Forms {
           });
 
           for(var i=1; i<numTreatmentRows; i++){
-            var date = "date" + i;
-            var rightOvary = "rightOvary" + i;
-            var leftOvary = "leftOvary" + i;
-            var ut = "ut" + i;
-            var tubbNum = "tubbNum" + i;
-            var comments = "comments" + i;
+            var date = "date" + i.toString();
+            var rightOvary = "rightOvary" + i.toString();
+            var leftOvary = "leftOvary" + i.toString();
+            var ut = "ut" + i.toString();
+            var tubbNum = "tubbNum" + i.toString();
+            var comments = "comments" + i.toString();
             db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
                idNum,
                req.param(date),
