@@ -2,6 +2,7 @@
 
 const config = require('../config/config.json');
 var db = require('../db');
+var query = require('../database/query');
 var formidable = require('formidable');
 var bodyParser = require('body-parser');
 var logger = require('log4js').getLogger(config.logger);
@@ -45,8 +46,8 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  individualDonorFile(req, res){
-	  res.render('forms/individualDonorFile', {user: req.user});
+  individualDonorFileNew(req, res){
+	  res.render('forms/individualDonorFile', {user: req.user, donor: "hello"});
   }
 
   /**
@@ -412,34 +413,81 @@ class Forms {
         console.log('problem with request: ' + req.message);
       }
     }
-    res.render('forms/individualDonorFile', {user: req.user});
+
+    res.render('forms/individualDonorFile', {user: req.user, donor: undefined});
   }
 
   /**
    * @function EditForm
    */
   editForm(req, res) {
-    console.log("Editing form");
-    // var form = new formidable.IncomingForm();
-    // form.parse(req, function(err, fields, files) {
-    //   if (err) {
-    //     console.log(err);
-    //     req.end(500);
-    //   }
-    //   console.log(fields);
-    //   var clientName = fields.clientname;
-    //   console.log("client name:", clientName);
-    //   res.render('forms/individualDonorFile', {user: req.user});
-    // });
-    console.log("tag", req.params.tag);
-    console.log("client", req.params.client);
+    let tagParam = req.params.tag;
+    let clientParam =  req.params.client;
 
-    var client = req.params.client;
-    var donor = {
-      hello: client
-    };
+    // Retrieve donor information from donors table using tag
+    db.get(query.selectAll('donor', 'donorTag'), tagParam, function(err, donorRow) {
+      checkError(res, err, donorRow);
 
-    res.render('forms/individualDonorFile', {user: req.user, donor: donor});
+      // Get client info for donor
+      var clientId = donorRow.donorClientId;
+      db.get(query.selectAll('client', 'id'), clientId, function(err, clientRow) {
+        checkError(res, err, clientRow);
+
+        // Assign client info
+        var clientName = clientRow.clientName;
+        var clientAddress = clientRow.clientAddress;
+        var clientPhone = clientRow.clientPhone;
+
+        // Get bull selection info for donor
+        db.get(query.selectAll('bullSelection', 'bullSelectionDonorTag'), tagParam, function(err, bullRow) {
+          checkError(res, err, bullRow);
+
+          // Assing bull info
+          let bsCollectionNum = bullRow.bullSelectionCollectionNum;
+          let bsEmbryoDisposition = bullRow.bullSelectionCollectionNum;
+
+          // Create a donor
+          let donor = {
+            id: donorRow.id,
+            breed: donorRow.donorBreed,
+            regNum: donorRow.donorRegNum,
+            tag: tagParam,
+            name: donorRow.donorName,
+            location: donorRow.donorLocation,
+            arrival: donorRow.donorArrival,
+            departure: donorRow.donorDeparture,
+            calfSex: donorRow.donorCalfSex,
+            calfDOB: donorRow.donorCalfDOB,
+            dob: donorRow.donorDOB,
+            re: donorRow.donorRE,
+            mt: donorRow.donorMT,
+            le: donorRow.donorLE,
+            mt2: donorRow.donorMT2,
+            brand: donorRow.donorBrand,
+            clientName: clientName,
+            clientAddress: clientAddress,
+            clientPhone: clientPhone,
+            bsCollectionNum: bsCollectionNum,
+            bsEmbryoDisposition: bsEmbryoDisposition
+          };
+
+          // Render individualDonorFile template and pass in donor dictionary
+          res.render('forms/individualDonorFile', {user: req.user, donor: donor});
+        });
+      });
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
   }
 }
 
