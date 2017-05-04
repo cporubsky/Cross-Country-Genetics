@@ -379,12 +379,12 @@ var encryption = require('./encryption.js'),
      *********************/
 
      // Drop aSection table if exists
-     db.run("DROP TABLE IF EXISTS aSection");
+    //  db.run("DROP TABLE IF EXISTS aSection");
 
      // Create the aSection table
-     db.run("CREATE TABLE aSection (id INTEGER PRIMARY KEY AUTOINCREMENT, aSectionDonorId TEXT, aSectionformAbcDate TEXT, aSectionBloodType TEXT, " +
-       "aSectionEstrusOnset TEXT, aSectionIDCode1 TEXT, aSectionFreezeDate1 TEXT, aSectionBreedingDate TEXT, aSectionServiceSire2 TEXT, aSectionRegNum2 TEXT, aSectionRecoveryDate TEXT, " +
-       "aSectionIDCode2 TEXT, aSectionFreezeDate2 TEXT, aSectionSignature TEXT, aSectionETCode TEXT)");
+    //  db.run("CREATE TABLE aSection (id INTEGER PRIMARY KEY AUTOINCREMENT, aSectionDonorId TEXT, aSectionformAbcDate TEXT, aSectionBloodType TEXT, " +
+    //    "aSectionEstrusOnset TEXT, aSectionIDCode1 TEXT, aSectionFreezeDate1 TEXT, aSectionBreedingDate TEXT, aSectionServiceSire2 TEXT, aSectionRegNum2 TEXT, aSectionRecoveryDate TEXT, " +
+    //    "aSectionIDCode2 TEXT, aSectionFreezeDate2 TEXT, aSectionSignature TEXT, aSectionETCode TEXT)");
 
      // Log contents of the aSection table to the console
      db.each("SELECT * FROM aSection", function(err, row){
@@ -397,12 +397,12 @@ var encryption = require('./encryption.js'),
       *********************/
 
       // Drop bSection table if exists
-      db.run("DROP TABLE IF EXISTS bSection");
+      // db.run("DROP TABLE IF EXISTS bSection");
 
       // Create the bSection table
-      db.run("CREATE TABLE bSection (id INTEGER PRIMARY KEY AUTOINCREMENT, bSectionDonorId TEXT, bSectionformAbcDate TEXT, bSectionEmbryoTransferDate TEXT, " +
-        "bSectionFreezeDate1 TEXT, bSectionStrNumber TEXT, bSectionDaysSinceEstrus TEXT, bSectionFreezeDate2 TEXT, bSectionStrNumber2 TEXT, bSectionCaneCode TEXT, bSectionFreezeDate3 TEXT, " +
-        "bSectionStrNumber3 TEXT, bSectionSignature TEXT, bSectionETCode TEXT)");
+      // db.run("CREATE TABLE bSection (id INTEGER PRIMARY KEY AUTOINCREMENT, bSectionDonorId TEXT, bSectionformAbcDate TEXT, bSectionEmbryoTransferDate TEXT, " +
+      //   "bSectionFreezeDate1 TEXT, bSectionStrNumber TEXT, bSectionDaysSinceEstrus TEXT, bSectionFreezeDate2 TEXT, bSectionStrNumber2 TEXT, bSectionCaneCode TEXT, bSectionFreezeDate3 TEXT, " +
+      //   "bSectionStrNumber3 TEXT, bSectionSignature TEXT, bSectionETCode TEXT)");
 
       // Log contents of the bSection table to the console
       db.each("SELECT * FROM bSection", function(err, row){
@@ -415,12 +415,12 @@ var encryption = require('./encryption.js'),
        *********************/
 
        // Drop bSectionRows table if exists
-       db.run("DROP TABLE IF EXISTS bSectionRows");
+      //  db.run("DROP TABLE IF EXISTS bSectionRows");
 
        // Create the bSectionRows table
-       db.run("CREATE TABLE bSectionRows (id INTEGER PRIMARY KEY AUTOINCREMENT, bSectionDonorId TEXT, bSectionformAbcDate TEXT, bSectionNum TEXT, " +
-         "bSectionEarTag TEXT, bSectionRegNum TEXT, bSectionTattoo TEXT, bSectionSide TEXT, bSectionBreedCode TEXT, bSectionDaysSinceEstrus TEXT, bSectionStageCode TEXT, " +
-         "bSectionQualityCode TEXT, bSectionEmbryoDivided TEXT, bSectionComments TEXT, bSectionResults TEXT)");
+      //  db.run("CREATE TABLE bSectionRows (id INTEGER PRIMARY KEY AUTOINCREMENT, bSectionDonorId TEXT, bSectionformAbcDate TEXT, bSectionNum TEXT, " +
+      //    "bSectionEarTag TEXT, bSectionRegNum TEXT, bSectionTattoo TEXT, bSectionSide TEXT, bSectionBreedCode TEXT, bSectionDaysSinceEstrus TEXT, bSectionStageCode TEXT, " +
+      //    "bSectionQualityCode TEXT, bSectionEmbryoDivided TEXT, bSectionComments TEXT, bSectionResults TEXT)");
 
        // Log contents of the bSectionRows table to the console
        db.each("SELECT * FROM bSectionRows", function(err, row){
@@ -433,14 +433,14 @@ var encryption = require('./encryption.js'),
        *********************/
 
        // Drop cSection table if exists
-       db.run("DROP TABLE IF EXISTS cSection");
+      //  db.run("DROP TABLE IF EXISTS cSection");
 
        // Create the cSection table
-       db.run("CREATE TABLE cSection (id INTEGER PRIMARY KEY AUTOINCREMENT, cSectionDonorId TEXT, cSectionformAbcDate TEXT, cSectionTypeContainer TEXT, cSectionTimeRecoveryToOnset TEXT, " +
-         "cSectioncryoprotectant TEXT, cSectionSeedTemp TEXT, cSectionCoolingRate TEXT, cSectionPlungeTemp TEXT, cSectionThawingMethod TEXT, cSectionSignature TEXT, cSectionETCode TEXT, " +
-         "cSectionStimPGM TEXT, cSectionCollHr TEXT, cSectionCollTech TEXT, cSectionStimStatus TEXT, cSectionComments TEXT, cSectionNumEmbryos TEXT, cSectionnumUFO TEXT, cSectionnumDeg TEXT, " +
-         "cSectionNumTransferred TEXT, cSectionNumFrozen TEXT, cSectionNumSplit TEXT, cSectionTransHr TEXT, cSectionLoc TEXT, cSectionComments2 TEXT, cSectionGrade1 TEXT, " +
-         "cSectionGrade2 TEXT, cSectionGrade3 TEXT, cSectionTotal TEXT)");
+      //  db.run("CREATE TABLE cSection (id INTEGER PRIMARY KEY AUTOINCREMENT, cSectionDonorId TEXT, cSectionformAbcDate TEXT, cSectionTypeContainer TEXT, cSectionTimeRecoveryToOnset TEXT, " +
+      //    "cSectioncryoprotectant TEXT, cSectionSeedTemp TEXT, cSectionCoolingRate TEXT, cSectionPlungeTemp TEXT, cSectionThawingMethod TEXT, cSectionSignature TEXT, cSectionETCode TEXT, " +
+      //    "cSectionStimPGM TEXT, cSectionCollHr TEXT, cSectionCollTech TEXT, cSectionStimStatus TEXT, cSectionComments TEXT, cSectionNumEmbryos TEXT, cSectionnumUFO TEXT, cSectionnumDeg TEXT, " +
+      //    "cSectionNumTransferred TEXT, cSectionNumFrozen TEXT, cSectionNumSplit TEXT, cSectionTransHr TEXT, cSectionLoc TEXT, cSectionComments2 TEXT, cSectionGrade1 TEXT, " +
+      //    "cSectionGrade2 TEXT, cSectionGrade3 TEXT, cSectionTotal TEXT)");
 
        // Log contents of the cSection table to the console
        db.each("SELECT * FROM cSection", function(err, row){
@@ -453,12 +453,12 @@ var encryption = require('./encryption.js'),
         *********************/
 
         // Drop cSectionRows table if exists
-        db.run("DROP TABLE IF EXISTS cSectionRows");
+        // db.run("DROP TABLE IF EXISTS cSectionRows");
 
         // Create the cSectionRows table
-        db.run("CREATE TABLE cSectionRows (id INTEGER PRIMARY KEY AUTOINCREMENT, cSectionDonorId TEXT, cSectionformAbcDate TEXT, cSectionFreezeCode TEXT, " +
-          "cSectionCaneNum TEXT, cSectionStrNum TEXT, cSectionNumEmbryos TEXT, cSectionNumWashed TEXT, cSectionStageCode TEXT, cSectionQualityCode TEXT, cSectionZoneIntact TEXT, " +
-          "cSectionDivided TEXT, cSectionTrypsinRaised TEXT, cSectionTank TEXT, cSectionCanister TEXT, cSectionComments TEXT)");
+        // db.run("CREATE TABLE cSectionRows (id INTEGER PRIMARY KEY AUTOINCREMENT, cSectionDonorId TEXT, cSectionformAbcDate TEXT, cSectionFreezeCode TEXT, " +
+        //   "cSectionCaneNum TEXT, cSectionStrNum TEXT, cSectionNumEmbryos TEXT, cSectionNumWashed TEXT, cSectionStageCode TEXT, cSectionQualityCode TEXT, cSectionZoneIntact TEXT, " +
+        //   "cSectionDivided TEXT, cSectionTrypsinRaised TEXT, cSectionTank TEXT, cSectionCanister TEXT, cSectionComments TEXT)");
 
         // Log contents of the cSectionRows table to the console
         db.each("SELECT * FROM cSectionRows", function(err, row){
