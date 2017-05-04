@@ -2,7 +2,7 @@ $(document).ready(function(){
 
   $("#submit").click(function(){
     if($("#idNum").val() != "" && $("#owner").val() != ""){
-      //var form = $("#window").serialize();
+      alert("Form Submitted");
     }
     else{
       alert("At least the ID number and owner must be filled out to submit a form.");

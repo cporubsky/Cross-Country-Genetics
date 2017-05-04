@@ -9,10 +9,12 @@
     $table.on('click-row.bs.table', function (e, row, $element) {
       console.log('element:', $element);
       console.log('row:', row);
-
+      var formType = $("#formType option:selected").val();
       var donorTag = row.adonortag;
       var clientName = row.aclientname.replace(" ", "_");
-      $('#formEdit').attr('action', '/individualDonorFile/edit/'
+      $('#formEdit').attr('action', '/'
+        + formType
+        + '/edit/'
         + donorTag + '/'
         + clientName);
 
@@ -79,7 +81,12 @@
   </form> -->
 
   <form method="post" action="" id="formEdit">
-    <input type="submit" id="editbutton" class="btn btn-success pull-right disabled" role="button">Edit Form</input>
+    <label>Choose a form to edit</label>
+    <select id="formType" name="formType">
+      <option value="individualDonorFile">Individual Donor File</option>
+      <option value="formAbc">Collection Form</option>
+    </select>
+    <input type="submit" id="editbutton" class="btn btn-success pull-right disabled" role="button"></input>
   </form>
 
 

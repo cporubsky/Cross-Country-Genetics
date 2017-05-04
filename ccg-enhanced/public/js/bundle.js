@@ -40732,6 +40732,10 @@ module.exports={"data":[1961,1969,1977,1985,2025,2033,2041,2049,2057,2065,2073,2
 },{"buffer":17,"fs":1,"zlib":16}],260:[function(require,module,exports){
 "use strict";
 
+$("#submit").on("click", function(){
+	  alert("Form submitted");
+});
+
 $("#viewPdf").click(function(){
   var PDFDocument = require('pdfkit');
   var fs = require('fs');
