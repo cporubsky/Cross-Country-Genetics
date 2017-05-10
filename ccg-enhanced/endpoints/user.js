@@ -35,7 +35,7 @@ class User {
        var username = fields.username;
        //check if username exists
        db.get(query.selectAll('users', 'username'), username, (err, row) => {
-         console.log("Row: " + row);
+        //  console.log("Row: " + row);
          //no such user
          if(row == null) {
            req.session.sessionFlash = {
@@ -63,7 +63,7 @@ class User {
                }
                return res.redirect('/login');
            }
-           console.log("Email to be sent to: " + row.email);
+          //  console.log("Email to be sent to: " + row.email);
            //for testing purposes only
            var testEmail = 'ccgtestkansas@gmail.com';
            var service = config.email.transporter.service;
@@ -80,9 +80,9 @@ class User {
              return res.redirect('/login');
            }
            else {
-             logger.info("Success! Email sent!");
-             logger.info("Reset password successful.");
-             console.log("Success! Email sent!");
+            //  logger.info("Success! Email sent!");
+            //  logger.info("Reset password successful.");
+            //  console.log("Success! Email sent!");
              //TODO add message like -> "Success! Please log in!"
              req.session.sessionFlash = {
                type: 'danger',
@@ -123,7 +123,7 @@ class User {
       //look up username and compare it with token to validate
       //then compare passwords to make sure that they match
       //then redirect to login with message that it was successful or not
-      console.log("Commit password reset.");
+      // console.log("Commit password reset.");
 
       var form = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
@@ -133,7 +133,8 @@ class User {
         var password2 = fields.confirm_password;
         db.get(query.selectAll('users', 'username, and, temp_password'), username, token, (err, user) => {
           if(err) {
-            console.log(err);
+            // console.log(err);
+            //handle error
           }
           else {
             //console.log(user);
@@ -184,7 +185,7 @@ class User {
                 }
                 else {
                   //TODO Implement route when passwords don't match
-                  console.log("Passwords dont match.");
+                  // console.log("Passwords dont match.");
                 }
               }
             }
@@ -222,7 +223,8 @@ class User {
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
       if(err){
-        console.log(err);
+        // console.log(err);
+        // handle error
       }
       var firstname = fields.first_name;
       var lastname = fields.last_name;
@@ -304,7 +306,7 @@ class User {
     db.get(query.selectAll('users','temp_password'), token, function(err, user) {
       if(err) {
         logger.error("Error occured validating token.");
-        console.error(err);
+        // console.error(err);
         return res.sendStatus(500);
       }
       var userTimestamp = user.tempPassCreatedOn;
@@ -343,11 +345,13 @@ class User {
    *  @instance
    */
   commitNewUser(req, res) {
-    console.log("Commit new user.");
+    // console.log("Commit new user.");
     var form = new formidable.IncomingForm();
+    var salt = encryption.salt();
     form.parse(req, function(err, fields, files) {
       if(err){
-        console.log(err);
+        // console.log(err);
+        // handle error here
       }
       var firstname =  fields.first_name;
       var lastname = fields.last_name;
@@ -358,27 +362,65 @@ class User {
       var currTimestamp = helper.getTimestamp();
 
       //for testing only
-      console.log("First name: " + firstname);
-      console.log("Last name: " + lastname);
-      console.log("Username: " + username);
-      console.log("Email: " + email);
-      console.log("Password1: " + password1);
-      console.log("Password2: " + password2);
+      // console.log("First name: " + firstname);
+      // console.log("Last name: " + lastname);
+      // console.log("Username: " + username);
+      // console.log("Email: " + email);
+      // console.log("Password1: " + password1);
+      // console.log("Password2: " + password2);
 
       if(password1 === password2) {
-        console.log('Match!')
+        // console.log('Match!')
+        // console.log("Current Time: " + currTimestamp);
+        db.run(query.update('users', 'first_name, last_name, username, email, is_admin, \
+        password_digest, salt, temp_password, tempPassCreatedOn, is_verified, createdBy, createdOn','email'),
+          firstname,
+          lastname,
+          username,
+          email,
+          false,
+          encryption.digest(password1 + salt),
+          salt,
+          null,
+          null,
+          true,
+          req.user,
+          currTimestamp,
+          email);
+          var service = config.email.transporter.service;
+          var user = config.email.transporter.user;
+          var userPassword = config.email.transporter.pass;
+          var ok = new Boolean(helper.sendNewUserMail('', email, service, user, userPassword));
+          if(!ok) {
+            logger.error("Error in sending email.");
+            //console.log("Error in sending email.");
+            req.session.sessionFlash = {
+              type: 'danger',
+              message: 'An error has occured.'
+            }
+            return res.redirect('/login');
+          }
+          else {
+            logger.info("Success! Email sent!");
+            logger.info("User creation successful.");
+            //console.log("Success! Email sent!");
+            req.session.sessionFlash = {
+              type: 'success',
+              message: 'Success! You may log in now!'
+            }
+            return res.redirect('/login');
+          }
       }
       else {
-        console.log('Dont Match!');
+        // console.log('Dont Match!');
+        req.session.sessionFlash = {
+          type: 'danger',
+          message: 'An error has occured.'
+        }
+        return res.redirect('/login');
       }
-      console.log("Current Time: " + currTimestamp);
-      //add as default user, not admin
-
     }); //end parse form
 
-    //TODO Finish implementation
-
-    //eventually clear session, and redirect to login
   }
 
 

@@ -70,6 +70,15 @@ var $table = $('#table');
       }
       else if($($element).hasClass('danger')){
         //add code to handle items with danger
+        $('#invite_email').prop("disabled", true);
+        $("#invitebutton").prop( "disabled", true );
+        $("#editbutton").prop("disabled", false);
+        $("#editbutton").removeClass('disabled')
+        $($element).removeClass('danger')
+        $($element).addClass('success');
+
+
+
 
       }
   	});
