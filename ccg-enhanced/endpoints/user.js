@@ -373,7 +373,7 @@ class User {
         // console.log('Match!')
         // console.log("Current Time: " + currTimestamp);
         db.run(query.update('users', 'first_name, last_name, username, email, is_admin, \
-        password_digest, salt, temp_password, tempPassCreatedOn, is_verified, createdBy, createdOn','email'),
+        password_digest, salt, temp_password, tempPassCreatedOn, is_verified, createdBy, createdOn, secretHash','email'),
           firstname,
           lastname,
           username,
@@ -384,8 +384,9 @@ class User {
           null,
           null,
           true,
-          req.user,
+          'USER',
           currTimestamp,
+          salt,
           email);
           var service = config.email.transporter.service;
           var user = config.email.transporter.user;
