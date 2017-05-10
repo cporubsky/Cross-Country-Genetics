@@ -1,5 +1,5 @@
 # Cross Country Genetics
-#### A Project By: AJ Cabanatuan, Mark Loevenstein, and Corey Purubsky
+#### A Project By: AJ Cabanatuan, Mark Loevenstein, and Corey Porubsky
 
 ## About
 This web application was created as a quick and easy way for Cross Country Genetics (CCG) employees to complete, view, and manipulate forms throughout the process of freezing, thawing out, and transferring embryos from one cow to another. In the past, this process has all been done on paper, leading to file cabinets full of thousands of papers recording the history of the cows, clients, and embryo transfers over decades, a process which CCG wanted to move on from in favor of a web application.
