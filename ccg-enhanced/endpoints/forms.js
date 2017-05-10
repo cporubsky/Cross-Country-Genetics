@@ -228,7 +228,7 @@ class Forms {
 
     var grades = [0, 0, 0];
     for(var i=1; i<parseInt(req.body.tableCRows)+1; i++){
-      var numEmbryos = "numEmbryos";
+      var numEmbryos = "strAmpNum";
       var stageCode = "stageCode";
       var qualityCode = "qualityCode";
       if(i != 1){
@@ -335,6 +335,7 @@ class Forms {
          req.param(commentsC)
       );
     }
+
     res.render('forms/formAbc', {user: req.user});
   }
 
@@ -488,11 +489,11 @@ class Forms {
 
         // Get bull selection info for donor
         db.get(query.selectAll('bullSelection', 'bullSelectionDonorTag'), tagParam, function(err, bullRow) {
-          checkError(res, err, bullRow);
+          //checkError(res, err, bullRow);
 
           // Assing bull info
-          let bsCollectionNum = bullRow.bullSelectionCollectionNum;
-          let bsEmbryoDisposition = bullRow.bullSelectionCollectionNum;
+          //let bsCollectionNum = bullRow.bullSelectionCollectionNum;
+          //let bsEmbryoDisposition = bullRow.bullSelectionCollectionNum;
 
           // Create a donor
           let donor = {
@@ -515,11 +516,12 @@ class Forms {
             clientName: clientName,
             clientAddress: clientAddress,
             clientPhone: clientPhone,
-            bsCollectionNum: bsCollectionNum,
-            bsEmbryoDisposition: bsEmbryoDisposition
+            //bsCollectionNum: bsCollectionNum,
+            //bsEmbryoDisposition: bsEmbryoDisposition
           };
 
           // Render individualDonorFile template and pass in donor dictionary
+          res.statusCode = 200;
           res.render('forms/individualDonorFile', {user: req.user, donor: donor});
         });
       });
