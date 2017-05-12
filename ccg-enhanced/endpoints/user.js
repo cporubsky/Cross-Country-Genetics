@@ -63,14 +63,12 @@ class User {
                }
                return res.redirect('/login');
            }
-          //  console.log("Email to be sent to: " + row.email);
            //for testing purposes only
            var testEmail = 'ccgtestkansas@gmail.com';
            var service = config.email.transporter.service;
            var user = config.email.transporter.user;
            var userPassword = config.email.transporter.pass;
            var ok = new Boolean(helper.sendResetMail(tempPassword, testEmail, service, user, userPassword));
-           //var ok = new Boolean(helper.sendResetMail(tempPassword, row.email));
            if(!ok) {
              res.statusCode = 500;
              req.session.sessionFlash = {
@@ -80,10 +78,6 @@ class User {
              return res.redirect('/login');
            }
            else {
-            //  logger.info("Success! Email sent!");
-            //  logger.info("Reset password successful.");
-            //  console.log("Success! Email sent!");
-             //TODO add message like -> "Success! Please log in!"
              req.session.sessionFlash = {
                type: 'danger',
                message: 'Password reset email has been sent.'
@@ -123,8 +117,6 @@ class User {
       //look up username and compare it with token to validate
       //then compare passwords to make sure that they match
       //then redirect to login with message that it was successful or not
-      // console.log("Commit password reset.");
-
       var form = new formidable.IncomingForm();
       form.parse(req, function(err, fields, files) {
         var token = req.params.token;
@@ -137,7 +129,6 @@ class User {
             //handle error
           }
           else {
-            //console.log(user);
             if((user.username === username) && (user.temp_password === token)) {
               var userTimestamp = user.tempPassCreatedOn;
               var currTimestamp = helper.getTimestamp();
@@ -155,10 +146,7 @@ class User {
               }
               else {
                 if(password1 === password2) {
-                  //update fields, clear out: temp_password, tempPassCreatedOn
-                  //update new password
                   var salt = encryption.salt();
-
                   db.run(query.update('users', 'temp_password, tempPassCreatedOn, password_digest, salt, createdBy, createdOn', 'username'),
                     null,
                     null,
@@ -361,17 +349,7 @@ class User {
       var password2 = fields.password2;
       var currTimestamp = helper.getTimestamp();
 
-      //for testing only
-      // console.log("First name: " + firstname);
-      // console.log("Last name: " + lastname);
-      // console.log("Username: " + username);
-      // console.log("Email: " + email);
-      // console.log("Password1: " + password1);
-      // console.log("Password2: " + password2);
-
       if(password1 === password2) {
-        // console.log('Match!')
-        // console.log("Current Time: " + currTimestamp);
         db.run(query.update('users', 'first_name, last_name, username, email, is_admin, \
         password_digest, salt, temp_password, tempPassCreatedOn, is_verified, createdBy, createdOn, secretHash','email'),
           firstname,
@@ -394,7 +372,6 @@ class User {
           var ok = new Boolean(helper.sendNewUserMail('', email, service, user, userPassword));
           if(!ok) {
             logger.error("Error in sending email.");
-            //console.log("Error in sending email.");
             req.session.sessionFlash = {
               type: 'danger',
               message: 'An error has occured.'
@@ -404,7 +381,6 @@ class User {
           else {
             logger.info("Success! Email sent!");
             logger.info("User creation successful.");
-            //console.log("Success! Email sent!");
             req.session.sessionFlash = {
               type: 'success',
               message: 'Success! You may log in now!'
@@ -413,7 +389,6 @@ class User {
           }
       }
       else {
-        // console.log('Dont Match!');
         req.session.sessionFlash = {
           type: 'danger',
           message: 'An error has occured.'

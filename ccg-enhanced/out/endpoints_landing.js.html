@@ -23,7 +23,9 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#index">index</a></li><li data-type='method'><a href="Admin.html#inviteUser">inviteUser</a></li><li data-type='method'><a href="Admin.html#viewUsers">viewUsers</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#formAbcSubmit">formAbcSubmit</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li><li data-type='method'><a href="Landing.html#search">search</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="User.html#commitNewUser">commitNewUser</a></li><li data-type='method'><a href="User.html#edit">edit</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetCommit">resetCommit</a></li><li data-type='method'><a href="User.html#resetEmail">resetEmail</a></li><li data-type='method'><a href="User.html#verifyToken">verifyToken</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#caneCode">caneCode</a></li><li><a href="global.html#checkErrorCheckforerrorwhenrequestismade">checkError
+Check for error when request is made</a></li><li><a href="global.html#createMatchCreatesandreturnssearchresultmatchdictionary">createMatch
+Creates and returns search result match dictionary</a></li><li><a href="global.html#EditAbcForm">EditAbcForm</a></li><li><a href="global.html#EditForm">EditForm</a></li></ul>
 </nav>
 
 <div id="main">
@@ -40,6 +42,10 @@
         <article>
             <pre class="prettyprint source linenums"><code>"use strict"
 
+var formidable = require('formidable');
+var bodyParser = require('body-parser');
+var db = require('../db');
+var query = require('../database/query');
 const config = require('../config/config.json');
 var logger = require('log4js').getLogger(config.logger);
 
@@ -58,8 +64,128 @@ class Landing {
    *  @instance
    */
   index(req, res){
-      res.render('landing/index', {title: config.landing.home, user: req.user});
+    res.render('landing/index', {title: config.landing.home, user: req.user, message: ""});
   }
+
+  /**
+   * @function search
+   * @memberof Landing
+   * @description Gets search results based off of id
+   * @param {object} Request - Http Request Object
+   * @param {object} Response - Http Response Object
+   * @instance
+   */
+  search(req, res) {
+    var donorInput = req.body.donorInput;
+    var clientInput = req.body.clientInput;
+    var searchResults = [];
+    // Check inputs
+    if (clientInput &amp;&amp; !donorInput) {
+      // Get client
+      db.get(query.selectAll('client', 'clientName'), clientInput, function(err, client) {
+        checkError(res, err, client);
+        // Get all donors associated with client
+        db.get(query.selectAll('donor', 'donorClientId'), client.id, function(err, donors) {
+          checkError(res, err, donors);
+          if (!(donors instanceof Array))
+            donors = [donors];
+          donors.forEach(function(donor) {
+            let match = createMatch(client.clientName, donor.donorTag, donor.donorName, donor.donorRegNum);
+            searchResults.push(match);
+          });
+          res.render('search/results', {title: config.landing.home, user: req.user, results: searchResults});
+        });
+      });
+    }
+    if (donorInput) {
+      let donors = [];
+      // Do if there is both a donor and client search
+      if (clientInput) {
+        // Get client data
+        db.get(query.selectAll('client', 'clientName'), clientInput, function(err, client) {
+          checkError(res, err, client);
+          // Get all donors associated with client
+          donors = db.get(query.selectAll('donor', 'donorClientId'), client.id, function(err, donors) {
+            checkError(res, err, donors);
+            if (!(donors instanceof Array))
+              donors = [donors];
+            console.log(donors);
+            donors.forEach(function(donor) {
+              let match = createMatch(client.clientName, donor.donorTag, donor.donorName, donor.donorRegNum);
+              searchResults.push(match);
+            });
+            res.render('search/results', {title: config.landing.home, user: req.user, results: searchResults});
+          });
+        });
+      } else {
+        // Do if there is only a search using donor tag
+        donors = db.get(query.selectAll('donor', 'donorTag'), donorInput, function(err, donors) {
+          checkError(res, err, donors);
+          if (!(donors instanceof Array))
+            donors = [donors];
+          donors.forEach(function(donor) {
+            // console.log(donor);
+            db.get(query.selectAll('client', 'id'), donor.donorClientId, function(err, donorClient) {
+              checkError(res, err, donorClient);
+              let match = createMatch(donorClient.clientName, donor.donorTag, donor.donorName, donor.donorRegNum);
+              searchResults.push(match);
+              res.render('search/results', {title: config.landing.home, user: req.user, results: searchResults});
+            });
+          });
+        });
+      }
+    }
+
+    if (!clientInput &amp;&amp; !donorInput) {
+      searchResults.push(createMatch('N/A','N/A','N/A','N/A'));
+      res.render('search/results', {title: config.landing.home, user: req.user, results: searchResults});
+    }
+
+    /**
+     * @function createMatch
+     * Creates and returns search result match dictionary
+     */
+    function createMatch(cName, tag, dName, reg) {
+      return {
+        clientName: cName,
+        donorTag: tag,
+        donorName: dName,
+        donorRegNum: reg
+      };
+    }
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
+  }
+
+  // FIXME: Used for retrieving collection forms
+  // donorAbcForms.forEach(function(form) {
+  //   let donorTag = donor.donorTag;
+  //   let donorName = donor.donorName;
+  //   let freezeDate = form.embryoFreezeDate != null ? form.embryoFreezeDate : "N/A";
+  //   let estrusOnsetDate = form.embryoEstrusOnsetDate != null ? form.embryoEstrusOnsetDate : "N/A";
+  //   let breedDate = form.embryoBreedDate != null ? form.embryoBreedDate : "N/A";
+  //   let recoveryDate = form.embryoRecoveryDate != null ? form.embryoRecoveryDate : "N/A";
+  //   let searchResult = {
+  //     donorTag: donorTag,
+  //     donorName: donorName,
+  //     freezeDate: freezeDate,
+  //     estrusOnsetDate: estrusOnsetDate,
+  //     breedDate: breedDate,
+  //     recoveryDate: recoveryDate
+  //   };
+  //   searchResults.push(searchResult);
+  // });
+
 }
 
 module.exports = exports = new Landing();
@@ -76,7 +202,7 @@ module.exports = exports = new Landing();
 
 <footer>
     <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+    <!-- Documentation generated at Wed May 10 2017 13:46:46 GMT-0500 (CDT) -->
 </footer>
 
 <script>prettyPrint();</script>

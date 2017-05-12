@@ -23,7 +23,9 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#index">index</a></li><li data-type='method'><a href="Admin.html#inviteUser">inviteUser</a></li><li data-type='method'><a href="Admin.html#viewUsers">viewUsers</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#formAbcSubmit">formAbcSubmit</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li><li data-type='method'><a href="Landing.html#search">search</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="User.html#commitNewUser">commitNewUser</a></li><li data-type='method'><a href="User.html#edit">edit</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetCommit">resetCommit</a></li><li data-type='method'><a href="User.html#resetEmail">resetEmail</a></li><li data-type='method'><a href="User.html#verifyToken">verifyToken</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#caneCode">caneCode</a></li><li><a href="global.html#checkErrorCheckforerrorwhenrequestismade">checkError
+Check for error when request is made</a></li><li><a href="global.html#createMatchCreatesandreturnssearchresultmatchdictionary">createMatch
+Creates and returns search result match dictionary</a></li><li><a href="global.html#EditAbcForm">EditAbcForm</a></li><li><a href="global.html#EditForm">EditForm</a></li></ul>
 </nav>
 
 <div id="main">
@@ -47,6 +49,10 @@ var formidable = require('formidable');
 var logger = require('log4js').getLogger(config.logger);
 var query = require('../database/query');
 var helper = require('../helpers/helpers');
+var S = require('string');
+
+//for testing only
+var template = require('../helpers/template');
 
 /**
  *  This class handles admin functions.
@@ -63,6 +69,21 @@ class Admin {
    *  @instance
    */
   index(req, res) {
+    //console.log(new Date().toLocaleString());
+    res.render('admin/index', {title: config.admin.console, user: req.user});
+
+  }
+
+
+  /**
+   *  @function viewUsers
+   *  @memberof Admin
+   *  @description Selects all users from database for admin to view.
+   *  @param {req} Request - Http Request Object
+   *  @param {res} Response - Http Response Object
+   *  @instance
+   */
+  viewUsers(req, res) {
     logger.info("Admin console accessed.");
     //var user = db.all('SELECT * FROM users', function(err, users){
     var user = db.all(query.selectAll('users','',''), function(err, users){
@@ -71,87 +92,82 @@ class Admin {
         console.error(err);
         return res.sendStatus(500);
       }
-    res.render('admin/users', {title: config.admin.console, user: req.user, users: users});
+    res.render('admin/users', {title: "Users", user: req.user, users: users});
     });
   }
 
   /**
-   *  @function createUser
+   *  @function inviteUser
    *  @memberof Admin
-   *  @description Sends admin to page to create a user.
+   *  @description Sends email to new user, to invite them to set up account.
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  createUser(req, res) {
-    res.render('admin/create', {title: config.admin.console, user: req.user, message: ""});
-  }
-
-  /**
-   *  @function commitCreateUser
-   *  @memberof Admin
-   *  @description Inserts user in user table with temp password.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-  commitCreateUser(req, res) {
-    logger.info("User creation started.");
+  inviteUser(req, res) {
 
     var tempPassword = helper.generateTempPassword();
+    var createdBy = req.user.username;
+    var createdOnDate = helper.getTimestamp();
 
-
+    //console.log('In userInvite');
     //parse form and insert data
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
+      // if(err) console.log('Error: ' + err);
+      // console.log('Email entered is: ' + fields.invite_email);
+      // helper.sendMail('temp', 'temp', 'temp');
+      //New Below
+      var email = fields.invite_email;
       db.serialize(function() {
         //checks to see if username or email exits
-        db.get(query.selectAll('users', 'name, or, username, or, email'),
-          fields.name,
-          fields.username,
-          fields.email,
+        //possibly check for first and last name as well
+        db.get(query.selectAll('users', 'email'),
+          email,
           (err, rows) => {
             if(rows != null) {
-              //username is taken
-              logger.error("Username is taken.");
-              logger.error("User creation unsuccessful.");
-              return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
+              //Email Exits
+              logger.error("Email Exists.");
+              logger.error("User invitation unsuccessful.");
+              //redirect somewhere
+              //return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
           //if we get here, no user exists, insert user
-          db.run(query.insert('users', 'name, username, email, is_admin, temp_password'),
-            fields.name,
-            fields.username,
-            fields.email,
-            fields.role,
+          db.run(query.insert('users', 'email, temp_password, is_verified, createdBy, createdOn, tempPassCreatedOn'),
+            email,
             tempPassword,
+            false,
+            createdBy,
+            createdOnDate,
+            createdOnDate,
             (err, user) => {
               if(err) {
                 //TODO set res status
                 //find specific error for logger
                 logger.error("Some error 1");
                 logger.error("User creation unsuccessful.");
-                return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
+                //return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
-            //for testing purposes only
-            var testEmail = 'corey.porubsky@gmail.com';
-            var transporter = helper.createTransporter();
-            var ok = new Boolean(helper.sendMail(transporter, tempPassword, testEmail, 'new'));
+            var service = config.email.transporter.service;
+            var user = config.email.transporter.user;
+            var userPassword = config.email.transporter.pass;
+            var ok = new Boolean(helper.sendNewUserMail(tempPassword, email, service, user, userPassword));
             if(!ok) {
               logger.error("Error in sending email.");
-              console.log("Error in sending email.");
+              //console.log("Error in sending email.");
               return res.redirect('/admin');
             }
             else {
               logger.info("Success! Email sent!");
               logger.info("User creation successful.");
-              console.log("Success! Email sent!");
-              return res.redirect('/admin');
+              //console.log("Success! Email sent!");
+              return res.redirect('/admin/users');
             }
           }); //end insert
         }); //end check
       }); //end serialize
     }); //end form parsing
-  } //end commitCreateUser
+  }
 
   /**
    *  @function deleteUser
@@ -162,44 +178,33 @@ class Admin {
    *  @instance
    */
   deleteUser(req, res) {
-    logger.info("User deletion started.");
-    db.run(query.delete('users', 'id'), req.params.id, function(err, users){
-      if(err) {
-        console.error(err);
-        logger.error("User deletion unsuccessful.");
-        return res.sendStatus(500);
-      }
-      logger.info("User deletion successful.");
-      return res.redirect('/admin');
-    });
+    //console.log(req.session.user_id);
+    //console.log(req.params.id);
+
+    //check to see if you are deleting yourself, if you are send to '/admin'
+    if (req.session.user_id == req.params.id) {
+      console.log("Here");
+      res.statusCode = 500;
+      //works, but need to fix the users:req.users -> used to fill in form, it right now is blank
+      //return res.render('admin/users', {title: config.admin.console, user: req.user, users:req.user, message: "You cannot delete yourself!"});
+      return res.redirect('/admin/users'); //&lt;----Only temporary
+    }
+    else {
+
+      logger.info("User deletion started.");
+      db.run(query.delete('users', 'id'), req.params.id, function(err, users){
+        if(err) {
+          console.error(err);
+          logger.error("User deletion unsuccessful.");
+          return res.sendStatus(500);
+        }
+        logger.info("User deletion successful.");
+        return res.redirect('/admin/users');
+      });
+    }
   }
 
-  /**
-   *  @function edit
-   *  @memberof Admin
-   *  @description Selects user in user table to edit.
-   *  @param {object} Request - Http Request Object
-   *  @param {object} Response - Http Response Object
-   *  @instance
-   */
-   //'SELECT * from users WHERE id = ?'
-  edit(req, res) {
-    logger.info("Get user to edit started.");
-    var form = new formidable.IncomingForm();
-    form.parse(req, function(err, fields, files) {
-      db.get(query.selectAll('users', 'id', ''), req.params.id, (err, row) => {
-        //console.log(rows);
-        if(row === null) {
-          //alert("username taken");
-          logger.error("Get user to edit unsuccessful.");
-          console.log("Error");
-          res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: "Oops, an error happened!"});
-        }
-        logger.info("Get user to edit successful.");
-        res.render('admin/edit', {title: config.admin.console, user: req.user, users:row, message: ""});
-      });
-    });
-  }
+
 
   /**
    *  @function commitEdit
@@ -213,22 +218,36 @@ class Admin {
     logger.info("Commit user edit started.");
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      //console.log(fields)
-      db.run(query.update('users', 'name, username, email, is_admin', 'id'),
-        fields.name,
-        fields.username,
-        fields.email,
-        fields.role,
-        req.params.id
+
+      var id = req.params.id;
+      var name = fields.name.split(' ');
+      var firstName = S(name[0]).capitalize().s;
+      var lastName = S(name[1]).capitalize().s;
+      var username = fields.username.toLowerCase();
+      var email = fields.email.toLowerCase();
+      var role = fields.user_role;
+      var date = helper.getTimestamp();
+      var changedBy = req.user.username;
+      if(role === 'Admin') role = 1;
+      else if (role === 'User') role = 0;
+
+      db.run(query.update('users', 'first_name, last_name, username, email, is_admin, createdOn, createdBy', 'id'),
+        firstName,
+        lastName,
+        username,
+        email,
+        role,
+        date,
+        changedBy,
+        id
       );
+
       logger.info("Commit user edit successful.");
-      res.redirect('/admin');
+      res.redirect('/admin/users');
     });
   }
 
-  // cancelPasswordRequest(req, res) {
-  //
-  // }
+
 
 }
 module.exports = exports = new Admin();
@@ -245,7 +264,7 @@ module.exports = exports = new Admin();
 
 <footer>
     <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+    <!-- Documentation generated at Wed May 10 2017 13:46:46 GMT-0500 (CDT) -->
 </footer>
 
 <script>prettyPrint();</script>
