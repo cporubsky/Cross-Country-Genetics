@@ -23,7 +23,9 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#index">index</a></li><li data-type='method'><a href="Admin.html#inviteUser">inviteUser</a></li><li data-type='method'><a href="Admin.html#viewUsers">viewUsers</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#formAbcSubmit">formAbcSubmit</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li><li data-type='method'><a href="Landing.html#search">search</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="User.html#commitNewUser">commitNewUser</a></li><li data-type='method'><a href="User.html#edit">edit</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetCommit">resetCommit</a></li><li data-type='method'><a href="User.html#resetEmail">resetEmail</a></li><li data-type='method'><a href="User.html#verifyToken">verifyToken</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#caneCode">caneCode</a></li><li><a href="global.html#checkErrorCheckforerrorwhenrequestismade">checkError
+Check for error when request is made</a></li><li><a href="global.html#createMatchCreatesandreturnssearchresultmatchdictionary">createMatch
+Creates and returns search result match dictionary</a></li><li><a href="global.html#EditAbcForm">EditAbcForm</a></li><li><a href="global.html#EditForm">EditForm</a></li></ul>
 </nav>
 
 <div id="main">
@@ -42,9 +44,11 @@
 
 const config = require('../config/config.json');
 var db = require('../db');
+var query = require('../database/query');
 var formidable = require('formidable');
 var bodyParser = require('body-parser');
 var logger = require('log4js').getLogger(config.logger);
+var dateTime = require('node-datetime');
 
 /**
  *  This class handles forms.
@@ -84,8 +88,8 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  donorCowEnrollment(req, res){
-	  res.render('forms/donorCowEnrollment', {user: req.user});
+  individualDonorFileNew(req, res){
+	  res.render('forms/individualDonorFile', {user: req.user, donor: "hello"});
   }
 
   /**
@@ -96,20 +100,52 @@ class Forms {
    *  @param {object} Response - Http Response Object
    *  @instance
    */
-  caneCodeLog(req, res){
+  caneCodeLog(req, res) {
 	  res.render('forms/caneCodeLog', {user: req.user});
   }
 
   /**
-   *  @function viewForms
-   *  @memberof Forms
-   *  @description Sends user to view forms.
+   *  Cane Code
+   *  @function caneCode
    *  @param {object} Request - Http Request Object
    *  @param {object} Response - Http Response Object
-   *  @instance
    */
-  viewForms(req, res){
-    res.render('forms/viewForms', {user: req.user});
+  caneCode(req, res) {
+    var cane = [];
+    var caneIdCounter = 1;
+    db.all(query.selectAll('cSection', '', ''), function(err, cRows) {
+      checkError(res, err, cRows);
+
+      cRows.forEach(function(cRow) {
+        if (cRow.cSectionGrade1 >= 0) {
+          let caneEntry = {
+            caneCode: caneIdCounter,
+            donor: cRow.cSectionDonorId,
+            freezeDate: cRow.cSectionformAbcDate,
+            g1: cRow.cSectionGrade1,
+            g2: cRow.cSectionGrade2,
+            g3: cRow.cSectionGrade3,
+            total: cRow.cSectionTotal,
+            age: '7.0d'
+          };
+          cane.push(caneEntry);
+          caneIdCounter++;
+        }
+      });
+      res.render('forms/caneCode', {user: req.user, cane: cane});
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
   }
 
   /**
@@ -126,10 +162,10 @@ class Forms {
     var owner = req.body.owner;
     console.log(tag);
     console.log(owner);
-      //db.get("SELECT * FROM client c INNER JOIN donor d ON d.donorClientId=c.id INNER JOIN embryo_recovery e ON e.embryoDonorId=d.id"
-      //+ " INNER JOIN sire s ON s.id=e.embryoSireId AND d.donorTag=? AND c.clientName=?", tag, owner, function(err, rows) {
-      db.get("SELECT * FROM client c INNER JOIN donor d ON d.client_id=c.id INNER JOIN embryo_recovery e ON e.donor_id=d.id"
-      + " INNER JOIN sire s ON s.id=e.sire_id AND d.tag_tattoo=? AND c.name=?", tag, owner, function(err, rows) {
+      db.get("SELECT * FROM client c INNER JOIN donor d ON d.donorClientId=c.id INNER JOIN embryo_recovery e ON e.embryoDonorId=d.id"
+      + " INNER JOIN sire s ON s.id=e.embryoSireId AND d.donorTag=? AND c.clientName=?", tag, owner, function(err, rows) {
+      //db.get("SELECT * FROM client c INNER JOIN donor d ON d.client_id=c.id INNER JOIN embryo_recovery e ON e.donor_id=d.id"
+      //+ " INNER JOIN sire s ON s.id=e.sire_id AND d.tag_tattoo=? AND c.name=?", tag, owner, function(err, rows) {
       if(err) {
         // error handling
         return res.sendStatus(500);
@@ -137,8 +173,455 @@ class Forms {
       res.setHeader('content-type', 'text/json');
       res.send(JSON.stringify(rows));
     });
-
   } //end formAbcAjax
+
+  /**
+   *  @function formAbcSubmit
+   *  @memberof Forms
+   *  @description Submission handler for Form ABC/Collection Form.
+   *  @param {object} Request - Http Request Object
+   *  @param {object} Response - Http Response Object
+   *  @instance
+   */
+  formAbcSubmit(req, res){
+    console.log(req.body.tableBRows);
+    var date = dateTime.create();
+    var formatted = date.format("Y-m-d H:M:S");
+    console.log(formatted);
+    db.run("INSERT INTO aSection (aSectionDonorId, aSectionformAbcDate, aSectionBloodType, aSectionEstrusOnset, aSectionIDCode1, aSectionFreezeDate1, aSectionBreedingDate" +
+       ", aSectionServiceSire2, aSectionRegNum2, aSectionRecoveryDate, aSectionIDCode2, aSectionFreezeDate2, aSectionSignature, aSectionETCode) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       req.body.tag,
+       formatted,
+       req.body.bloodTyped,
+       req.body.estrusOnset,
+       req.body.idcode1,
+       req.body.freezeDate1B,
+       req.body.breedDate,
+       req.body.serviceSire2,
+       req.body.regNum3,
+       req.body.recoveryDate,
+       req.body.idCode2,
+       req.body.freezeDate2B,
+       req.body.signatureA,
+       req.body.etCodeA
+    );
+    db.run("INSERT INTO bSection (bSectionDonorId, bSectionformAbcDate, bSectionEmbryoTransferDate, bSectionFreezeDate1, bSectionStrNumber, bSectionDaysSinceEstrus, bSectionFreezeDate2" +
+       ", bSectionStrNumber2, bSectionCaneCode, bSectionFreezeDate3, bSectionStrNumber3, bSectionSignature, bSectionETCode) values (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       req.body.tag,
+       formatted,
+       req.body.dateEmbryoTransfer,
+       req.body.freezeDate1,
+       req.body.strAmpNumber1,
+       req.body.donorDaysSinceEstrus,
+       req.body.freezeDate2,
+       req.body.strAmpNumber2,
+       req.body.caneCode,
+       req.body.freezeDate3,
+       req.body.strAmpNumber3,
+       req.body.signatureB,
+       req.body.etCodeB
+    );
+
+    for(var i=1;i&lt;req.body.tableBRows+1; i++){
+      var num = "number";
+      var earTag = "earTag";
+      var regNum = "regNum";
+      var tattoo = "tattoo";
+      var side = "side";
+      var breedCode = "breedCode";
+      var daysSinceEstrus = "daysSinceEstrus";
+      var stageCode = "stageCodeB";
+      var qualityCode = "qualityCodeB";
+      var embryoDivided = "embryoDivided";
+      var comments = "commentsB";
+      var results = "results";
+      if(i != 1){
+        var num = "number"+i.toString();
+        var earTag = "earTag"+i.toString();
+        var regNum = "regNum"+i.toString();
+        var tattoo = "tattoo"+i.toString();
+        var side = "side"+i.toString();
+        var breedCode = "breedCode"+i.toString();
+        var daysSinceEstrus = "daysSinceEstrus"+i.toString();
+        var stageCode = "stageCodeB"+i.toString();
+        var qualityCode = "qualityCodeB"+i.toString();
+        var embryoDivided = "embryoDivided"+i.toString();
+        var comments = "commentsB"+i.toString();
+        var results = "results"+i.toString();
+      }
+      db.run("INSERT INTO bSectionRows (bSectionDonorId, bSectionformAbcDate, bSectionNum, bSectionEarTag, bSectionRegNum, bSectionTattoo, bSectionSide" +
+         ", bSectionBreedCode, bSectionDaysSinceEstrus, bSectionStageCode, bSectionQualityCode, bSectionEmbryoDivided, bSectionComments, bSectionResults) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+         req.body.tag,
+         formatted,
+         req.param(num),
+         req.param(earTag),
+         req.param(regNum),
+         req.param(tattoo),
+         req.param(side),
+         req.param(breedCode),
+         req.param(daysSinceEstrus),
+         req.param(stageCode),
+         req.param(qualityCode),
+         req.param(embryoDivided),
+         req.param(comments),
+         req.param(results)
+      );
+    }
+
+    var grades = [0, 0, 0];
+    for(var i=1; i&lt;parseInt(req.body.tableCRows)+1; i++){
+      var numEmbryos = "strAmpNum";
+      var stageCode = "stageCode";
+      var qualityCode = "qualityCode";
+      if(i != 1){
+        numEmbryos = numEmbryos + i.toString();
+        stageCode = stageCode + i.toString();
+        qualityCode = qualityCode + i.toString();
+      }
+      for(var j=1; j&lt;4; j++){
+        if(parseInt(req.param(qualityCode)) == j){
+          if(req.param(numEmbryos).indexOf("-") > -1){
+            var nums = req.param(numEmbryos).split("-");
+            var total = parseInt(nums[1])-parseInt(nums[0])+1;
+            grades[j-1] += total;
+          }
+          else{
+            grades[j-1] += 1;
+          }
+        }
+      }
+    }
+    total = grades[0] + grades[1] + grades[2];
+    console.log(grades);
+    console.log(total);
+    db.run("INSERT INTO cSection (cSectionDonorId, cSectionformAbcDate, cSectionTypeContainer, cSectionTimeRecoveryToOnset, cSectioncryoprotectant, cSectionSeedTemp, cSectionCoolingRate" +
+       ", cSectionPlungeTemp, cSectionThawingMethod, cSectionSignature, cSectionETCode, cSectionStimPGM, cSectionCollHr, cSectionCollTech, cSectionStimStatus, cSectionComments, cSectionNumEmbryos" +
+       ", cSectionnumUFO, cSectionnumDeg, cSectionNumTransferred, cSectionNumFrozen, cSectionNumSplit, cSectionTransHr, cSectionLoc, cSectionComments2, cSectionGrade1, cSectionGrade2" +
+       ", cSectionGrade3, cSectionTotal) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+       req.body.tag,
+       formatted,
+       req.body.containerType,
+       req.body.recoveryToFreezingTime,
+       req.body.cryoFinalMol,
+       req.body.seedTemp,
+       req.body.coolingRate,
+       req.body.plungeTemp,
+       req.body.thawingMethod,
+       req.body.signatureC,
+       req.body.etCode3,
+       req.body.stimPgm,
+       req.body.collHr,
+       req.body.collTech,
+       req.body.stimStatus,
+       req.body.comments3,
+       req.body.numEmb,
+       req.body.numUFO,
+       req.body.numDeg,
+       req.body.numTrans,
+       req.body.numFrozen2,
+       req.body.numSplit,
+       req.body.transHr,
+       req.body.loc,
+       req.body.comments,
+       grades[0],
+       grades[1],
+       grades[2],
+       total
+    );
+
+    for(var i=1;i&lt;req.body.tableCRows+1; i++){
+      var locDonor = "locDonor";
+      var caneNum = "caneNum";
+      var strAmpNum = "strAmpNum";
+      var numEmbryos = "numEmbryos";
+      var numXWashed= "numXWashed";
+      var stageCode = "stageCode";
+      var qualityCode = "qualityCode";
+      var zoneIntact = "zoneIntact";
+      var divided = "divided";
+      var trypsinRaised = "trypsinRaised";
+      var tank = "tank";
+      var canister = "canister";
+      var commentsC = "commentsC";
+      if(i != 1){
+        var locDonor = "locDonor"+i.toString();
+        var caneNum = "caneNum"+i.toString();
+        var strAmpNum = "strAmpNum"+i.toString();
+        var numEmbryos = "numEmbryos"+i.toString();
+        var numXWashed= "numXWashed"+i.toString();
+        var stageCode = "stageCode"+i.toString();
+        var qualityCode = "qualityCode"+i.toString();
+        var zoneIntact = "zoneIntact"+i.toString();
+        var divided = "divided"+i.toString();
+        var trypsinRaised = "trypsinRaised"+i.toString();
+        var tank = "tank"+i.toString();
+        var canister = "canister"+i.toString();
+        var commentsC = "commentsC"+i.toString();
+      }
+      db.run("INSERT INTO cSectionRows (cSectionDonorId, cSectionformAbcDate, cSectionFreezeCode, cSectionCaneNum, cSectionStrNum, cSectionNumEmbryos, cSectionNumWashed" +
+         ", cSectionStageCode, cSectionQualityCode, cSectionZoneIntact, cSectionDivided, cSectionTrypsinRaised, cSectionTank, cSectionCanister, cSectionComments) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+         req.body.tag,
+         formatted,
+         req.param(locDonor),
+         req.param(caneNum),
+         req.param(strAmpNum),
+         req.param(numEmbryos),
+         req.param(numXWashed),
+         req.param(stageCode),
+         req.param(qualityCode),
+         req.param(zoneIntact),
+         req.param(divided),
+         req.param(trypsinRaised),
+         req.param(tank),
+         req.param(canister),
+         req.param(commentsC)
+      );
+    }
+
+    res.render('forms/formAbc', {user: req.user});
+  }
+
+  individualDonorFile(req, res){
+    console.log("Here");
+    if (req.method == 'POST') {
+      var numTableRows = parseInt(req.body.numTableRows)+1;
+      var numTreatmentRows = parseInt(req.body.treatmentRows)+1;
+      console.log(numTableRows);
+      console.log(numTreatmentRows);
+      var collection = "collNum3";
+      var idNum = req.body.idNum;
+      var owner = req.body.owner;
+      // Create donor test data
+      if(idNum != "" &amp;&amp; owner != ""){
+
+        db.run("INSERT INTO client (clientName, clientAddress, clientPhone) values (?,?,?)",
+           req.body.name,
+           req.body.address,
+           req.body.telephoneNum
+        );
+        db.get("SELECT id FROM client WHERE clientName=? AND clientAddress=? AND clientPhone=?", req.body.name, req.body.address, req.body.telephoneNum, function (err, row) {
+           var clientRowID = row['id'];
+
+          db.run("DELETE FROM donor WHERE donorTag=?",
+            idNum
+          );
+
+          db.run("INSERT INTO donor (donorClientID, donorBreed, donorRegNum, donorTag, donorName, donorLocation, donorArrival, donorDeparture, " +
+          "donorCalfSex, donorCalfDOB, donorDOB, donorRE, donorMT, donorLE, donorMT2, donorBrand) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+             clientRowID,
+             req.body.breed,
+             req.body.regNum,
+             idNum,
+             owner,
+             req.body.location,
+             req.body.arrival,
+             req.body.departure,
+             req.body.calfID,
+             req.body.dob1,
+             req.body.dob2,
+             req.body.re,
+             req.body.mt1,
+             req.body.le,
+             req.body.mt2,
+             req.body.brandLoc
+          );
+
+          for(var i=0; i&lt;6; i++){
+            var collection = "collection" + i;
+            var embryoDisp = "embryoDisp" + i;
+            if(req.param(collection) != ""){
+              db.run("DELETE FROM bullSelection WHERE bullSelectionDonorTag=?",
+                idNum
+              );
+              db.run("INSERT INTO bullSelection (bullSelectionDonorTag, bullSelectionCollectionNum, bullSelectionEmbryoDisposition) values (?,?,?)",
+                idNum,
+                req.param(collection),
+                req.param(embryoDisp)
+              );
+            }
+          }
+
+          db.get("SELECT id FROM donor WHERE donorTag=?", idNum, function (err, row) {
+             var donorID = clientRowID;
+
+              for(var i=1; i&lt;numTableRows; i++){
+                var collection = "collNum" + i.toString();
+                var date = "collDate" + i.toString();
+                var numEmbryos = "numEmbryos" + i.toString();
+                var numTrans = "numTrans" + i.toString();
+                var numFrozen = "numFrozen" + i.toString();
+                var numDegen = "numDegen" + i.toString();
+                var numUnfertil = "numUnfertil" + i.toString();
+                var sire = "sire" + i.toString();
+                var numPreg = "numPreg" + i.toString();
+                db.run("DELETE FROM embryo_recovery WHERE embryoDonorId=?",
+                  donorID
+                );
+                db.run("INSERT INTO embryo_recovery (embryoDonorId, embryoCollectionNum, embryoRecoveryDate, embryoNumRecovered, embryoNumTransferred, embryoNumFrozen, embryoNumDegen, " +
+                "embryoNumUnfertil, embryoSireName, embryoNumPreg) " +
+                       "values (?,?,?,?,?,?,?,?,?,?)",
+                   donorID,
+                   req.param(collection),
+                   req.param(date),
+                   req.param(numEmbryos),
+                   req.param(numTrans),
+                   req.param(numFrozen),
+                   req.param(numDegen),
+                   req.param(numUnfertil),
+                   req.param(sire),
+                   req.param(numPreg)
+                );
+              }
+          });
+
+          for(var i=1; i&lt;numTreatmentRows; i++){
+            var date = "date" + i.toString();
+            var rightOvary = "rightOvary" + i.toString();
+            var leftOvary = "leftOvary" + i.toString();
+            var ut = "ut" + i.toString();
+            var tubbNum = "tubbNum" + i.toString();
+            var comments = "comments" + i.toString();
+            db.run("DELETE FROM treatment WHERE treatmentDonorTag=?",
+              idNum
+            );
+
+            db.run("INSERT INTO treatment (treatmentDonorTag, teatmentDate, treatmentRightOvary, treatmentLeftOvary, treatmentUT, treatmentTubbNum, treatmentComments) values (?,?,?,?,?,?,?)",
+               idNum,
+               req.param(date),
+               req.param(rightOvary),
+               req.param(leftOvary),
+               req.param(ut),
+               req.param(tubbNum),
+               req.param(comments)
+            );
+          }
+        });
+
+        console.log("Data inserted successfully.");
+      }
+      else{
+        console.log('problem with request: ' + req.message);
+      }
+    }
+
+    res.render('forms/individualDonorFile', {user: req.user, donor: undefined});
+  }
+
+  /**
+   * @function EditForm
+   */
+  editForm(req, res) {
+    console.log("Edit form");
+    let tagParam = req.params.tag;
+    let clientParam =  req.params.client;
+
+    // Retrieve donor information from donors table using tag
+    db.get(query.selectAll('donor', 'donorTag'), tagParam, function(err, donorRow) {
+      checkError(res, err, donorRow);
+
+      // Get client info for donor
+      var clientId = donorRow.donorClientId;
+      db.get(query.selectAll('client', 'id'), clientId, function(err, clientRow) {
+        checkError(res, err, clientRow);
+
+        // Assign client info
+        var clientName = clientRow.clientName;
+        var clientAddress = clientRow.clientAddress;
+        var clientPhone = clientRow.clientPhone;
+
+        // Get bull selection info for donor
+        db.get(query.selectAll('bullSelection', 'bullSelectionDonorTag'), tagParam, function(err, bullRow) {
+          //checkError(res, err, bullRow);
+
+          // Assing bull info
+          //let bsCollectionNum = bullRow.bullSelectionCollectionNum;
+          //let bsEmbryoDisposition = bullRow.bullSelectionCollectionNum;
+
+          // Create a donor
+          let donor = {
+            id: donorRow.donorTag,
+            breed: donorRow.donorBreed,
+            regNum: donorRow.donorRegNum,
+            tag: tagParam,
+            name: donorRow.donorName,
+            location: donorRow.donorLocation,
+            arrival: donorRow.donorArrival,
+            departure: donorRow.donorDeparture,
+            calfSex: donorRow.donorCalfSex,
+            calfDOB: donorRow.donorCalfDOB,
+            dob: donorRow.donorDOB,
+            re: donorRow.donorRE,
+            mt: donorRow.donorMT,
+            le: donorRow.donorLE,
+            mt2: donorRow.donorMT2,
+            brand: donorRow.donorBrand,
+            clientName: clientName,
+            clientAddress: clientAddress,
+            clientPhone: clientPhone,
+            //bsCollectionNum: bsCollectionNum,
+            //bsEmbryoDisposition: bsEmbryoDisposition
+          };
+
+          // Render individualDonorFile template and pass in donor dictionary
+          res.statusCode = 200;
+          res.render('forms/individualDonorFile', {user: req.user, donor: donor});
+        });
+      });
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
+  }
+
+  /**
+   * @function EditAbcForm
+   */
+  editAbcForm(req, res) {
+    console.log("Edit ABC form");
+    let tagParam = req.params.tag;
+    let clientParam =  req.params.client;
+
+    // Retrieve donor information from donors table using tag
+    db.get(query.selectAll('donor', 'donorTag'), tagParam, function(err, donorRow) {
+      checkError(res, err, donorRow);
+
+      // Get client info for donor
+      var clientId = donorRow.donorClientId;
+      db.get(query.selectAll('client', 'id'), clientId, function(err, clientRow) {
+        checkError(res, err, clientRow);
+
+        // Assign client info
+        var clientName = clientRow.clientName;
+        var clientAddress = clientRow.clientAddress;
+        var clientPhone = clientRow.clientPhone;
+
+        // Render individualDonorFile template and pass in donor dictionary
+        res.render('forms/formAbc', {user: req.user});
+      });
+    });
+
+    /**
+     * @function checkError
+     * Check for error when request is made
+     */
+    function checkError(res, err, values) {
+      if(err || values == undefined) {
+        logger.error("Error occured getting donor.");
+        console.error("ERROR: " + err);
+        return res.sendStatus(500);
+      }
+    }
+  }
+
 }
 
 
@@ -156,7 +639,7 @@ module.exports = exports = new Forms();
 
 <footer>
     <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+    <!-- Documentation generated at Wed May 10 2017 13:46:46 GMT-0500 (CDT) -->
 </footer>
 
 <script>prettyPrint();</script>

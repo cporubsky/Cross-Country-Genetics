@@ -72,14 +72,9 @@ class Admin {
     //parse form and insert data
     var form = new formidable.IncomingForm();
     form.parse(req, function(err, fields, files) {
-      // if(err) console.log('Error: ' + err);
-      // console.log('Email entered is: ' + fields.invite_email);
-      // helper.sendMail('temp', 'temp', 'temp');
-      //New Below
       var email = fields.invite_email;
       db.serialize(function() {
         //checks to see if username or email exits
-        //possibly check for first and last name as well
         db.get(query.selectAll('users', 'email'),
           email,
           (err, rows) => {
@@ -88,7 +83,6 @@ class Admin {
               logger.error("Email Exists.");
               logger.error("User invitation unsuccessful.");
               //redirect somewhere
-              //return res.render('admin/create', {title: config.admin.console, user: req.user, message: "Oops, an error happened!"});
             }
           //if we get here, no user exists, insert user
           db.run(query.insert('users', 'email, temp_password, is_verified, createdBy, createdOn, tempPassCreatedOn'),
@@ -112,7 +106,6 @@ class Admin {
             var ok = new Boolean(helper.sendNewUserMail(tempPassword, email, service, user, userPassword));
             if(!ok) {
               logger.error("Error in sending email.");
-              //console.log("Error in sending email.");
               return res.redirect('/admin');
             }
             else {

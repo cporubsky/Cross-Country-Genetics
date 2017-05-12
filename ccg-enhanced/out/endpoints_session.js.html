@@ -23,7 +23,9 @@
 <label for="nav-trigger" class="overlay"></label>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitCreateUser">commitCreateUser</a></li><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#createUser">createUser</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#edit">edit</a></li><li data-type='method'><a href="Admin.html#index">index</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#viewForms">viewForms</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitConfirm">commitConfirm</a></li><li data-type='method'><a href="User.html#confirm">confirm</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetPassword">resetPassword</a></li></ul></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Admin.html">Admin</a><ul class='methods'><li data-type='method'><a href="Admin.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="Admin.html#deleteUser">deleteUser</a></li><li data-type='method'><a href="Admin.html#index">index</a></li><li data-type='method'><a href="Admin.html#inviteUser">inviteUser</a></li><li data-type='method'><a href="Admin.html#viewUsers">viewUsers</a></li></ul></li><li><a href="Api.html">Api</a><ul class='methods'><li data-type='method'><a href="Api.html#index">index</a></li></ul></li><li><a href="Forms.html">Forms</a><ul class='methods'><li data-type='method'><a href="Forms.html#abcForm">abcForm</a></li><li data-type='method'><a href="Forms.html#caneCodeLog">caneCodeLog</a></li><li data-type='method'><a href="Forms.html#donorCowEnrollment">donorCowEnrollment</a></li><li data-type='method'><a href="Forms.html#firstForm">firstForm</a></li><li data-type='method'><a href="Forms.html#formAbcAjax">formAbcAjax</a></li><li data-type='method'><a href="Forms.html#formAbcSubmit">formAbcSubmit</a></li></ul></li><li><a href="Landing.html">Landing</a><ul class='methods'><li data-type='method'><a href="Landing.html#index">index</a></li><li data-type='method'><a href="Landing.html#search">search</a></li></ul></li><li><a href="Query.html">Query</a><ul class='methods'><li data-type='method'><a href="Query.html#delete">delete</a></li><li data-type='method'><a href="Query.html#insert">insert</a></li><li data-type='method'><a href="Query.html#selectAll">selectAll</a></li><li data-type='method'><a href="Query.html#update">update</a></li></ul></li><li><a href="Session.html">Session</a><ul class='methods'><li data-type='method'><a href="Session.html#login">login</a></li><li data-type='method'><a href="Session.html#redirect">redirect</a></li><li data-type='method'><a href="Session.html#start">start</a></li><li data-type='method'><a href="Session.html#stop">stop</a></li></ul></li><li><a href="User.html">User</a><ul class='methods'><li data-type='method'><a href="User.html#commitEdit">commitEdit</a></li><li data-type='method'><a href="User.html#commitNewUser">commitNewUser</a></li><li data-type='method'><a href="User.html#edit">edit</a></li><li data-type='method'><a href="User.html#reset">reset</a></li><li data-type='method'><a href="User.html#resetCommit">resetCommit</a></li><li data-type='method'><a href="User.html#resetEmail">resetEmail</a></li><li data-type='method'><a href="User.html#verifyToken">verifyToken</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#caneCode">caneCode</a></li><li><a href="global.html#checkErrorCheckforerrorwhenrequestismade">checkError
+Check for error when request is made</a></li><li><a href="global.html#createMatchCreatesandreturnssearchresultmatchdictionary">createMatch
+Creates and returns search result match dictionary</a></li><li><a href="global.html#EditAbcForm">EditAbcForm</a></li><li><a href="global.html#EditForm">EditForm</a></li></ul>
 </nav>
 
 <div id="main">
@@ -46,6 +48,8 @@ var db = require('../db');
 var formidable = require('formidable');
 var logger = require('log4js').getLogger(config.logger);
 var query  = require('../database/query');
+var template = require('../helpers/template');
+
 
 /**
  *  This class handles the encryption for user passwords.
@@ -75,14 +79,6 @@ class Session {
    *  @instance
    */
   login(req, res) {
-    //console.log(query.update('users', 'name, username, email', 'id, and, email, or, username'));
-    //console.log(query.update('users', 'name, username, email', 'id'));
-    //console.log(query.selectAll('users', 'name, or, username, or, email'));
-    //console.log(query.selectAll('users', 'name, or, username, or, email'));
-    //console.log(query.selectAll('users', 'username', ''));
-    /*console.log(query.update('users', 'password_digest, temp_password, salt', 'username'));
-    console.log(query.insert('users', 'name, username, email, is_admin, temp_password'));
-    console.log(query.delete('users', 'id'));*/
     res.render('session/login', {title: config.company_name, message: "", user: req.user});
   }
 
@@ -107,13 +103,13 @@ class Session {
           logger.error("No user found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-           return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+           return res.render('session/login', {title: config.company_name, message: "Login Failed. Please try again.", user: req.user});
          }
         if(user.password_digest != encryption.digest(fields.password + user.salt)) {
           logger.error("No user/password match found.");
           logger.error("Session request denied.");
           res.statusCode = 500;
-         return res.render('session/login', {title: config.company_name, message: config.user.login_failed, user: req.user});
+          return res.render('session/login', {title: config.company_name, message: "Login Failed. Please try again.", user: req.user});
        }
         logger.info("Session request approved.");
         logger.info("Session starting.")
@@ -154,7 +150,7 @@ module.exports = exports = new Session();
 
 <footer>
     <!-- Commented out below code to not show date in documentation -->
-    <!-- Documentation generated at Thu Dec 15 2016 11:11:39 GMT-0600 (CST) -->
+    <!-- Documentation generated at Wed May 10 2017 13:46:46 GMT-0500 (CDT) -->
 </footer>
 
 <script>prettyPrint();</script>
